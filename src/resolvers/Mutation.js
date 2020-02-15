@@ -173,7 +173,6 @@ const Mutation = {
       },
       info
     );
-<<<<<<< HEAD
   },
   async createCustomRecipe(parent, args, { prisma, request }, info) {
     const userId = getUserId(request);
@@ -312,8 +311,6 @@ const Mutation = {
     } else {
       throw new Error("Can't find Ingredient with that ID");
     }
-=======
->>>>>>> master
   }
 };
 
