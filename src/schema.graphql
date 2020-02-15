@@ -162,14 +162,12 @@ type DailyRecord {
 
 type CustomRecipe {
   id: ID!
-  user_id: String!
   portions: Int!
   name: String!
 }
 
 type CustomIngredient {
   id: ID!
-  user_id: String!
   ingredient_name: String!
   description: String!
   fat: Int!
