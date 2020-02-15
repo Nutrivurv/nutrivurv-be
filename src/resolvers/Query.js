@@ -73,6 +73,7 @@ const Query = {
     } else {
       return null;
     }
+<<<<<<< HEAD
   },
   myIngredients(parent, args, { prisma, request }, info) {
     const userId = getUserId(request);
@@ -90,4 +91,9 @@ const Query = {
 };
 
 
+=======
+  }
+};
+
+>>>>>>> master
 export { Query as default };
