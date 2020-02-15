@@ -13,6 +13,7 @@ type Query {
   myDailyRecords: [DailyRecord!]!
   user(id: String!): User!
   myRecipes: [CustomRecipe!]
+  myIngredients: [CustomIngredient!]
 }
 
 type Mutation {
@@ -26,6 +27,12 @@ type Mutation {
   createDailyRecord(data: CreateDailyRecordInput!): DailyRecord!
   updateDailyRecord(id: String!, data: UpdateDailyRecordInput!): DailyRecord!
   deleteDailyRecord(id: String!): DailyRecord!
+  createCustomRecipe(data: CreateCustomRecipeInput!): CustomRecipe!
+  updateCustomRecipe(id: String!, data: UpdateCustomRecipeInput!): CustomRecipe!
+  deleteCustomRecipe(id: String!): CustomRecipe!
+  createCustomIngredient(data: CreateCustomIngredientInput!): CustomIngredient!
+  updateCustomIngredient(id: String!, data: UpdateCustomIngredientInput!): CustomIngredient!
+  deleteCustomIngredient(id: String!): CustomIngredient!
 }
 
 # type Subscription {
@@ -93,6 +100,16 @@ input CreateUserInput {
   password: String!
 }
 
+ input CreateCustomRecipeInput {
+  portions: Int!
+  name: String!
+}
+
+input UpdateCustomRecipeInput {
+  name: String!
+  portions: Int!
+}
+
 input LoginUserInput {
   email: String!
   password: String!
@@ -147,10 +164,41 @@ type CustomRecipe {
   id: ID!
   user_id: String!
   portions: Int!
+  name: String!
 }
+
+type CustomIngredient {
+  id: ID!
+  user_id: String!
+  ingredient_name: String!
+  description: String!
+  fat: Int!
+  carbs: Int!
+  protein:Int!
+  fiber:Int!
+}
+
+input CreateCustomIngredientInput {
+  name: String!
+  description: String!
+  fat: Int!
+  carbs: Int!
+  protein:Int!
+  fiber:Int!
+ }
+
+ input UpdateCustomIngredientInput {
+  name: String!
+  description: String!
+  fat: Int!
+  carbs: Int!
+  protein:Int!
+  fiber:Int!
+ }
 
 enum MutationType {
   CREATED
   UPDATED
   DELETED
 }
+

@@ -73,7 +73,21 @@ const Query = {
     } else {
       return null;
     }
+  },
+  myIngredients(parent, args, { prisma, request }, info) {
+    const userId = getUserId(request);
+
+    if (userId) {
+      return prisma.query.customIngredients({
+        where: {
+          user_id: userId
+        }
+      });
+    } else {
+      return null;
+    }
   }
 };
+
 
 export { Query as default };
