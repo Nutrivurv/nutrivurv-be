@@ -115,7 +115,6 @@ To get the server running locally:
   protein: Int!
   food_string: String!
 }
-}
 ```
 
 ## CUSTOM RECIPE
@@ -127,7 +126,6 @@ To get the server running locally:
  id: ID!
  portions: Int!
  name: String!
-}
 }
 ```
 
