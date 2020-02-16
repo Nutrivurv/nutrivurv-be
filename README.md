@@ -1,18 +1,10 @@
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline. Feel free to add your own flare to it.
-
-🚫 The numbers 1️⃣ through 3️⃣ next to each item represent the week that part of the docs needs to be comepleted by.  Make sure to delete the numbers by the end of Labs.
-
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric.  Contributing to docs does NOT count as a PR to meet your weekly requirements.
-
 # API Documentation
 
-#### 1️⃣ Backend delpoyed at [🚫name service here](🚫add URL here) <br>
+## Backend deployed at [Heroku](https://labspt7-nutrition-tracker-be.herokuapp.com/)
 
-## 1️⃣ Getting started
+## Getting started
 
 To get the server running locally:
-
-🚫 adjust these scripts to match your project
 
 - Clone this repo
 - **yarn install** to install all required dependencies
@@ -53,40 +45,89 @@ To get the server running locally:
 
 # Data Model
 
-🚫This is just an example. Replace this with your data model
-
-#### 2️⃣ ORGANIZATIONS
+## CUSTOM INGREDIENT
 
 ---
 
 ```
 {
-  id: UUID
-  name: STRING
-  industry: STRING
-  paid: BOOLEAN
-  customer_id: STRING
-  subscription_id: STRING
+  name: String!
+  description: String!
+  fat: Int!
+  carbs: Int!
+  protein: Int!
+  fiber: Int!
 }
 ```
 
-#### USERS
+## USERS
 
 ---
 
 ```
 {
-  id: UUID
-  organization_id: UUID foreign key in ORGANIZATIONS table
-  first_name: STRING
-  last_name: STRING
-  role: STRING [ 'owner', 'supervisor', 'employee' ]
-  email: STRING
-  phone: STRING
-  cal_visit: BOOLEAN
-  emp_visit: BOOLEAN
-  emailpref: BOOLEAN
-  phonepref: BOOLEAN
+  id: ID!
+  name: String!
+  email: String
+  updatedAt: String!
+  createdAt: String!
+  profile: Profile
+  dailyRecords: [DailyRecord!]
+}
+```
+
+## PROFILE
+
+---
+
+```
+{
+  id: ID!
+  age: Int!
+  weight: Int!
+  height: Int!
+  paleo: Boolean
+  keto: Boolean
+  veg: Boolean
+  fat: Int!
+  carbs: Int!
+  protein: Int!
+  fiber: Int!
+  calories: Int!
+  updatedAt: String!
+  createdAt: String!
+}
+```
+
+## DAILY RECORD
+
+---
+
+```
+{
+  id: ID!
+  date: String!
+  current_weight: Int!
+  calories: Int!
+  fat: Int!
+  carbs: Int!
+  fiber: Int!
+  protein: Int!
+  food_string: String!
+}
+}
+```
+
+## CUSTOM RECIPE
+
+---
+
+```
+{
+ id: ID!
+ portions: Int!
+ name: String!
+}
 }
 ```
 
