@@ -115,6 +115,7 @@ To get the server running locally:
 ```
 
 ## CUSTOM RECIPE
+### (feature not fully implemented; model reflects current state)
 
 ---
 
