@@ -124,8 +124,6 @@ https://labspt7-nutrition-tracker-be.herokuapp.com/
 In order for the app to function correctly, the user must set up their own environment variables.
 
 create a .env file that includes the following:
-
-🚫 These are just examples, replace them with the specifics for your app
     
     *  PRISMA_ENDPOINT - Endpoint to the prisma application hosted on prisma cloud
     *  PRISMA_SECRET - Must match the secret string passed to prisma
