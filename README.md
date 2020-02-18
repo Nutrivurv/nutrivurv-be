@@ -22,7 +22,7 @@ To get the server running locally:
 -    We are going to use Apollo and Prisma to integrate GraphQL into Node.js.
 -    We will interact with our API by using GraphQL. We have determined in order to simplify and minimize the amount of data exchanged, GraphQL will provide us with a faster, more professional result.
 
-## 2️⃣ Endpoints
+## Endpoints
 
 Our server utilizes GraphQL as opposed to a RESTful array of endpoints, which only supports one endpoint, a post to the application itself. Full documentation of our endpoints can be found on the application, courtesy of GraphQL playground. Follow the link and click "Docs" along the right side of the screen.
 https://labspt7-nutrition-tracker-be.herokuapp.com/
@@ -114,12 +114,12 @@ https://labspt7-nutrition-tracker-be.herokuapp.com/
 }
 ```
 
-## 2️⃣ Actions
+## Actions
 
 Our server utilizes GraphQL as opposed to a RESTful array of endpoints, which only supports one endpoint, a post to the application itself. Full documentation of our endpoints can be found on the application, courtesy of GraphQL playground. Follow the link and click "Docs" along the right side of the screen.
 https://labspt7-nutrition-tracker-be.herokuapp.com/
 
-## 3️⃣ Environment Variables
+## Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables.
 
