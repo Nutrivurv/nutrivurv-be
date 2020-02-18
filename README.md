@@ -42,13 +42,13 @@ Our server utilizes GraphQL as opposed to a RESTful array of endpoints, which on
 In order for the app to function correctly, the user must set up their own environment variables.
 
 create a .env file that includes the following:
-    *  PRISMA_ENDPOINT - Endpoint to the prisma application hosted on prisma cloud
-    *  PRISMA_SECRET - Must match the secret string passed to prisma
-    *  JWT_SECRET - Must match the secret on the server
-    *  DB_HOST - The postgres database connection information
-    *  DB_NAME - The postgres database connection information
-    *  DB_USER - The postgres database connection information
-    *  DB_USER - The postgres database connection information
+    - PRISMA_ENDPOINT - Endpoint to the prisma application hosted on prisma cloud
+    - PRISMA_SECRET - Must match the secret string passed to prisma
+    - JWT_SECRET - Must match the secret on the server
+    - DB_HOST - The postgres database connection information
+    - DB_NAME - The postgres database connection information
+    - DB_USER - The postgres database connection information
+    - DB_USER - The postgres database connection information
 
 ## Contributing
 
