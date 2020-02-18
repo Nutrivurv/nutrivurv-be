@@ -8,8 +8,12 @@ type User {
   profile: Profile @relation(name: "ProfileToUser", onDelete: CASCADE)
   daily_records: [DailyRecord!]
     @relation(name: "DailyToUser", onDelete: CASCADE)
-  custom_recipes: [CustomRecipe!] @relation(name: "RecipeToUser", onDelete: CASCADE)
-  custom_ingredients: [CustomIngredient!] @relation(name: "IngredientToUser", onDelete: CASCADE)
+  custom_recipes: [CustomRecipe!]
+    @relation(name: "RecipeToUser", onDelete: CASCADE)
+  custom_ingredients: [CustomIngredient!]
+    @relation(name: "IngredientToUser", onDelete: CASCADE)
+  ingredient_list: [IngredientList!]
+    @relation(name: "IngredientListToUser", onDelete: CASCADE)
 }
 
 type Profile {
@@ -53,6 +57,8 @@ type CustomRecipe {
   user_id: String!
   portions: Int!
   user: User! @relation(link: INLINE, name: "RecipeToUser", onDelete: SET_NULL)
+  ingredient_list: [IngredientList!]
+    @relation(name: "IngredientListToRecipe", onDelete: CASCADE)
 }
 
 type CustomIngredient {
@@ -62,7 +68,22 @@ type CustomIngredient {
   description: String!
   fat: Int!
   carbs: Int!
-  protein:Int!
-  fiber:Int!
-  user: User! @relation(link: INLINE, name: "IngredientToUser", onDelete: SET_NULL)
+  protein: Int!
+  fiber: Int!
+  user: User!
+    @relation(link: INLINE, name: "IngredientToUser", onDelete: SET_NULL)
+}
+
+type IngredientList {
+  id: ID! @unique @id
+  user_id: String!
+  recipe_id: String!
+  ingredient_id: String!
+  custom: Boolean!
+  amount: Float!
+  unit: String!
+  recipe: CustomRecipe!
+    @relation(link: INLINE, name: "IngredientListToRecipe", onDelete: SET_NULL)
+  user: User!
+    @relation(link: INLINE, name: "IngredientListToUser", onDelete: SET_NULL)
 }
