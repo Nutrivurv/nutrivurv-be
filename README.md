@@ -6,12 +6,12 @@
 
 To get the server running locally:
 
-- Clone this repo
-- Install Docker Toolbox
-- Install prisma globally
-- Spin up a local virtual machine using docker
-- Deploy prisma to your local docker image
-- Get the current schema from prisma
+- Clone this repo.
+- Install [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/).
+- Install [Prisma](https://www.npmjs.com/package/prisma) globally.
+- Spin up a local virtual machine using Docker Toolbox.
+- Deploy Prisma to your local Docker image.
+- Get the current schema from Prisma.
 - **yarn install** to install all required dependencies
 - **yarn dev** to start the local server
 - **yarn test** to start server using testing environment
@@ -25,7 +25,7 @@ To get the server running locally:
 ## Endpoints
 
 Our server utilizes GraphQL as opposed to a RESTful array of endpoints, which only supports one endpoint, a post to the application itself. Full documentation of our endpoints can be found on the application, courtesy of GraphQL playground. Follow the link and click "Docs" along the right side of the screen.
-https://labspt7-nutrition-tracker-be.herokuapp.com/
+[GraphQL Playground Docs](https://labspt7-nutrition-tracker-be.herokuapp.com/)
 
 # Data Model
 
@@ -117,7 +117,7 @@ https://labspt7-nutrition-tracker-be.herokuapp.com/
 ## Actions
 
 Our server utilizes GraphQL as opposed to a RESTful array of endpoints, which only supports one endpoint, a post to the application itself. Full documentation of our endpoints can be found on the application, courtesy of GraphQL playground. Follow the link and click "Docs" along the right side of the screen.
-https://labspt7-nutrition-tracker-be.herokuapp.com/
+[GraphQL Playground Docs](https://labspt7-nutrition-tracker-be.herokuapp.com/)
 
 ## Environment Variables
 
