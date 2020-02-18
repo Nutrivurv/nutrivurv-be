@@ -210,4 +210,3 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 See [Frontend Documentation](https://github.com/Lambda-School-Labs/nutrition-tracker-fe-pt7/blob/master/README.md) for details on the fronend of our project.
 
 See [iOS Documentation](https://github.com/Lambda-School-Labs/nutrition-tracker-ios-pt7/blob/master/README.md) for details on the iOS implementation of our project.
- Add DS iOS and/or Andriod links here if applicable.
