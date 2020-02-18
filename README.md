@@ -6,169 +6,51 @@
 
 To get the server running locally:
 
-- Clone this repo
+- Clone this repo.
+- Install [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/).
+- Install [Prisma](https://www.npmjs.com/package/prisma) globally.
+- Spin up a local virtual machine using Docker Toolbox.
+- Deploy Prisma to your local Docker image.
+- Get the current schema from Prisma.
 - **yarn install** to install all required dependencies
-- **yarn server** to start the local server
+- **yarn dev** to start the local server
 - **yarn test** to start server using testing environment
 
 ### Backend framework goes here
 
-🚫 Why did you choose this framework?
+- We are using PostgreSQL as our database to comply with engineering standards documentation and because it is one of the most full featured open source DB platforms.
+- We are going to use Apollo and Prisma to integrate GraphQL into Node.js.
+- We will interact with our API by using GraphQL. We have determined in order to simplify and minimize the amount of data exchanged, GraphQL will provide us with a faster, more professional result.
 
--    Point One
--    Point Two
--    Point Three
--    Point Four
+## Endpoints
 
-## 2️⃣ Endpoints
+Our server utilizes GraphQL as opposed to a RESTful array of endpoints, which only supports one endpoint, a post to the application itself. Full documentation of our endpoints can be found on the application, courtesy of GraphQL playground. Follow the link and click "Docs" along the right side of the screen.
+[GraphQL Playground Docs](https://labspt7-nutrition-tracker-be.herokuapp.com/)
 
-🚫This is a placeholder, replace the endpoints, access controll, and descriptioin to match your project
+## Data Model
 
-#### Organization Routes
+Our server utilizes GraphQL as opposed to a RESTful array of endpoints, which only supports one endpoint, a post to the application itself. Full documentation of our endpoints can be found on the application, courtesy of GraphQL playground. Follow the link and click "Docs" along the right side of the screen.
+[GraphQL Playground Docs](https://labspt7-nutrition-tracker-be.herokuapp.com/)
 
-| Method | Endpoint                | Access Control | Description                                  |
-| ------ | ----------------------- | -------------- | -------------------------------------------- |
-| GET    | `/organizations/:orgId` | all users      | Returns the information for an organization. |
-| PUT    | `/organizatoins/:orgId` | owners         | Modify an existing organization.             |
-| DELETE | `/organizations/:orgId` | owners         | Delete an organization.                      |
+## Actions
 
-#### User Routes
+Our server utilizes GraphQL as opposed to a RESTful array of endpoints, which only supports one endpoint, a post to the application itself. Full documentation of our endpoints can be found on the application, courtesy of GraphQL playground. Follow the link and click "Docs" along the right side of the screen.
+[GraphQL Playground Docs](https://labspt7-nutrition-tracker-be.herokuapp.com/)
 
-| Method | Endpoint                | Access Control      | Description                                        |
-| ------ | ----------------------- | ------------------- | -------------------------------------------------- |
-| GET    | `/users/current`        | all users           | Returns info for the logged in user.               |
-| GET    | `/users/org/:userId`    | owners, supervisors | Returns all users for an organization.             |
-| GET    | `/users/:userId`        | owners, supervisors | Returns info for a single user.                    |
-| POST   | `/users/register/owner` | none                | Creates a new user as owner of a new organization. |
-| PUT    | `/users/:userId`        | owners, supervisors |                                                    |
-| DELETE | `/users/:userId`        | owners, supervisors |                                                    |
-
-# Data Model
-
-## CUSTOM INGREDIENT
-
----
-
-```
-{
-  name: String!
-  description: String!
-  fat: Int!
-  carbs: Int!
-  protein: Int!
-  fiber: Int!
-}
-```
-
-## USERS
-
----
-
-```
-{
-  id: ID!
-  name: String!
-  email: String
-  updatedAt: String!
-  createdAt: String!
-  profile: Profile
-  dailyRecords: [DailyRecord!]
-}
-```
-
-## PROFILE
-
----
-
-```
-{
-  id: ID!
-  age: Int!
-  weight: Int!
-  height: Int!
-  paleo: Boolean
-  keto: Boolean
-  veg: Boolean
-  fat: Int!
-  carbs: Int!
-  protein: Int!
-  fiber: Int!
-  calories: Int!
-  updatedAt: String!
-  createdAt: String!
-}
-```
-
-## DAILY RECORD
-
----
-
-```
-{
-  id: ID!
-  date: String!
-  current_weight: Int!
-  calories: Int!
-  fat: Int!
-  carbs: Int!
-  fiber: Int!
-  protein: Int!
-  food_string: String!
-}
-```
-
-## CUSTOM RECIPE
-
----
-
-```
-{
- id: ID!
- portions: Int!
- name: String!
-}
-```
-
-## 2️⃣ Actions
-
-🚫 This is an example, replace this with the actions that pertain to your backend
-
-`getOrgs()` -> Returns all organizations
-
-`getOrg(orgId)` -> Returns a single organization by ID
-
-`addOrg(org)` -> Returns the created org
-
-`updateOrg(orgId)` -> Update an organization by ID
-
-`deleteOrg(orgId)` -> Delete an organization by ID
-<br>
-<br>
-<br>
-`getUsers(orgId)` -> if no param all users
-
-`getUser(userId)` -> Returns a single user by user ID
-
-`addUser(user object)` --> Creates a new user and returns that user. Also creates 7 availabilities defaulted to hours of operation for their organization.
-
-`updateUser(userId, changes object)` -> Updates a single user by ID.
-
-`deleteUser(userId)` -> deletes everything dependent on the user
-
-## 3️⃣ Environment Variables
+## Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables.
 
 create a .env file that includes the following:
 
-🚫 These are just examples, replace them with the specifics for your app
-    
-    *  STAGING_DB - optional development db for using functionality not available in SQLite
-    *  NODE_ENV - set to "development" until ready for "production"
-    *  JWT_SECRET - you can generate this by using a python shell and running import random''.join([random.SystemRandom().choice('abcdefghijklmnopqrstuvwxyz0123456789!@#\$%^&amp;*(-*=+)') for i in range(50)])
-    *  SENDGRID_API_KEY - this is generated in your Sendgrid account
-    *  stripe_secret - this is generated in the Stripe dashboard
-    
+    - PRISMA_ENDPOINT - Endpoint to the prisma application hosted on prisma cloud
+    - PRISMA_SECRET - Must match the secret string passed to prisma
+    - JWT_SECRET - Must match the secret on the server
+    - DB_HOST - The postgres database connection information
+    - DB_NAME - The postgres database connection information
+    - DB_USER - The postgres database connection information
+    - DB_USER - The postgres database connection information
+
 ## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
@@ -178,10 +60,11 @@ Please note we have a [code of conduct](./code_of_conduct.md). Please follow it 
 ### Issue/Bug Request
 
  **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
- - Check first to see if your issue has already been reported.
- - Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
- - Create a live example of the problem.
- - Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
+
+- Check first to see if your issue has already been reported.
+- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+- Create a live example of the problem.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
 
 ### Feature Requests
 
@@ -207,6 +90,6 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Frontend Documentation](https://github.com/Lambda-School-Labs/nutrition-tracker-fe-pt7/blob/master/README.md) for details on the fronend of our project.
+See [Frontend Documentation](https://github.com/Lambda-School-Labs/nutrition-tracker-fe-pt7/blob/master/README.md) for details on the frontend of our project.
 
 See [iOS Documentation](https://github.com/Lambda-School-Labs/nutrition-tracker-ios-pt7/blob/master/README.md) for details on the iOS implementation of our project.

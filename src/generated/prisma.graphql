@@ -1,5 +1,5 @@
 # source: http://192.168.99.100:4466
-# timestamp: Sat Feb 15 2020 11:14:15 GMT-0700 (Mountain Standard Time)
+# timestamp: Mon Feb 17 2020 21:19:39 GMT-0700 (Mountain Standard Time)
 
 type AggregateCustomIngredient {
   count: Int!
@@ -13,6 +13,10 @@ type AggregateDailyRecord {
   count: Int!
 }
 
+type AggregateIngredientList {
+  count: Int!
+}
+
 type AggregateProfile {
   count: Int!
 }
@@ -22,7 +26,9 @@ type AggregateUser {
 }
 
 type BatchPayload {
-  """The number of nodes that have been affected by the Batch operation."""
+  """
+  The number of nodes that have been affected by the Batch operation.
+  """
   count: Long!
 }
 
@@ -38,12 +44,18 @@ type CustomIngredient implements Node {
   user: User!
 }
 
-"""A connection to a list of items."""
+"""
+A connection to a list of items.
+"""
 type CustomIngredientConnection {
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
-  """A list of edges."""
+  """
+  A list of edges.
+  """
   edges: [CustomIngredientEdge]!
   aggregate: AggregateCustomIngredient!
 }
@@ -76,12 +88,18 @@ input CustomIngredientCreateWithoutUserInput {
   fiber: Int!
 }
 
-"""An edge in a connection."""
+"""
+An edge in a connection.
+"""
 type CustomIngredientEdge {
-  """The item at the end of the edge."""
+  """
+  The item at the end of the edge.
+  """
   node: CustomIngredient!
 
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
 }
 
@@ -116,261 +134,427 @@ type CustomIngredientPreviousValues {
 }
 
 input CustomIngredientScalarWhereInput {
-  """Logical AND on all given filters."""
+  """
+  Logical AND on all given filters.
+  """
   AND: [CustomIngredientScalarWhereInput!]
 
-  """Logical OR on all given filters."""
+  """
+  Logical OR on all given filters.
+  """
   OR: [CustomIngredientScalarWhereInput!]
 
-  """Logical NOT on all given filters combined by AND."""
+  """
+  Logical NOT on all given filters combined by AND.
+  """
   NOT: [CustomIngredientScalarWhereInput!]
   id: ID
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   id_not: ID
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   id_in: [ID!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   id_not_in: [ID!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   id_lt: ID
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   id_lte: ID
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   id_gt: ID
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   id_gte: ID
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   id_contains: ID
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   id_not_contains: ID
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   id_starts_with: ID
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   id_not_starts_with: ID
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   id_ends_with: ID
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   id_not_ends_with: ID
   user_id: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   user_id_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   user_id_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   user_id_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   user_id_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   user_id_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   user_id_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   user_id_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   user_id_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   user_id_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   user_id_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   user_id_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   user_id_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   user_id_not_ends_with: String
   name: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   name_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   name_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   name_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   name_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   name_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   name_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   name_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   name_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   name_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   name_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   name_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   name_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   name_not_ends_with: String
   description: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   description_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   description_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   description_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   description_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   description_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   description_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   description_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   description_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   description_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   description_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   description_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   description_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   description_not_ends_with: String
   fat: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   fat_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   fat_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   fat_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   fat_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   fat_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   fat_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   fat_gte: Int
   carbs: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   carbs_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   carbs_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   carbs_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   carbs_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   carbs_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   carbs_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   carbs_gte: Int
   protein: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   protein_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   protein_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   protein_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   protein_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   protein_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   protein_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   protein_gte: Int
   fiber: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   fiber_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   fiber_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   fiber_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   fiber_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   fiber_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   fiber_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   fiber_gte: Int
 }
 
@@ -382,16 +566,24 @@ type CustomIngredientSubscriptionPayload {
 }
 
 input CustomIngredientSubscriptionWhereInput {
-  """Logical AND on all given filters."""
+  """
+  Logical AND on all given filters.
+  """
   AND: [CustomIngredientSubscriptionWhereInput!]
 
-  """Logical OR on all given filters."""
+  """
+  Logical OR on all given filters.
+  """
   OR: [CustomIngredientSubscriptionWhereInput!]
 
-  """Logical NOT on all given filters combined by AND."""
+  """
+  Logical NOT on all given filters combined by AND.
+  """
   NOT: [CustomIngredientSubscriptionWhereInput!]
 
-  """The subscription event gets dispatched when it's listed in mutation_in"""
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
   mutation_in: [MutationType!]
 
   """
@@ -481,261 +673,427 @@ input CustomIngredientUpsertWithWhereUniqueWithoutUserInput {
 }
 
 input CustomIngredientWhereInput {
-  """Logical AND on all given filters."""
+  """
+  Logical AND on all given filters.
+  """
   AND: [CustomIngredientWhereInput!]
 
-  """Logical OR on all given filters."""
+  """
+  Logical OR on all given filters.
+  """
   OR: [CustomIngredientWhereInput!]
 
-  """Logical NOT on all given filters combined by AND."""
+  """
+  Logical NOT on all given filters combined by AND.
+  """
   NOT: [CustomIngredientWhereInput!]
   id: ID
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   id_not: ID
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   id_in: [ID!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   id_not_in: [ID!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   id_lt: ID
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   id_lte: ID
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   id_gt: ID
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   id_gte: ID
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   id_contains: ID
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   id_not_contains: ID
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   id_starts_with: ID
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   id_not_starts_with: ID
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   id_ends_with: ID
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   id_not_ends_with: ID
   user_id: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   user_id_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   user_id_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   user_id_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   user_id_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   user_id_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   user_id_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   user_id_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   user_id_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   user_id_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   user_id_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   user_id_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   user_id_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   user_id_not_ends_with: String
   name: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   name_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   name_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   name_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   name_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   name_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   name_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   name_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   name_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   name_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   name_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   name_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   name_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   name_not_ends_with: String
   description: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   description_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   description_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   description_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   description_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   description_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   description_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   description_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   description_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   description_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   description_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   description_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   description_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   description_not_ends_with: String
   fat: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   fat_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   fat_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   fat_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   fat_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   fat_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   fat_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   fat_gte: Int
   carbs: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   carbs_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   carbs_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   carbs_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   carbs_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   carbs_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   carbs_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   carbs_gte: Int
   protein: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   protein_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   protein_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   protein_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   protein_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   protein_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   protein_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   protein_gte: Int
   fiber: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   fiber_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   fiber_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   fiber_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   fiber_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   fiber_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   fiber_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   fiber_gte: Int
   user: UserWhereInput
 }
@@ -751,14 +1109,29 @@ type CustomRecipe implements Node {
   user_id: String!
   portions: Int!
   user: User!
+  ingredient_list(
+    where: IngredientListWhereInput
+    orderBy: IngredientListOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [IngredientList!]
 }
 
-"""A connection to a list of items."""
+"""
+A connection to a list of items.
+"""
 type CustomRecipeConnection {
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
-  """A list of edges."""
+  """
+  A list of edges.
+  """
   edges: [CustomRecipeEdge]!
   aggregate: AggregateCustomRecipe!
 }
@@ -769,6 +1142,7 @@ input CustomRecipeCreateInput {
   user_id: String!
   portions: Int!
   user: UserCreateOneWithoutCustom_recipesInput!
+  ingredient_list: IngredientListCreateManyWithoutRecipeInput
 }
 
 input CustomRecipeCreateManyWithoutUserInput {
@@ -776,19 +1150,39 @@ input CustomRecipeCreateManyWithoutUserInput {
   connect: [CustomRecipeWhereUniqueInput!]
 }
 
+input CustomRecipeCreateOneWithoutIngredient_listInput {
+  create: CustomRecipeCreateWithoutIngredient_listInput
+  connect: CustomRecipeWhereUniqueInput
+}
+
+input CustomRecipeCreateWithoutIngredient_listInput {
+  id: ID
+  name: String!
+  user_id: String!
+  portions: Int!
+  user: UserCreateOneWithoutCustom_recipesInput!
+}
+
 input CustomRecipeCreateWithoutUserInput {
   id: ID
   name: String!
   user_id: String!
   portions: Int!
+  ingredient_list: IngredientListCreateManyWithoutRecipeInput
 }
 
-"""An edge in a connection."""
+"""
+An edge in a connection.
+"""
 type CustomRecipeEdge {
-  """The item at the end of the edge."""
+  """
+  The item at the end of the edge.
+  """
   node: CustomRecipe!
 
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
 }
 
@@ -811,155 +1205,253 @@ type CustomRecipePreviousValues {
 }
 
 input CustomRecipeScalarWhereInput {
-  """Logical AND on all given filters."""
+  """
+  Logical AND on all given filters.
+  """
   AND: [CustomRecipeScalarWhereInput!]
 
-  """Logical OR on all given filters."""
+  """
+  Logical OR on all given filters.
+  """
   OR: [CustomRecipeScalarWhereInput!]
 
-  """Logical NOT on all given filters combined by AND."""
+  """
+  Logical NOT on all given filters combined by AND.
+  """
   NOT: [CustomRecipeScalarWhereInput!]
   id: ID
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   id_not: ID
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   id_in: [ID!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   id_not_in: [ID!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   id_lt: ID
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   id_lte: ID
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   id_gt: ID
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   id_gte: ID
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   id_contains: ID
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   id_not_contains: ID
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   id_starts_with: ID
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   id_not_starts_with: ID
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   id_ends_with: ID
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   id_not_ends_with: ID
   name: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   name_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   name_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   name_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   name_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   name_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   name_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   name_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   name_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   name_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   name_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   name_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   name_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   name_not_ends_with: String
   user_id: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   user_id_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   user_id_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   user_id_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   user_id_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   user_id_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   user_id_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   user_id_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   user_id_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   user_id_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   user_id_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   user_id_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   user_id_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   user_id_not_ends_with: String
   portions: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   portions_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   portions_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   portions_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   portions_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   portions_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   portions_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   portions_gte: Int
 }
 
@@ -971,16 +1463,24 @@ type CustomRecipeSubscriptionPayload {
 }
 
 input CustomRecipeSubscriptionWhereInput {
-  """Logical AND on all given filters."""
+  """
+  Logical AND on all given filters.
+  """
   AND: [CustomRecipeSubscriptionWhereInput!]
 
-  """Logical OR on all given filters."""
+  """
+  Logical OR on all given filters.
+  """
   OR: [CustomRecipeSubscriptionWhereInput!]
 
-  """Logical NOT on all given filters combined by AND."""
+  """
+  Logical NOT on all given filters combined by AND.
+  """
   NOT: [CustomRecipeSubscriptionWhereInput!]
 
-  """The subscription event gets dispatched when it's listed in mutation_in"""
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
   mutation_in: [MutationType!]
 
   """
@@ -1005,6 +1505,7 @@ input CustomRecipeUpdateInput {
   user_id: String
   portions: Int
   user: UserUpdateOneRequiredWithoutCustom_recipesInput
+  ingredient_list: IngredientListUpdateManyWithoutRecipeInput
 }
 
 input CustomRecipeUpdateManyDataInput {
@@ -1036,15 +1537,35 @@ input CustomRecipeUpdateManyWithWhereNestedInput {
   data: CustomRecipeUpdateManyDataInput!
 }
 
+input CustomRecipeUpdateOneRequiredWithoutIngredient_listInput {
+  create: CustomRecipeCreateWithoutIngredient_listInput
+  connect: CustomRecipeWhereUniqueInput
+  update: CustomRecipeUpdateWithoutIngredient_listDataInput
+  upsert: CustomRecipeUpsertWithoutIngredient_listInput
+}
+
+input CustomRecipeUpdateWithoutIngredient_listDataInput {
+  name: String
+  user_id: String
+  portions: Int
+  user: UserUpdateOneRequiredWithoutCustom_recipesInput
+}
+
 input CustomRecipeUpdateWithoutUserDataInput {
   name: String
   user_id: String
   portions: Int
+  ingredient_list: IngredientListUpdateManyWithoutRecipeInput
 }
 
 input CustomRecipeUpdateWithWhereUniqueWithoutUserInput {
   where: CustomRecipeWhereUniqueInput!
   data: CustomRecipeUpdateWithoutUserDataInput!
+}
+
+input CustomRecipeUpsertWithoutIngredient_listInput {
+  update: CustomRecipeUpdateWithoutIngredient_listDataInput!
+  create: CustomRecipeCreateWithoutIngredient_listInput!
 }
 
 input CustomRecipeUpsertWithWhereUniqueWithoutUserInput {
@@ -1054,157 +1575,258 @@ input CustomRecipeUpsertWithWhereUniqueWithoutUserInput {
 }
 
 input CustomRecipeWhereInput {
-  """Logical AND on all given filters."""
+  """
+  Logical AND on all given filters.
+  """
   AND: [CustomRecipeWhereInput!]
 
-  """Logical OR on all given filters."""
+  """
+  Logical OR on all given filters.
+  """
   OR: [CustomRecipeWhereInput!]
 
-  """Logical NOT on all given filters combined by AND."""
+  """
+  Logical NOT on all given filters combined by AND.
+  """
   NOT: [CustomRecipeWhereInput!]
   id: ID
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   id_not: ID
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   id_in: [ID!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   id_not_in: [ID!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   id_lt: ID
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   id_lte: ID
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   id_gt: ID
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   id_gte: ID
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   id_contains: ID
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   id_not_contains: ID
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   id_starts_with: ID
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   id_not_starts_with: ID
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   id_ends_with: ID
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   id_not_ends_with: ID
   name: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   name_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   name_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   name_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   name_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   name_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   name_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   name_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   name_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   name_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   name_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   name_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   name_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   name_not_ends_with: String
   user_id: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   user_id_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   user_id_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   user_id_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   user_id_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   user_id_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   user_id_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   user_id_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   user_id_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   user_id_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   user_id_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   user_id_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   user_id_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   user_id_not_ends_with: String
   portions: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   portions_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   portions_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   portions_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   portions_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   portions_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   portions_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   portions_gte: Int
   user: UserWhereInput
+  ingredient_list_every: IngredientListWhereInput
+  ingredient_list_some: IngredientListWhereInput
+  ingredient_list_none: IngredientListWhereInput
 }
 
 input CustomRecipeWhereUniqueInput {
@@ -1228,12 +1850,18 @@ type DailyRecord implements Node {
   createdAt: DateTime!
 }
 
-"""A connection to a list of items."""
+"""
+A connection to a list of items.
+"""
 type DailyRecordConnection {
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
-  """A list of edges."""
+  """
+  A list of edges.
+  """
   edges: [DailyRecordEdge]!
   aggregate: AggregateDailyRecord!
 }
@@ -1270,12 +1898,18 @@ input DailyRecordCreateWithoutUserInput {
   food_string: String!
 }
 
-"""An edge in a connection."""
+"""
+An edge in a connection.
+"""
 type DailyRecordEdge {
-  """The item at the end of the edge."""
+  """
+  The item at the end of the edge.
+  """
   node: DailyRecord!
 
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
 }
 
@@ -1322,349 +1956,571 @@ type DailyRecordPreviousValues {
 }
 
 input DailyRecordScalarWhereInput {
-  """Logical AND on all given filters."""
+  """
+  Logical AND on all given filters.
+  """
   AND: [DailyRecordScalarWhereInput!]
 
-  """Logical OR on all given filters."""
+  """
+  Logical OR on all given filters.
+  """
   OR: [DailyRecordScalarWhereInput!]
 
-  """Logical NOT on all given filters combined by AND."""
+  """
+  Logical NOT on all given filters combined by AND.
+  """
   NOT: [DailyRecordScalarWhereInput!]
   id: ID
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   id_not: ID
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   id_in: [ID!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   id_not_in: [ID!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   id_lt: ID
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   id_lte: ID
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   id_gt: ID
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   id_gte: ID
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   id_contains: ID
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   id_not_contains: ID
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   id_starts_with: ID
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   id_not_starts_with: ID
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   id_ends_with: ID
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   id_not_ends_with: ID
   user_id: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   user_id_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   user_id_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   user_id_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   user_id_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   user_id_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   user_id_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   user_id_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   user_id_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   user_id_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   user_id_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   user_id_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   user_id_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   user_id_not_ends_with: String
   date: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   date_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   date_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   date_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   date_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   date_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   date_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   date_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   date_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   date_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   date_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   date_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   date_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   date_not_ends_with: String
   current_weight: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   current_weight_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   current_weight_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   current_weight_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   current_weight_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   current_weight_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   current_weight_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   current_weight_gte: Int
   calories: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   calories_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   calories_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   calories_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   calories_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   calories_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   calories_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   calories_gte: Int
   fat: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   fat_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   fat_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   fat_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   fat_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   fat_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   fat_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   fat_gte: Int
   carbs: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   carbs_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   carbs_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   carbs_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   carbs_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   carbs_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   carbs_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   carbs_gte: Int
   fiber: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   fiber_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   fiber_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   fiber_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   fiber_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   fiber_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   fiber_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   fiber_gte: Int
   protein: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   protein_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   protein_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   protein_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   protein_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   protein_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   protein_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   protein_gte: Int
   food_string: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   food_string_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   food_string_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   food_string_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   food_string_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   food_string_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   food_string_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   food_string_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   food_string_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   food_string_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   food_string_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   food_string_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   food_string_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   food_string_not_ends_with: String
   updatedAt: DateTime
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   updatedAt_not: DateTime
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   updatedAt_in: [DateTime!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   updatedAt_not_in: [DateTime!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   updatedAt_lt: DateTime
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   updatedAt_lte: DateTime
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   updatedAt_gt: DateTime
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   updatedAt_gte: DateTime
   createdAt: DateTime
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   createdAt_not: DateTime
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   createdAt_in: [DateTime!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   createdAt_not_in: [DateTime!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   createdAt_lt: DateTime
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   createdAt_lte: DateTime
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   createdAt_gt: DateTime
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   createdAt_gte: DateTime
 }
 
@@ -1676,16 +2532,24 @@ type DailyRecordSubscriptionPayload {
 }
 
 input DailyRecordSubscriptionWhereInput {
-  """Logical AND on all given filters."""
+  """
+  Logical AND on all given filters.
+  """
   AND: [DailyRecordSubscriptionWhereInput!]
 
-  """Logical OR on all given filters."""
+  """
+  Logical OR on all given filters.
+  """
   OR: [DailyRecordSubscriptionWhereInput!]
 
-  """Logical NOT on all given filters combined by AND."""
+  """
+  Logical NOT on all given filters combined by AND.
+  """
   NOT: [DailyRecordSubscriptionWhereInput!]
 
-  """The subscription event gets dispatched when it's listed in mutation_in"""
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
   mutation_in: [MutationType!]
 
   """
@@ -1783,349 +2647,571 @@ input DailyRecordUpsertWithWhereUniqueWithoutUserInput {
 }
 
 input DailyRecordWhereInput {
-  """Logical AND on all given filters."""
+  """
+  Logical AND on all given filters.
+  """
   AND: [DailyRecordWhereInput!]
 
-  """Logical OR on all given filters."""
+  """
+  Logical OR on all given filters.
+  """
   OR: [DailyRecordWhereInput!]
 
-  """Logical NOT on all given filters combined by AND."""
+  """
+  Logical NOT on all given filters combined by AND.
+  """
   NOT: [DailyRecordWhereInput!]
   id: ID
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   id_not: ID
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   id_in: [ID!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   id_not_in: [ID!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   id_lt: ID
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   id_lte: ID
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   id_gt: ID
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   id_gte: ID
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   id_contains: ID
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   id_not_contains: ID
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   id_starts_with: ID
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   id_not_starts_with: ID
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   id_ends_with: ID
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   id_not_ends_with: ID
   user_id: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   user_id_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   user_id_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   user_id_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   user_id_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   user_id_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   user_id_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   user_id_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   user_id_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   user_id_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   user_id_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   user_id_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   user_id_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   user_id_not_ends_with: String
   date: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   date_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   date_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   date_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   date_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   date_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   date_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   date_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   date_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   date_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   date_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   date_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   date_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   date_not_ends_with: String
   current_weight: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   current_weight_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   current_weight_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   current_weight_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   current_weight_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   current_weight_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   current_weight_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   current_weight_gte: Int
   calories: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   calories_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   calories_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   calories_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   calories_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   calories_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   calories_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   calories_gte: Int
   fat: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   fat_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   fat_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   fat_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   fat_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   fat_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   fat_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   fat_gte: Int
   carbs: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   carbs_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   carbs_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   carbs_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   carbs_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   carbs_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   carbs_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   carbs_gte: Int
   fiber: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   fiber_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   fiber_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   fiber_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   fiber_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   fiber_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   fiber_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   fiber_gte: Int
   protein: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   protein_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   protein_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   protein_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   protein_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   protein_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   protein_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   protein_gte: Int
   food_string: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   food_string_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   food_string_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   food_string_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   food_string_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   food_string_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   food_string_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   food_string_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   food_string_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   food_string_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   food_string_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   food_string_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   food_string_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   food_string_not_ends_with: String
   updatedAt: DateTime
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   updatedAt_not: DateTime
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   updatedAt_in: [DateTime!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   updatedAt_not_in: [DateTime!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   updatedAt_lt: DateTime
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   updatedAt_lte: DateTime
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   updatedAt_gt: DateTime
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   updatedAt_gte: DateTime
   createdAt: DateTime
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   createdAt_not: DateTime
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   createdAt_in: [DateTime!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   createdAt_not_in: [DateTime!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   createdAt_lt: DateTime
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   createdAt_lte: DateTime
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   createdAt_gt: DateTime
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   createdAt_gte: DateTime
   user: UserWhereInput
 }
@@ -2137,7 +3223,1053 @@ input DailyRecordWhereUniqueInput {
 
 scalar DateTime
 
-"""Raw JSON value"""
+type IngredientList implements Node {
+  id: ID!
+  user_id: String!
+  recipe_id: String!
+  ingredient_id: String!
+  custom: Boolean!
+  amount: Float!
+  unit: String!
+  recipe: CustomRecipe!
+  user: User!
+}
+
+"""
+A connection to a list of items.
+"""
+type IngredientListConnection {
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  A list of edges.
+  """
+  edges: [IngredientListEdge]!
+  aggregate: AggregateIngredientList!
+}
+
+input IngredientListCreateInput {
+  id: ID
+  user_id: String!
+  recipe_id: String!
+  ingredient_id: String!
+  custom: Boolean!
+  amount: Float!
+  unit: String!
+  recipe: CustomRecipeCreateOneWithoutIngredient_listInput!
+  user: UserCreateOneWithoutIngredient_listInput!
+}
+
+input IngredientListCreateManyWithoutRecipeInput {
+  create: [IngredientListCreateWithoutRecipeInput!]
+  connect: [IngredientListWhereUniqueInput!]
+}
+
+input IngredientListCreateManyWithoutUserInput {
+  create: [IngredientListCreateWithoutUserInput!]
+  connect: [IngredientListWhereUniqueInput!]
+}
+
+input IngredientListCreateWithoutRecipeInput {
+  id: ID
+  user_id: String!
+  recipe_id: String!
+  ingredient_id: String!
+  custom: Boolean!
+  amount: Float!
+  unit: String!
+  user: UserCreateOneWithoutIngredient_listInput!
+}
+
+input IngredientListCreateWithoutUserInput {
+  id: ID
+  user_id: String!
+  recipe_id: String!
+  ingredient_id: String!
+  custom: Boolean!
+  amount: Float!
+  unit: String!
+  recipe: CustomRecipeCreateOneWithoutIngredient_listInput!
+}
+
+"""
+An edge in a connection.
+"""
+type IngredientListEdge {
+  """
+  The item at the end of the edge.
+  """
+  node: IngredientList!
+
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+}
+
+enum IngredientListOrderByInput {
+  id_ASC
+  id_DESC
+  user_id_ASC
+  user_id_DESC
+  recipe_id_ASC
+  recipe_id_DESC
+  ingredient_id_ASC
+  ingredient_id_DESC
+  custom_ASC
+  custom_DESC
+  amount_ASC
+  amount_DESC
+  unit_ASC
+  unit_DESC
+}
+
+type IngredientListPreviousValues {
+  id: ID!
+  user_id: String!
+  recipe_id: String!
+  ingredient_id: String!
+  custom: Boolean!
+  amount: Float!
+  unit: String!
+}
+
+input IngredientListScalarWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [IngredientListScalarWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [IngredientListScalarWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [IngredientListScalarWhereInput!]
+  id: ID
+
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  user_id: String
+
+  """
+  All values that are not equal to given value.
+  """
+  user_id_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  user_id_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  user_id_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  user_id_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  user_id_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  user_id_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  user_id_gte: String
+
+  """
+  All values containing the given string.
+  """
+  user_id_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  user_id_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  user_id_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  user_id_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  user_id_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  user_id_not_ends_with: String
+  recipe_id: String
+
+  """
+  All values that are not equal to given value.
+  """
+  recipe_id_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  recipe_id_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  recipe_id_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  recipe_id_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  recipe_id_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  recipe_id_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  recipe_id_gte: String
+
+  """
+  All values containing the given string.
+  """
+  recipe_id_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  recipe_id_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  recipe_id_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  recipe_id_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  recipe_id_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  recipe_id_not_ends_with: String
+  ingredient_id: String
+
+  """
+  All values that are not equal to given value.
+  """
+  ingredient_id_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  ingredient_id_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  ingredient_id_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  ingredient_id_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  ingredient_id_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  ingredient_id_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  ingredient_id_gte: String
+
+  """
+  All values containing the given string.
+  """
+  ingredient_id_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  ingredient_id_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  ingredient_id_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  ingredient_id_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  ingredient_id_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  ingredient_id_not_ends_with: String
+  custom: Boolean
+
+  """
+  All values that are not equal to given value.
+  """
+  custom_not: Boolean
+  amount: Float
+
+  """
+  All values that are not equal to given value.
+  """
+  amount_not: Float
+
+  """
+  All values that are contained in given list.
+  """
+  amount_in: [Float!]
+
+  """
+  All values that are not contained in given list.
+  """
+  amount_not_in: [Float!]
+
+  """
+  All values less than the given value.
+  """
+  amount_lt: Float
+
+  """
+  All values less than or equal the given value.
+  """
+  amount_lte: Float
+
+  """
+  All values greater than the given value.
+  """
+  amount_gt: Float
+
+  """
+  All values greater than or equal the given value.
+  """
+  amount_gte: Float
+  unit: String
+
+  """
+  All values that are not equal to given value.
+  """
+  unit_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  unit_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  unit_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  unit_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  unit_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  unit_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  unit_gte: String
+
+  """
+  All values containing the given string.
+  """
+  unit_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  unit_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  unit_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  unit_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  unit_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  unit_not_ends_with: String
+}
+
+type IngredientListSubscriptionPayload {
+  mutation: MutationType!
+  node: IngredientList
+  updatedFields: [String!]
+  previousValues: IngredientListPreviousValues
+}
+
+input IngredientListSubscriptionWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [IngredientListSubscriptionWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [IngredientListSubscriptionWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [IngredientListSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: IngredientListWhereInput
+}
+
+input IngredientListUpdateInput {
+  user_id: String
+  recipe_id: String
+  ingredient_id: String
+  custom: Boolean
+  amount: Float
+  unit: String
+  recipe: CustomRecipeUpdateOneRequiredWithoutIngredient_listInput
+  user: UserUpdateOneRequiredWithoutIngredient_listInput
+}
+
+input IngredientListUpdateManyDataInput {
+  user_id: String
+  recipe_id: String
+  ingredient_id: String
+  custom: Boolean
+  amount: Float
+  unit: String
+}
+
+input IngredientListUpdateManyMutationInput {
+  user_id: String
+  recipe_id: String
+  ingredient_id: String
+  custom: Boolean
+  amount: Float
+  unit: String
+}
+
+input IngredientListUpdateManyWithoutRecipeInput {
+  create: [IngredientListCreateWithoutRecipeInput!]
+  connect: [IngredientListWhereUniqueInput!]
+  set: [IngredientListWhereUniqueInput!]
+  disconnect: [IngredientListWhereUniqueInput!]
+  delete: [IngredientListWhereUniqueInput!]
+  update: [IngredientListUpdateWithWhereUniqueWithoutRecipeInput!]
+  updateMany: [IngredientListUpdateManyWithWhereNestedInput!]
+  deleteMany: [IngredientListScalarWhereInput!]
+  upsert: [IngredientListUpsertWithWhereUniqueWithoutRecipeInput!]
+}
+
+input IngredientListUpdateManyWithoutUserInput {
+  create: [IngredientListCreateWithoutUserInput!]
+  connect: [IngredientListWhereUniqueInput!]
+  set: [IngredientListWhereUniqueInput!]
+  disconnect: [IngredientListWhereUniqueInput!]
+  delete: [IngredientListWhereUniqueInput!]
+  update: [IngredientListUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [IngredientListUpdateManyWithWhereNestedInput!]
+  deleteMany: [IngredientListScalarWhereInput!]
+  upsert: [IngredientListUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input IngredientListUpdateManyWithWhereNestedInput {
+  where: IngredientListScalarWhereInput!
+  data: IngredientListUpdateManyDataInput!
+}
+
+input IngredientListUpdateWithoutRecipeDataInput {
+  user_id: String
+  recipe_id: String
+  ingredient_id: String
+  custom: Boolean
+  amount: Float
+  unit: String
+  user: UserUpdateOneRequiredWithoutIngredient_listInput
+}
+
+input IngredientListUpdateWithoutUserDataInput {
+  user_id: String
+  recipe_id: String
+  ingredient_id: String
+  custom: Boolean
+  amount: Float
+  unit: String
+  recipe: CustomRecipeUpdateOneRequiredWithoutIngredient_listInput
+}
+
+input IngredientListUpdateWithWhereUniqueWithoutRecipeInput {
+  where: IngredientListWhereUniqueInput!
+  data: IngredientListUpdateWithoutRecipeDataInput!
+}
+
+input IngredientListUpdateWithWhereUniqueWithoutUserInput {
+  where: IngredientListWhereUniqueInput!
+  data: IngredientListUpdateWithoutUserDataInput!
+}
+
+input IngredientListUpsertWithWhereUniqueWithoutRecipeInput {
+  where: IngredientListWhereUniqueInput!
+  update: IngredientListUpdateWithoutRecipeDataInput!
+  create: IngredientListCreateWithoutRecipeInput!
+}
+
+input IngredientListUpsertWithWhereUniqueWithoutUserInput {
+  where: IngredientListWhereUniqueInput!
+  update: IngredientListUpdateWithoutUserDataInput!
+  create: IngredientListCreateWithoutUserInput!
+}
+
+input IngredientListWhereInput {
+  """
+  Logical AND on all given filters.
+  """
+  AND: [IngredientListWhereInput!]
+
+  """
+  Logical OR on all given filters.
+  """
+  OR: [IngredientListWhereInput!]
+
+  """
+  Logical NOT on all given filters combined by AND.
+  """
+  NOT: [IngredientListWhereInput!]
+  id: ID
+
+  """
+  All values that are not equal to given value.
+  """
+  id_not: ID
+
+  """
+  All values that are contained in given list.
+  """
+  id_in: [ID!]
+
+  """
+  All values that are not contained in given list.
+  """
+  id_not_in: [ID!]
+
+  """
+  All values less than the given value.
+  """
+  id_lt: ID
+
+  """
+  All values less than or equal the given value.
+  """
+  id_lte: ID
+
+  """
+  All values greater than the given value.
+  """
+  id_gt: ID
+
+  """
+  All values greater than or equal the given value.
+  """
+  id_gte: ID
+
+  """
+  All values containing the given string.
+  """
+  id_contains: ID
+
+  """
+  All values not containing the given string.
+  """
+  id_not_contains: ID
+
+  """
+  All values starting with the given string.
+  """
+  id_starts_with: ID
+
+  """
+  All values not starting with the given string.
+  """
+  id_not_starts_with: ID
+
+  """
+  All values ending with the given string.
+  """
+  id_ends_with: ID
+
+  """
+  All values not ending with the given string.
+  """
+  id_not_ends_with: ID
+  user_id: String
+
+  """
+  All values that are not equal to given value.
+  """
+  user_id_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  user_id_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  user_id_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  user_id_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  user_id_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  user_id_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  user_id_gte: String
+
+  """
+  All values containing the given string.
+  """
+  user_id_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  user_id_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  user_id_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  user_id_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  user_id_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  user_id_not_ends_with: String
+  recipe_id: String
+
+  """
+  All values that are not equal to given value.
+  """
+  recipe_id_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  recipe_id_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  recipe_id_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  recipe_id_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  recipe_id_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  recipe_id_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  recipe_id_gte: String
+
+  """
+  All values containing the given string.
+  """
+  recipe_id_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  recipe_id_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  recipe_id_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  recipe_id_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  recipe_id_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  recipe_id_not_ends_with: String
+  ingredient_id: String
+
+  """
+  All values that are not equal to given value.
+  """
+  ingredient_id_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  ingredient_id_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  ingredient_id_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  ingredient_id_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  ingredient_id_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  ingredient_id_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  ingredient_id_gte: String
+
+  """
+  All values containing the given string.
+  """
+  ingredient_id_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  ingredient_id_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  ingredient_id_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  ingredient_id_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  ingredient_id_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  ingredient_id_not_ends_with: String
+  custom: Boolean
+
+  """
+  All values that are not equal to given value.
+  """
+  custom_not: Boolean
+  amount: Float
+
+  """
+  All values that are not equal to given value.
+  """
+  amount_not: Float
+
+  """
+  All values that are contained in given list.
+  """
+  amount_in: [Float!]
+
+  """
+  All values that are not contained in given list.
+  """
+  amount_not_in: [Float!]
+
+  """
+  All values less than the given value.
+  """
+  amount_lt: Float
+
+  """
+  All values less than or equal the given value.
+  """
+  amount_lte: Float
+
+  """
+  All values greater than the given value.
+  """
+  amount_gt: Float
+
+  """
+  All values greater than or equal the given value.
+  """
+  amount_gte: Float
+  unit: String
+
+  """
+  All values that are not equal to given value.
+  """
+  unit_not: String
+
+  """
+  All values that are contained in given list.
+  """
+  unit_in: [String!]
+
+  """
+  All values that are not contained in given list.
+  """
+  unit_not_in: [String!]
+
+  """
+  All values less than the given value.
+  """
+  unit_lt: String
+
+  """
+  All values less than or equal the given value.
+  """
+  unit_lte: String
+
+  """
+  All values greater than the given value.
+  """
+  unit_gt: String
+
+  """
+  All values greater than or equal the given value.
+  """
+  unit_gte: String
+
+  """
+  All values containing the given string.
+  """
+  unit_contains: String
+
+  """
+  All values not containing the given string.
+  """
+  unit_not_contains: String
+
+  """
+  All values starting with the given string.
+  """
+  unit_starts_with: String
+
+  """
+  All values not starting with the given string.
+  """
+  unit_not_starts_with: String
+
+  """
+  All values ending with the given string.
+  """
+  unit_ends_with: String
+
+  """
+  All values not ending with the given string.
+  """
+  unit_not_ends_with: String
+  recipe: CustomRecipeWhereInput
+  user: UserWhereInput
+}
+
+input IngredientListWhereUniqueInput {
+  id: ID
+  recipe_id: String
+}
+
+"""
+Raw JSON value
+"""
 scalar Json
 
 """
@@ -2152,31 +4284,96 @@ type Mutation {
   createDailyRecord(data: DailyRecordCreateInput!): DailyRecord!
   createCustomRecipe(data: CustomRecipeCreateInput!): CustomRecipe!
   createCustomIngredient(data: CustomIngredientCreateInput!): CustomIngredient!
+  createIngredientList(data: IngredientListCreateInput!): IngredientList!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
-  updateDailyRecord(data: DailyRecordUpdateInput!, where: DailyRecordWhereUniqueInput!): DailyRecord
-  updateCustomRecipe(data: CustomRecipeUpdateInput!, where: CustomRecipeWhereUniqueInput!): CustomRecipe
-  updateCustomIngredient(data: CustomIngredientUpdateInput!, where: CustomIngredientWhereUniqueInput!): CustomIngredient
+  updateProfile(
+    data: ProfileUpdateInput!
+    where: ProfileWhereUniqueInput!
+  ): Profile
+  updateDailyRecord(
+    data: DailyRecordUpdateInput!
+    where: DailyRecordWhereUniqueInput!
+  ): DailyRecord
+  updateCustomRecipe(
+    data: CustomRecipeUpdateInput!
+    where: CustomRecipeWhereUniqueInput!
+  ): CustomRecipe
+  updateCustomIngredient(
+    data: CustomIngredientUpdateInput!
+    where: CustomIngredientWhereUniqueInput!
+  ): CustomIngredient
+  updateIngredientList(
+    data: IngredientListUpdateInput!
+    where: IngredientListWhereUniqueInput!
+  ): IngredientList
   deleteUser(where: UserWhereUniqueInput!): User
   deleteProfile(where: ProfileWhereUniqueInput!): Profile
   deleteDailyRecord(where: DailyRecordWhereUniqueInput!): DailyRecord
   deleteCustomRecipe(where: CustomRecipeWhereUniqueInput!): CustomRecipe
-  deleteCustomIngredient(where: CustomIngredientWhereUniqueInput!): CustomIngredient
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  upsertProfile(where: ProfileWhereUniqueInput!, create: ProfileCreateInput!, update: ProfileUpdateInput!): Profile!
-  upsertDailyRecord(where: DailyRecordWhereUniqueInput!, create: DailyRecordCreateInput!, update: DailyRecordUpdateInput!): DailyRecord!
-  upsertCustomRecipe(where: CustomRecipeWhereUniqueInput!, create: CustomRecipeCreateInput!, update: CustomRecipeUpdateInput!): CustomRecipe!
-  upsertCustomIngredient(where: CustomIngredientWhereUniqueInput!, create: CustomIngredientCreateInput!, update: CustomIngredientUpdateInput!): CustomIngredient!
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  updateManyProfiles(data: ProfileUpdateManyMutationInput!, where: ProfileWhereInput): BatchPayload!
-  updateManyDailyRecords(data: DailyRecordUpdateManyMutationInput!, where: DailyRecordWhereInput): BatchPayload!
-  updateManyCustomRecipes(data: CustomRecipeUpdateManyMutationInput!, where: CustomRecipeWhereInput): BatchPayload!
-  updateManyCustomIngredients(data: CustomIngredientUpdateManyMutationInput!, where: CustomIngredientWhereInput): BatchPayload!
+  deleteCustomIngredient(
+    where: CustomIngredientWhereUniqueInput!
+  ): CustomIngredient
+  deleteIngredientList(where: IngredientListWhereUniqueInput!): IngredientList
+  upsertUser(
+    where: UserWhereUniqueInput!
+    create: UserCreateInput!
+    update: UserUpdateInput!
+  ): User!
+  upsertProfile(
+    where: ProfileWhereUniqueInput!
+    create: ProfileCreateInput!
+    update: ProfileUpdateInput!
+  ): Profile!
+  upsertDailyRecord(
+    where: DailyRecordWhereUniqueInput!
+    create: DailyRecordCreateInput!
+    update: DailyRecordUpdateInput!
+  ): DailyRecord!
+  upsertCustomRecipe(
+    where: CustomRecipeWhereUniqueInput!
+    create: CustomRecipeCreateInput!
+    update: CustomRecipeUpdateInput!
+  ): CustomRecipe!
+  upsertCustomIngredient(
+    where: CustomIngredientWhereUniqueInput!
+    create: CustomIngredientCreateInput!
+    update: CustomIngredientUpdateInput!
+  ): CustomIngredient!
+  upsertIngredientList(
+    where: IngredientListWhereUniqueInput!
+    create: IngredientListCreateInput!
+    update: IngredientListUpdateInput!
+  ): IngredientList!
+  updateManyUsers(
+    data: UserUpdateManyMutationInput!
+    where: UserWhereInput
+  ): BatchPayload!
+  updateManyProfiles(
+    data: ProfileUpdateManyMutationInput!
+    where: ProfileWhereInput
+  ): BatchPayload!
+  updateManyDailyRecords(
+    data: DailyRecordUpdateManyMutationInput!
+    where: DailyRecordWhereInput
+  ): BatchPayload!
+  updateManyCustomRecipes(
+    data: CustomRecipeUpdateManyMutationInput!
+    where: CustomRecipeWhereInput
+  ): BatchPayload!
+  updateManyCustomIngredients(
+    data: CustomIngredientUpdateManyMutationInput!
+    where: CustomIngredientWhereInput
+  ): BatchPayload!
+  updateManyIngredientLists(
+    data: IngredientListUpdateManyMutationInput!
+    where: IngredientListWhereInput
+  ): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyProfiles(where: ProfileWhereInput): BatchPayload!
   deleteManyDailyRecords(where: DailyRecordWhereInput): BatchPayload!
   deleteManyCustomRecipes(where: CustomRecipeWhereInput): BatchPayload!
   deleteManyCustomIngredients(where: CustomIngredientWhereInput): BatchPayload!
+  deleteManyIngredientLists(where: IngredientListWhereInput): BatchPayload!
   executeRaw(database: PrismaDatabase, query: String!): Json!
 }
 
@@ -2186,24 +4383,38 @@ enum MutationType {
   DELETED
 }
 
-"""An object with an ID"""
+"""
+An object with an ID
+"""
 interface Node {
-  """The id of the object."""
+  """
+  The id of the object.
+  """
   id: ID!
 }
 
-"""Information about pagination in a connection."""
+"""
+Information about pagination in a connection.
+"""
 type PageInfo {
-  """When paginating forwards, are there more items?"""
+  """
+  When paginating forwards, are there more items?
+  """
   hasNextPage: Boolean!
 
-  """When paginating backwards, are there more items?"""
+  """
+  When paginating backwards, are there more items?
+  """
   hasPreviousPage: Boolean!
 
-  """When paginating backwards, the cursor to continue."""
+  """
+  When paginating backwards, the cursor to continue.
+  """
   startCursor: String
 
-  """When paginating forwards, the cursor to continue."""
+  """
+  When paginating forwards, the cursor to continue.
+  """
   endCursor: String
 }
 
@@ -2230,12 +4441,18 @@ type Profile implements Node {
   createdAt: DateTime!
 }
 
-"""A connection to a list of items."""
+"""
+A connection to a list of items.
+"""
 type ProfileConnection {
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
-  """A list of edges."""
+  """
+  A list of edges.
+  """
   edges: [ProfileEdge]!
   aggregate: AggregateProfile!
 }
@@ -2278,12 +4495,18 @@ input ProfileCreateWithoutUserInput {
   calories: Int!
 }
 
-"""An edge in a connection."""
+"""
+An edge in a connection.
+"""
 type ProfileEdge {
-  """The item at the end of the edge."""
+  """
+  The item at the end of the edge.
+  """
   node: Profile!
 
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
 }
 
@@ -2346,16 +4569,24 @@ type ProfileSubscriptionPayload {
 }
 
 input ProfileSubscriptionWhereInput {
-  """Logical AND on all given filters."""
+  """
+  Logical AND on all given filters.
+  """
   AND: [ProfileSubscriptionWhereInput!]
 
-  """Logical OR on all given filters."""
+  """
+  Logical OR on all given filters.
+  """
   OR: [ProfileSubscriptionWhereInput!]
 
-  """Logical NOT on all given filters combined by AND."""
+  """
+  Logical NOT on all given filters combined by AND.
+  """
   NOT: [ProfileSubscriptionWhereInput!]
 
-  """The subscription event gets dispatched when it's listed in mutation_in"""
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
   mutation_in: [MutationType!]
 
   """
@@ -2436,325 +4667,529 @@ input ProfileUpsertWithoutUserInput {
 }
 
 input ProfileWhereInput {
-  """Logical AND on all given filters."""
+  """
+  Logical AND on all given filters.
+  """
   AND: [ProfileWhereInput!]
 
-  """Logical OR on all given filters."""
+  """
+  Logical OR on all given filters.
+  """
   OR: [ProfileWhereInput!]
 
-  """Logical NOT on all given filters combined by AND."""
+  """
+  Logical NOT on all given filters combined by AND.
+  """
   NOT: [ProfileWhereInput!]
   id: ID
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   id_not: ID
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   id_in: [ID!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   id_not_in: [ID!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   id_lt: ID
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   id_lte: ID
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   id_gt: ID
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   id_gte: ID
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   id_contains: ID
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   id_not_contains: ID
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   id_starts_with: ID
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   id_not_starts_with: ID
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   id_ends_with: ID
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   id_not_ends_with: ID
   user_id: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   user_id_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   user_id_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   user_id_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   user_id_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   user_id_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   user_id_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   user_id_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   user_id_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   user_id_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   user_id_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   user_id_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   user_id_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   user_id_not_ends_with: String
   age: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   age_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   age_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   age_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   age_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   age_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   age_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   age_gte: Int
   weight: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   weight_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   weight_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   weight_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   weight_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   weight_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   weight_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   weight_gte: Int
   height: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   height_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   height_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   height_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   height_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   height_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   height_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   height_gte: Int
   paleo: Boolean
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   paleo_not: Boolean
   keto: Boolean
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   keto_not: Boolean
   veg: Boolean
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   veg_not: Boolean
   fat: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   fat_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   fat_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   fat_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   fat_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   fat_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   fat_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   fat_gte: Int
   carbs: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   carbs_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   carbs_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   carbs_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   carbs_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   carbs_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   carbs_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   carbs_gte: Int
   protein: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   protein_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   protein_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   protein_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   protein_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   protein_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   protein_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   protein_gte: Int
   fiber: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   fiber_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   fiber_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   fiber_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   fiber_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   fiber_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   fiber_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   fiber_gte: Int
   calories: Int
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   calories_not: Int
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   calories_in: [Int!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   calories_not_in: [Int!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   calories_lt: Int
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   calories_lte: Int
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   calories_gt: Int
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   calories_gte: Int
   updatedAt: DateTime
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   updatedAt_not: DateTime
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   updatedAt_in: [DateTime!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   updatedAt_not_in: [DateTime!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   updatedAt_lt: DateTime
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   updatedAt_lte: DateTime
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   updatedAt_gt: DateTime
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   updatedAt_gte: DateTime
   createdAt: DateTime
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   createdAt_not: DateTime
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   createdAt_in: [DateTime!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   createdAt_not_in: [DateTime!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   createdAt_lt: DateTime
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   createdAt_lte: DateTime
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   createdAt_gt: DateTime
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   createdAt_gte: DateTime
   user: UserWhereInput
 }
@@ -2765,25 +5200,128 @@ input ProfileWhereUniqueInput {
 }
 
 type Query {
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  profiles(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Profile]!
-  dailyRecords(where: DailyRecordWhereInput, orderBy: DailyRecordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DailyRecord]!
-  customRecipes(where: CustomRecipeWhereInput, orderBy: CustomRecipeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CustomRecipe]!
-  customIngredients(where: CustomIngredientWhereInput, orderBy: CustomIngredientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CustomIngredient]!
+  users(
+    where: UserWhereInput
+    orderBy: UserOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [User]!
+  profiles(
+    where: ProfileWhereInput
+    orderBy: ProfileOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Profile]!
+  dailyRecords(
+    where: DailyRecordWhereInput
+    orderBy: DailyRecordOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [DailyRecord]!
+  customRecipes(
+    where: CustomRecipeWhereInput
+    orderBy: CustomRecipeOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [CustomRecipe]!
+  customIngredients(
+    where: CustomIngredientWhereInput
+    orderBy: CustomIngredientOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [CustomIngredient]!
+  ingredientLists(
+    where: IngredientListWhereInput
+    orderBy: IngredientListOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [IngredientList]!
   user(where: UserWhereUniqueInput!): User
   profile(where: ProfileWhereUniqueInput!): Profile
   dailyRecord(where: DailyRecordWhereUniqueInput!): DailyRecord
   customRecipe(where: CustomRecipeWhereUniqueInput!): CustomRecipe
   customIngredient(where: CustomIngredientWhereUniqueInput!): CustomIngredient
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
-  profilesConnection(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProfileConnection!
-  dailyRecordsConnection(where: DailyRecordWhereInput, orderBy: DailyRecordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DailyRecordConnection!
-  customRecipesConnection(where: CustomRecipeWhereInput, orderBy: CustomRecipeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CustomRecipeConnection!
-  customIngredientsConnection(where: CustomIngredientWhereInput, orderBy: CustomIngredientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CustomIngredientConnection!
+  ingredientList(where: IngredientListWhereUniqueInput!): IngredientList
+  usersConnection(
+    where: UserWhereInput
+    orderBy: UserOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): UserConnection!
+  profilesConnection(
+    where: ProfileWhereInput
+    orderBy: ProfileOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): ProfileConnection!
+  dailyRecordsConnection(
+    where: DailyRecordWhereInput
+    orderBy: DailyRecordOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): DailyRecordConnection!
+  customRecipesConnection(
+    where: CustomRecipeWhereInput
+    orderBy: CustomRecipeOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): CustomRecipeConnection!
+  customIngredientsConnection(
+    where: CustomIngredientWhereInput
+    orderBy: CustomIngredientOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): CustomIngredientConnection!
+  ingredientListsConnection(
+    where: IngredientListWhereInput
+    orderBy: IngredientListOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): IngredientListConnection!
 
-  """Fetches an object given its ID"""
+  """
+  Fetches an object given its ID
+  """
   node(
-    """The ID of an object"""
+    """
+    The ID of an object
+    """
     id: ID!
   ): Node
 }
@@ -2791,9 +5329,18 @@ type Query {
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   profile(where: ProfileSubscriptionWhereInput): ProfileSubscriptionPayload
-  dailyRecord(where: DailyRecordSubscriptionWhereInput): DailyRecordSubscriptionPayload
-  customRecipe(where: CustomRecipeSubscriptionWhereInput): CustomRecipeSubscriptionPayload
-  customIngredient(where: CustomIngredientSubscriptionWhereInput): CustomIngredientSubscriptionPayload
+  dailyRecord(
+    where: DailyRecordSubscriptionWhereInput
+  ): DailyRecordSubscriptionPayload
+  customRecipe(
+    where: CustomRecipeSubscriptionWhereInput
+  ): CustomRecipeSubscriptionPayload
+  customIngredient(
+    where: CustomIngredientSubscriptionWhereInput
+  ): CustomIngredientSubscriptionPayload
+  ingredientList(
+    where: IngredientListSubscriptionWhereInput
+  ): IngredientListSubscriptionPayload
 }
 
 type User implements Node {
@@ -2804,17 +5351,56 @@ type User implements Node {
   updatedAt: DateTime!
   createdAt: DateTime!
   profile: Profile
-  daily_records(where: DailyRecordWhereInput, orderBy: DailyRecordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DailyRecord!]
-  custom_recipes(where: CustomRecipeWhereInput, orderBy: CustomRecipeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CustomRecipe!]
-  custom_ingredients(where: CustomIngredientWhereInput, orderBy: CustomIngredientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CustomIngredient!]
+  daily_records(
+    where: DailyRecordWhereInput
+    orderBy: DailyRecordOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [DailyRecord!]
+  custom_recipes(
+    where: CustomRecipeWhereInput
+    orderBy: CustomRecipeOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [CustomRecipe!]
+  custom_ingredients(
+    where: CustomIngredientWhereInput
+    orderBy: CustomIngredientOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [CustomIngredient!]
+  ingredient_list(
+    where: IngredientListWhereInput
+    orderBy: IngredientListOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [IngredientList!]
 }
 
-"""A connection to a list of items."""
+"""
+A connection to a list of items.
+"""
 type UserConnection {
-  """Information to aid in pagination."""
+  """
+  Information to aid in pagination.
+  """
   pageInfo: PageInfo!
 
-  """A list of edges."""
+  """
+  A list of edges.
+  """
   edges: [UserEdge]!
   aggregate: AggregateUser!
 }
@@ -2828,6 +5414,7 @@ input UserCreateInput {
   daily_records: DailyRecordCreateManyWithoutUserInput
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
+  ingredient_list: IngredientListCreateManyWithoutUserInput
 }
 
 input UserCreateOneWithoutCustom_ingredientsInput {
@@ -2845,6 +5432,11 @@ input UserCreateOneWithoutDaily_recordsInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutIngredient_listInput {
+  create: UserCreateWithoutIngredient_listInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutProfileInput {
   create: UserCreateWithoutProfileInput
   connect: UserWhereUniqueInput
@@ -2858,6 +5450,7 @@ input UserCreateWithoutCustom_ingredientsInput {
   profile: ProfileCreateOneWithoutUserInput
   daily_records: DailyRecordCreateManyWithoutUserInput
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
+  ingredient_list: IngredientListCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutCustom_recipesInput {
@@ -2868,6 +5461,7 @@ input UserCreateWithoutCustom_recipesInput {
   profile: ProfileCreateOneWithoutUserInput
   daily_records: DailyRecordCreateManyWithoutUserInput
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
+  ingredient_list: IngredientListCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutDaily_recordsInput {
@@ -2876,6 +5470,18 @@ input UserCreateWithoutDaily_recordsInput {
   email: String!
   password: String!
   profile: ProfileCreateOneWithoutUserInput
+  custom_recipes: CustomRecipeCreateManyWithoutUserInput
+  custom_ingredients: CustomIngredientCreateManyWithoutUserInput
+  ingredient_list: IngredientListCreateManyWithoutUserInput
+}
+
+input UserCreateWithoutIngredient_listInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  profile: ProfileCreateOneWithoutUserInput
+  daily_records: DailyRecordCreateManyWithoutUserInput
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
 }
@@ -2888,14 +5494,21 @@ input UserCreateWithoutProfileInput {
   daily_records: DailyRecordCreateManyWithoutUserInput
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
+  ingredient_list: IngredientListCreateManyWithoutUserInput
 }
 
-"""An edge in a connection."""
+"""
+An edge in a connection.
+"""
 type UserEdge {
-  """The item at the end of the edge."""
+  """
+  The item at the end of the edge.
+  """
   node: User!
 
-  """A cursor for use in pagination."""
+  """
+  A cursor for use in pagination.
+  """
   cursor: String!
 }
 
@@ -2931,16 +5544,24 @@ type UserSubscriptionPayload {
 }
 
 input UserSubscriptionWhereInput {
-  """Logical AND on all given filters."""
+  """
+  Logical AND on all given filters.
+  """
   AND: [UserSubscriptionWhereInput!]
 
-  """Logical OR on all given filters."""
+  """
+  Logical OR on all given filters.
+  """
   OR: [UserSubscriptionWhereInput!]
 
-  """Logical NOT on all given filters combined by AND."""
+  """
+  Logical NOT on all given filters combined by AND.
+  """
   NOT: [UserSubscriptionWhereInput!]
 
-  """The subscription event gets dispatched when it's listed in mutation_in"""
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
   mutation_in: [MutationType!]
 
   """
@@ -2968,6 +5589,7 @@ input UserUpdateInput {
   daily_records: DailyRecordUpdateManyWithoutUserInput
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
+  ingredient_list: IngredientListUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
@@ -2997,6 +5619,13 @@ input UserUpdateOneRequiredWithoutDaily_recordsInput {
   upsert: UserUpsertWithoutDaily_recordsInput
 }
 
+input UserUpdateOneRequiredWithoutIngredient_listInput {
+  create: UserCreateWithoutIngredient_listInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutIngredient_listDataInput
+  upsert: UserUpsertWithoutIngredient_listInput
+}
+
 input UserUpdateOneRequiredWithoutProfileInput {
   create: UserCreateWithoutProfileInput
   connect: UserWhereUniqueInput
@@ -3011,6 +5640,7 @@ input UserUpdateWithoutCustom_ingredientsDataInput {
   profile: ProfileUpdateOneWithoutUserInput
   daily_records: DailyRecordUpdateManyWithoutUserInput
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
+  ingredient_list: IngredientListUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutCustom_recipesDataInput {
@@ -3020,6 +5650,7 @@ input UserUpdateWithoutCustom_recipesDataInput {
   profile: ProfileUpdateOneWithoutUserInput
   daily_records: DailyRecordUpdateManyWithoutUserInput
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
+  ingredient_list: IngredientListUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutDaily_recordsDataInput {
@@ -3027,6 +5658,17 @@ input UserUpdateWithoutDaily_recordsDataInput {
   email: String
   password: String
   profile: ProfileUpdateOneWithoutUserInput
+  custom_recipes: CustomRecipeUpdateManyWithoutUserInput
+  custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
+  ingredient_list: IngredientListUpdateManyWithoutUserInput
+}
+
+input UserUpdateWithoutIngredient_listDataInput {
+  name: String
+  email: String
+  password: String
+  profile: ProfileUpdateOneWithoutUserInput
+  daily_records: DailyRecordUpdateManyWithoutUserInput
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
 }
@@ -3038,6 +5680,7 @@ input UserUpdateWithoutProfileDataInput {
   daily_records: DailyRecordUpdateManyWithoutUserInput
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
+  ingredient_list: IngredientListUpdateManyWithoutUserInput
 }
 
 input UserUpsertWithoutCustom_ingredientsInput {
@@ -3055,223 +5698,366 @@ input UserUpsertWithoutDaily_recordsInput {
   create: UserCreateWithoutDaily_recordsInput!
 }
 
+input UserUpsertWithoutIngredient_listInput {
+  update: UserUpdateWithoutIngredient_listDataInput!
+  create: UserCreateWithoutIngredient_listInput!
+}
+
 input UserUpsertWithoutProfileInput {
   update: UserUpdateWithoutProfileDataInput!
   create: UserCreateWithoutProfileInput!
 }
 
 input UserWhereInput {
-  """Logical AND on all given filters."""
+  """
+  Logical AND on all given filters.
+  """
   AND: [UserWhereInput!]
 
-  """Logical OR on all given filters."""
+  """
+  Logical OR on all given filters.
+  """
   OR: [UserWhereInput!]
 
-  """Logical NOT on all given filters combined by AND."""
+  """
+  Logical NOT on all given filters combined by AND.
+  """
   NOT: [UserWhereInput!]
   id: ID
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   id_not: ID
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   id_in: [ID!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   id_not_in: [ID!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   id_lt: ID
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   id_lte: ID
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   id_gt: ID
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   id_gte: ID
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   id_contains: ID
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   id_not_contains: ID
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   id_starts_with: ID
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   id_not_starts_with: ID
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   id_ends_with: ID
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   id_not_ends_with: ID
   name: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   name_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   name_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   name_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   name_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   name_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   name_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   name_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   name_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   name_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   name_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   name_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   name_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   name_not_ends_with: String
   email: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   email_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   email_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   email_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   email_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   email_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   email_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   email_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   email_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   email_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   email_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   email_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   email_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   email_not_ends_with: String
   password: String
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   password_not: String
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   password_in: [String!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   password_not_in: [String!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   password_lt: String
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   password_lte: String
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   password_gt: String
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   password_gte: String
 
-  """All values containing the given string."""
+  """
+  All values containing the given string.
+  """
   password_contains: String
 
-  """All values not containing the given string."""
+  """
+  All values not containing the given string.
+  """
   password_not_contains: String
 
-  """All values starting with the given string."""
+  """
+  All values starting with the given string.
+  """
   password_starts_with: String
 
-  """All values not starting with the given string."""
+  """
+  All values not starting with the given string.
+  """
   password_not_starts_with: String
 
-  """All values ending with the given string."""
+  """
+  All values ending with the given string.
+  """
   password_ends_with: String
 
-  """All values not ending with the given string."""
+  """
+  All values not ending with the given string.
+  """
   password_not_ends_with: String
   updatedAt: DateTime
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   updatedAt_not: DateTime
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   updatedAt_in: [DateTime!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   updatedAt_not_in: [DateTime!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   updatedAt_lt: DateTime
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   updatedAt_lte: DateTime
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   updatedAt_gt: DateTime
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   updatedAt_gte: DateTime
   createdAt: DateTime
 
-  """All values that are not equal to given value."""
+  """
+  All values that are not equal to given value.
+  """
   createdAt_not: DateTime
 
-  """All values that are contained in given list."""
+  """
+  All values that are contained in given list.
+  """
   createdAt_in: [DateTime!]
 
-  """All values that are not contained in given list."""
+  """
+  All values that are not contained in given list.
+  """
   createdAt_not_in: [DateTime!]
 
-  """All values less than the given value."""
+  """
+  All values less than the given value.
+  """
   createdAt_lt: DateTime
 
-  """All values less than or equal the given value."""
+  """
+  All values less than or equal the given value.
+  """
   createdAt_lte: DateTime
 
-  """All values greater than the given value."""
+  """
+  All values greater than the given value.
+  """
   createdAt_gt: DateTime
 
-  """All values greater than or equal the given value."""
+  """
+  All values greater than or equal the given value.
+  """
   createdAt_gte: DateTime
   profile: ProfileWhereInput
   daily_records_every: DailyRecordWhereInput
@@ -3283,6 +6069,9 @@ input UserWhereInput {
   custom_ingredients_every: CustomIngredientWhereInput
   custom_ingredients_some: CustomIngredientWhereInput
   custom_ingredients_none: CustomIngredientWhereInput
+  ingredient_list_every: IngredientListWhereInput
+  ingredient_list_some: IngredientListWhereInput
+  ingredient_list_none: IngredientListWhereInput
 }
 
 input UserWhereUniqueInput {

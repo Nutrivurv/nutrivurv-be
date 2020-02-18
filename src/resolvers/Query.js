@@ -86,8 +86,33 @@ const Query = {
     } else {
       return null;
     }
+  },
+  recipe(parent, args, { prisma, request }, info) {
+    const userId = getUserId(request);
+
+    if (userId) {
+      return prisma.query.customRecipe({
+        where: {
+          id: args.id
+        }
+      });
+    } else {
+      return null;
+    }
+  },
+  ingredient(parent, args, { prisma, request }, info) {
+    const userId = getUserId(request);
+
+    if (userId) {
+      return prisma.query.customIngredient({
+        where: {
+          id: args.id
+        }
+      });
+    } else {
+      return null;
+    }
   }
 };
-
 
 export { Query as default };
