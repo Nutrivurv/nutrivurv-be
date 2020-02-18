@@ -18,101 +18,19 @@ To get the server running locally:
 
 ### Backend framework goes here
 
--    We are using PostgreSQL as our database to comply with engineering standards documentation and because it is one of the most full featured open source DB platforms.
--    We are going to use Apollo and Prisma to integrate GraphQL into Node.js.
--    We will interact with our API by using GraphQL. We have determined in order to simplify and minimize the amount of data exchanged, GraphQL will provide us with a faster, more professional result.
+- We are using PostgreSQL as our database to comply with engineering standards documentation and because it is one of the most full featured open source DB platforms.
+- We are going to use Apollo and Prisma to integrate GraphQL into Node.js.
+- We will interact with our API by using GraphQL. We have determined in order to simplify and minimize the amount of data exchanged, GraphQL will provide us with a faster, more professional result.
 
 ## Endpoints
 
 Our server utilizes GraphQL as opposed to a RESTful array of endpoints, which only supports one endpoint, a post to the application itself. Full documentation of our endpoints can be found on the application, courtesy of GraphQL playground. Follow the link and click "Docs" along the right side of the screen.
 [GraphQL Playground Docs](https://labspt7-nutrition-tracker-be.herokuapp.com/)
 
-# Data Model
+## Data Model
 
-## CUSTOM INGREDIENT
-
----
-
-```
-{
-  name: String!
-  description: String!
-  fat: Int!
-  carbs: Int!
-  protein: Int!
-  fiber: Int!
-}
-```
-
-## USERS
-
----
-
-```
-{
-  id: ID!
-  name: String!
-  email: String
-  updatedAt: String!
-  createdAt: String!
-  profile: Profile
-  dailyRecords: [DailyRecord!]
-}
-```
-
-## PROFILE
-
----
-
-```
-{
-  id: ID!
-  age: Int!
-  weight: Int!
-  height: Int!
-  paleo: Boolean
-  keto: Boolean
-  veg: Boolean
-  fat: Int!
-  carbs: Int!
-  protein: Int!
-  fiber: Int!
-  calories: Int!
-  updatedAt: String!
-  createdAt: String!
-}
-```
-
-## DAILY RECORD
-
----
-
-```
-{
-  id: ID!
-  date: String!
-  current_weight: Int!
-  calories: Int!
-  fat: Int!
-  carbs: Int!
-  fiber: Int!
-  protein: Int!
-  food_string: String!
-}
-```
-
-## CUSTOM RECIPE
-### (feature not fully implemented; model reflects current state)
-
----
-
-```
-{
- id: ID!
- portions: Int!
- name: String!
-}
-```
+Our server utilizes GraphQL as opposed to a RESTful array of endpoints, which only supports one endpoint, a post to the application itself. Full documentation of our endpoints can be found on the application, courtesy of GraphQL playground. Follow the link and click "Docs" along the right side of the screen.
+[GraphQL Playground Docs](https://labspt7-nutrition-tracker-be.herokuapp.com/)
 
 ## Actions
 
@@ -124,7 +42,6 @@ Our server utilizes GraphQL as opposed to a RESTful array of endpoints, which on
 In order for the app to function correctly, the user must set up their own environment variables.
 
 create a .env file that includes the following:
-    
     *  PRISMA_ENDPOINT - Endpoint to the prisma application hosted on prisma cloud
     *  PRISMA_SECRET - Must match the secret string passed to prisma
     *  JWT_SECRET - Must match the secret on the server
@@ -132,7 +49,7 @@ create a .env file that includes the following:
     *  DB_NAME - The postgres database connection information
     *  DB_USER - The postgres database connection information
     *  DB_USER - The postgres database connection information
-    
+
 ## Contributing
 
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
@@ -142,10 +59,11 @@ Please note we have a [code of conduct](./code_of_conduct.md). Please follow it 
 ### Issue/Bug Request
 
  **If you are having an issue with the existing project code, please submit a bug report under the following guidelines:**
- - Check first to see if your issue has already been reported.
- - Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
- - Create a live example of the problem.
- - Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
+
+- Check first to see if your issue has already been reported.
+- Check to see if the issue has recently been fixed by attempting to reproduce the issue using the latest master branch in the repository.
+- Create a live example of the problem.
+- Submit a detailed bug report including your environment & browser, steps to reproduce the issue, actual and expected outcomes,  where you believe the issue is originating from, and any potential solutions you have considered.
 
 ### Feature Requests
 
