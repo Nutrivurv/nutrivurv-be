@@ -18,7 +18,7 @@ To get the server running locally:
 
 ### Backend framework goes here
 
--    We plan on using PostgreSQL as our database to comply with engineering standards documentation and because it is one of the most full featured open source DB platforms.
+-    We are using PostgreSQL as our database to comply with engineering standards documentation and because it is one of the most full featured open source DB platforms.
 -    We are going to use Apollo and Prisma to integrate GraphQL into Node.js.
 -    We will interact with our API by using GraphQL. We have determined in order to simplify and minimize the amount of data exchanged, GraphQL will provide us with a faster, more professional result.
 
