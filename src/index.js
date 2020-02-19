@@ -1,6 +1,14 @@
-import '@babel/polyfill/noConflict'
-import server from './server'
+import "@babel/polyfill/noConflict";
+import server from "./server";
 
-server.start({ port: process.env.PORT || 4000 }, () => {
-    console.log('The server is up!')
-})
+const opts = {
+  port: process.env.PORT || 4000,
+  cors: {
+    credentials: true,
+    origin: ["http://localhost:3000"]
+  }
+};
+
+server.start(opts, () => {
+  console.log("The server is up!");
+});
