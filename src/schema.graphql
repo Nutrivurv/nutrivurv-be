@@ -70,6 +70,9 @@ input UpdateProfileInput {
   age: Int
   weight: Int
   height: Int
+  gender: Boolean!
+  goal_weight: Int
+  activity_level: Int
   paleo: Boolean
   keto: Boolean
   veg: Boolean
@@ -95,6 +98,9 @@ input CreateProfileInput {
   age: Int!
   weight: Int!
   height: Int!
+  gender: Boolean!
+  goal_weight: Int
+  activity_level: Int
   paleo: Boolean
   keto: Boolean
   veg: Boolean
