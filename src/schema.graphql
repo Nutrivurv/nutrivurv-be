@@ -33,10 +33,16 @@ type Mutation {
   updateCustomRecipe(id: String!, data: UpdateCustomRecipeInput!): CustomRecipe!
   deleteCustomRecipe(id: String!): CustomRecipe!
   createCustomIngredient(data: CreateCustomIngredientInput!): CustomIngredient!
-  updateCustomIngredient(id: String!, data: UpdateCustomIngredientInput!): CustomIngredient!
+  updateCustomIngredient(
+    id: String!
+    data: UpdateCustomIngredientInput!
+  ): CustomIngredient!
   deleteCustomIngredient(id: String!): CustomIngredient!
   createIngredientList(data: createIngredientListInput!): IngredientList!
-  updateIngredientList(id: String!, data: updateIngredientListInput!): IngredientList!
+  updateIngredientList(
+    id: String!
+    data: updateIngredientListInput!
+  ): IngredientList!
   deleteIngredientList(id: String!): IngredientList!
 }
 
@@ -105,7 +111,7 @@ input CreateUserInput {
   password: String!
 }
 
- input CreateCustomRecipeInput {
+input CreateCustomRecipeInput {
   portions: Int!
   name: String!
 }
@@ -198,8 +204,8 @@ type CustomIngredient {
   description: String!
   fat: Int!
   carbs: Int!
-  protein:Int!
-  fiber:Int!
+  protein: Int!
+  fiber: Int!
   updatedAt: String!
   createdAt: String!
 }
@@ -219,18 +225,18 @@ input CreateCustomIngredientInput {
   description: String!
   fat: Int!
   carbs: Int!
-  protein:Int!
-  fiber:Int!
- }
+  protein: Int!
+  fiber: Int!
+}
 
- input UpdateCustomIngredientInput {
+input UpdateCustomIngredientInput {
   name: String
   description: String
   fat: Int
   carbs: Int
-  protein:Int
-  fiber:Int
- }
+  protein: Int
+  fiber: Int
+}
 
 enum MutationType {
   CREATED
