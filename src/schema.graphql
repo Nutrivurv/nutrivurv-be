@@ -33,10 +33,16 @@ type Mutation {
   updateCustomRecipe(id: String!, data: UpdateCustomRecipeInput!): CustomRecipe!
   deleteCustomRecipe(id: String!): CustomRecipe!
   createCustomIngredient(data: CreateCustomIngredientInput!): CustomIngredient!
-  updateCustomIngredient(id: String!, data: UpdateCustomIngredientInput!): CustomIngredient!
+  updateCustomIngredient(
+    id: String!
+    data: UpdateCustomIngredientInput!
+  ): CustomIngredient!
   deleteCustomIngredient(id: String!): CustomIngredient!
   createIngredientList(data: createIngredientListInput!): IngredientList!
-  updateIngredientList(id: String!, data: updateIngredientListInput!): IngredientList!
+  updateIngredientList(
+    id: String!
+    data: updateIngredientListInput!
+  ): IngredientList!
   deleteIngredientList(id: String!): IngredientList!
 }
 
@@ -105,7 +111,7 @@ input CreateUserInput {
   password: String!
 }
 
- input CreateCustomRecipeInput {
+input CreateCustomRecipeInput {
   portions: Int!
   name: String!
 }
@@ -154,6 +160,9 @@ type Profile {
   age: Int!
   weight: Int!
   height: Int!
+  gender: Boolean!
+  goal_weight: Int
+  activity_level: Int
   paleo: Boolean
   keto: Boolean
   veg: Boolean
@@ -176,6 +185,8 @@ type DailyRecord {
   fiber: Int!
   protein: Int!
   food_string: String!
+  updatedAt: String!
+  createdAt: String!
 }
 
 type CustomRecipe {
@@ -183,6 +194,8 @@ type CustomRecipe {
   portions: Int!
   name: String!
   ingredient_list: [IngredientList!]
+  updatedAt: String!
+  createdAt: String!
 }
 
 type CustomIngredient {
@@ -191,8 +204,10 @@ type CustomIngredient {
   description: String!
   fat: Int!
   carbs: Int!
-  protein:Int!
-  fiber:Int!
+  protein: Int!
+  fiber: Int!
+  updatedAt: String!
+  createdAt: String!
 }
 
 type IngredientList {
@@ -201,6 +216,8 @@ type IngredientList {
   custom: Boolean!
   amount: Float!
   unit: String!
+  updatedAt: String!
+  createdAt: String!
 }
 
 input CreateCustomIngredientInput {
@@ -208,18 +225,18 @@ input CreateCustomIngredientInput {
   description: String!
   fat: Int!
   carbs: Int!
-  protein:Int!
-  fiber:Int!
- }
+  protein: Int!
+  fiber: Int!
+}
 
- input UpdateCustomIngredientInput {
+input UpdateCustomIngredientInput {
   name: String
   description: String
   fat: Int
   carbs: Int
-  protein:Int
-  fiber:Int
- }
+  protein: Int
+  fiber: Int
+}
 
 enum MutationType {
   CREATED
