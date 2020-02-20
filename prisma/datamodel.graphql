@@ -22,14 +22,17 @@ type Profile {
   age: Int!
   weight: Int!
   height: Int!
+  gender: Boolean!
+  goal_weight: Int
+  activity_level: Int
   paleo: Boolean
   keto: Boolean
   veg: Boolean
-  fat: Int!
-  carbs: Int!
-  protein: Int!
-  fiber: Int!
-  calories: Int!
+  fat: Int
+  carbs: Int
+  protein: Int
+  fiber: Int
+  calories: Int
   user: User! @relation(link: INLINE, name: "ProfileToUser", onDelete: SET_NULL)
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
@@ -59,6 +62,8 @@ type CustomRecipe {
   user: User! @relation(link: INLINE, name: "RecipeToUser", onDelete: SET_NULL)
   ingredient_list: [IngredientList!]
     @relation(name: "IngredientListToRecipe", onDelete: CASCADE)
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
 }
 
 type CustomIngredient {
@@ -72,6 +77,8 @@ type CustomIngredient {
   fiber: Int!
   user: User!
     @relation(link: INLINE, name: "IngredientToUser", onDelete: SET_NULL)
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
 }
 
 type IngredientList {
@@ -86,4 +93,6 @@ type IngredientList {
     @relation(link: INLINE, name: "IngredientListToRecipe", onDelete: SET_NULL)
   user: User!
     @relation(link: INLINE, name: "IngredientListToUser", onDelete: SET_NULL)
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
 }

@@ -154,6 +154,9 @@ type Profile {
   age: Int!
   weight: Int!
   height: Int!
+  gender: Boolean!
+  goal_weight: Int
+  activity_level: Int
   paleo: Boolean
   keto: Boolean
   veg: Boolean
@@ -176,6 +179,8 @@ type DailyRecord {
   fiber: Int!
   protein: Int!
   food_string: String!
+  updatedAt: String!
+  createdAt: String!
 }
 
 type CustomRecipe {
@@ -183,6 +188,8 @@ type CustomRecipe {
   portions: Int!
   name: String!
   ingredient_list: [IngredientList!]
+  updatedAt: String!
+  createdAt: String!
 }
 
 type CustomIngredient {
@@ -193,6 +200,8 @@ type CustomIngredient {
   carbs: Int!
   protein:Int!
   fiber:Int!
+  updatedAt: String!
+  createdAt: String!
 }
 
 type IngredientList {
@@ -201,6 +210,8 @@ type IngredientList {
   custom: Boolean!
   amount: Float!
   unit: String!
+  updatedAt: String!
+  createdAt: String!
 }
 
 input CreateCustomIngredientInput {
