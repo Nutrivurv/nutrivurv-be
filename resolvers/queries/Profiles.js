@@ -1,19 +1,17 @@
-import getUserId from "../../utils/getUserId";
+
 
 const Profiles = {
   myProfile(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
-
     return prisma.query.profile({
       where: {
-        user_id: userId
+        user_id: request.user_id
       }
     });
   },
   profiles(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
 
-    if (userId) {
+    if (request.user_id) {
       const opArgs = {
         first: args.first,
         skip: args.skip,

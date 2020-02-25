@@ -7,11 +7,11 @@ type Query {
     skip: Int
     after: String
     orderBy: UserOrderByInput
-  ): [User!]!
+  ): [User!]
   me: User!
-  myProfile: Profile!
-  myDailyRecords: [DailyRecord!]!
-  user(id: String!): User!
+  myProfile: Profile
+  myDailyRecords: [DailyRecord!]
+  user(id: String!): User
   myRecipes: [CustomRecipe!]
   recipe(id: String!): CustomRecipe
   ingredient(id: String!): CustomIngredient
@@ -71,7 +71,7 @@ input UpdateProfileInput {
   age: Int
   weight: Int
   height: Int
-  gender: Boolean!
+  gender: Boolean
   goal_weight: Int
   activity_level: Int
   paleo: Boolean
@@ -105,11 +105,11 @@ input CreateProfileInput {
   paleo: Boolean
   keto: Boolean
   veg: Boolean
-  fat: Int!
-  carbs: Int!
-  protein: Int!
-  fiber: Int!
-  calories: Int!
+  fat: Int
+  carbs: Int
+  protein: Int
+  fiber: Int
+  calories: Int
 }
 
 input CreateUserInput {

@@ -1,17 +1,17 @@
-import getUserId from "../../utils/getUserId";
+
 
 const IngredientList = {
   async createIngredientList(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
 
     return prisma.mutation.createIngredientList(
       {
         data: {
           ...args.data,
-          user_id: userId,
+          user_id: request.user_id,
           user: {
             connect: {
-              id: userId
+              id: request.user_id
             }
           },
           recipe: {
@@ -25,15 +25,15 @@ const IngredientList = {
     );
   },
   async updateIngredientList(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
 
-    if (userId) {
+    if (request.user_id) {
       const ingredientListExists = await prisma.query.ingredientList({
         where: {
           id: args.id
         }
       });
-      if (ingredientListExists.user_id == userId) {
+      if (ingredientListExists.user_id == request.user_id) {
         return prisma.mutation.updateIngredientList(
           {
             where: {
@@ -51,15 +51,15 @@ const IngredientList = {
     }
   },
   async deleteIngredientList(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
 
-    if (userId) {
+    if (request.user_id) {
       const ingredientListExist = await prisma.query.ingredientList({
         where: {
           id: args.id
         }
       });
-      if (ingredientListExist[0].user_id == userId) {
+      if (ingredientListExist[0].user_id == request.user_id) {
         return prisma.mutation.deleteIngredientList(
           {
             where: {

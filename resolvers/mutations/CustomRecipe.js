@@ -1,16 +1,16 @@
-import getUserId from "../../utils/getUserId";
+
 
 const CustomRecipe = {
   async createCustomRecipe(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
     return prisma.mutation.createCustomRecipe(
       {
         data: {
           ...args.data,
-          user_id: userId,
+          user_id: request.user_id,
           user: {
             connect: {
-              id: userId
+              id: request.user_id
             }
           }
         }
@@ -19,15 +19,15 @@ const CustomRecipe = {
     );
   },
   async deleteCustomRecipe(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
 
-    if (userId) {
+    if (request.user_id) {
       const recipeExists = await prisma.query.customRecipes({
         where: {
           id: args.id
         }
       });
-      if (recipeExists[0].user_id == userId) {
+      if (recipeExists[0].user_id == request.user_id) {
         return prisma.mutation.deleteCustomRecipe(
           {
             where: {
@@ -44,15 +44,15 @@ const CustomRecipe = {
     }
   },
   async updateCustomRecipe(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
 
-    if (userId) {
+    if (request.user_id) {
       const recipeExists = await prisma.query.customRecipes({
         where: {
           id: args.id
         }
       });
-      if (recipeExists[0].user_id == userId) {
+      if (recipeExists[0].user_id == request.user_id) {
         return prisma.mutation.updateCustomRecipe(
           {
             where: {
