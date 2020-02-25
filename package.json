@@ -4,8 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node dist/index.js",
-    "heroku-postbuild": "node -r esm ./ --out-dir dist --copy-files",
+    "start": "node -r esm index.js",
     "dev": "nodemon -r esm index.js --ext js,graphql",
     "test": "jest --watchAll --runInBand",
     "get-schema": "graphql get-schema -p prisma --dotenv .env",
