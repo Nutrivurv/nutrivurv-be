@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node-version: [12.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -17,9 +17,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm run heroku-postbuild
-    - run: npm test
-    - run: npm run coverage
+    - run: yarn install
+    - run: yarn heroku-postbuild
+    - run: yarn test
+    - run: yarn coverage
       env:
         CI: true
