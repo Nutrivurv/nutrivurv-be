@@ -1,13 +1,13 @@
-import getUserId from "../../utils/getUserId";
+
 
 const CustomIngredients = {
   myIngredients(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
 
-    if (userId) {
+    if (request.user_id) {
       return prisma.query.customIngredients({
         where: {
-          user_id: userId
+          user_id: request.user_id
         }
       });
     } else {
@@ -15,9 +15,9 @@ const CustomIngredients = {
     }
   },
   ingredient(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
 
-    if (userId) {
+    if (request.user_id) {
       return prisma.query.customIngredient({
         where: {
           id: args.id

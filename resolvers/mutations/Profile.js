@@ -1,18 +1,18 @@
-import getUserId from "../../utils/getUserId";
+
 
 const Profile = {
   async deleteProfile(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
 
-    return prisma.mutation.deleteProfile({ where: { user_id: userId } }, info);
+    return prisma.mutation.deleteProfile({ where: { user_id: request.user_id } }, info);
   },
   async updateProfile(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
 
     return prisma.mutation.updateProfile(
       {
         where: {
-          user_id: userId
+          user_id: request.user_id
         },
         data: args.data
       },
@@ -20,16 +20,14 @@ const Profile = {
     );
   },
   async createProfile(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
-
     return prisma.mutation.createProfile(
       {
         data: {
           ...args.data,
-          user_id: userId,
+          user_id: request.user_id,
           user: {
             connect: {
-              id: userId
+              id: request.user_id
             }
           }
         }
@@ -39,4 +37,4 @@ const Profile = {
   }
 };
 
-export default Profile
+export default Profile;

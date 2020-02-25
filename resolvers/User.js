@@ -1,12 +1,11 @@
-import getUserId from "../utils/getUserId";
+
 
 const User = {
   email: {
     fragment: "fragment userId on User { id }",
     resolve(parent, args, { request }, info) {
-      const userId = getUserId(request, false);
 
-      if (userId && userId === parent.id) {
+      if (request.user_id && request.user_id === parent.id) {
         return parent.email;
       } else {
         return null;
@@ -16,9 +15,8 @@ const User = {
   profile: {
     fragment: "fragment userId on User { id }",
     resolve(parent, args, { prisma, request }, info) {
-      const userId = getUserId(request, false);
 
-      if (userId) {
+      if (request.user_id) {
         return prisma.query.profile({
           where: {
             user_id: parent.id
@@ -32,8 +30,8 @@ const User = {
   dailyRecords: {
     fragment: "fragment userId on User { id }",
     resolve(parent, args, { prisma, request }, info) {
-      const userId = getUserId(request, false);
-      if (userId && userId == parent.id) {
+      
+      if (request.user_id && request.user_id == parent.id) {
         return prisma.query.dailyRecords({
           where: {
             user_id: parent.id

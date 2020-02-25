@@ -1,19 +1,20 @@
-import jwt from 'jsonwebtoken'
+import jwt from "jsonwebtoken";
 
-const getUserId = (request, requireAuth = true) => {
-    const header = request.request ? request.request.headers.authorization : request.connection.context.Authorization
+const isLoggedIn = async (resolve, parent, args, ctx, info) => {
+  const permit = ctx.request.request.headers.authorization;
+  if (
+    ctx.request.request.body.query.includes("login") ||
+    ctx.request.request.body.query.includes("createUser")
+  ) {
+    return resolve();
+  }
+  if (!permit) {
+    throw new Error(`Not authorised!`);
+  }
+  const token = permit.replace("Bearer ", "");
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  ctx.request.user_id = decoded.userId;
+  return resolve();
+};
 
-    if (header) {
-        const token = header.replace('Bearer ', '')
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        return decoded.userId
-    }
-
-    if (requireAuth) {
-        throw new Error('Authentication required')
-    } 
-    
-    return null
-}
-
-export { getUserId as default }
+export default isLoggedIn;

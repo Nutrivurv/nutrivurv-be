@@ -1,16 +1,16 @@
-import getUserId from "../../utils/getUserId";
+
 
 const DailyRecord = {
   async deleteDailyRecord(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
 
-    if (userId) {
+    if (request.user_id) {
       const recordExists = await prisma.query.dailyRecords({
         where: {
           id: args.id
         }
       });
-      if (recordExists[0].user_id == userId) {
+      if (recordExists[0].user_id == request.user_id) {
         return prisma.mutation.deleteDailyRecord(
           {
             where: {
@@ -29,15 +29,15 @@ const DailyRecord = {
   },
 
   async updateDailyRecord(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
 
-    if (userId) {
+    if (request.user_id) {
       const recordExists = await prisma.query.dailyRecords({
         where: {
           id: args.id
         }
       });
-      if (recordExists[0].user_id == userId) {
+      if (recordExists[0].user_id == request.user_id) {
         return prisma.mutation.updateDailyRecord(
           {
             where: {
@@ -56,15 +56,15 @@ const DailyRecord = {
   },
 
   async createDailyRecord(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
     return prisma.mutation.createDailyRecord(
       {
         data: {
           ...args.data,
-          user_id: userId,
+          user_id: request.user_id,
           user: {
             connect: {
-              id: userId
+              id: request.user_id
             }
           }
         }

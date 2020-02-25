@@ -1,4 +1,4 @@
-import getUserId from "../../utils/getUserId";
+
 
 const Users = {
   users(parent, args, { prisma }, info) {
@@ -22,18 +22,18 @@ const Users = {
     return prisma.query.users(opArgs, info);
   },
   me(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
 
     return prisma.query.user({
       where: {
-        id: userId
+        id: request.user_id
       }
     });
   },
   user(parent, args, { prisma, request }, info) {
-    const userId = getUserId(request);
+    
 
-    if (userId) {
+    if (request.user_id) {
       return prisma.query.user({
         where: {
           id: args.id
