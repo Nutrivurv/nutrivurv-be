@@ -21,3 +21,4 @@ jobs:
     - run: yarn coverage
       env:
         CI: true
+        CC_TEST_REPORTER_ID: ${{ secrets.CodeClimateReporterId }}
