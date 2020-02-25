@@ -1,0 +1,29 @@
+{
+  "name": "labspt7-nutrition-tracker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node dist/index.js",
+    "heroku-postbuild": "node -r esm ./ --out-dir dist --copy-files",
+    "dev": "nodemon -r esm index.js --ext js,graphql",
+    "test": "jest --watchAll --runInBand",
+    "get-schema": "graphql get-schema -p prisma --dotenv .env"
+  },
+  "devDependencies": {
+    "jest": "^25.1.0",
+    "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
+    "fs": "^0.0.1-security",
+    "graphql": "^14.6.0",
+    "graphql-cli": "^3.0.14",
+    "graphql-tools": "^4.0.7",
+    "graphql-yoga": "^1.18.3",
+    "jsonwebtoken": "^8.5.1",
+    "prisma-binding": "^2.3.16"
+  }
+}

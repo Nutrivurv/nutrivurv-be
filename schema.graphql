@@ -1,0 +1,267 @@
+# import UserOrderByInput from './generated/prisma.graphql'
+
+type Query {
+  users(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: UserOrderByInput
+  ): [User!]!
+  me: User!
+  myProfile: Profile!
+  myDailyRecords: [DailyRecord!]!
+  user(id: String!): User!
+  myRecipes: [CustomRecipe!]
+  recipe(id: String!): CustomRecipe
+  ingredient(id: String!): CustomIngredient
+  myIngredients: [CustomIngredient!]
+  profiles: [Profile!]
+}
+
+type Mutation {
+  createUser(data: CreateUserInput!): AuthPayload!
+  login(data: LoginUserInput!): AuthPayload!
+  deleteUser: User!
+  updateUser(data: UpdateUserInput!): User!
+  createProfile(data: CreateProfileInput!): Profile!
+  updateProfile(data: UpdateProfileInput!): Profile!
+  deleteProfile: Profile!
+  createDailyRecord(data: CreateDailyRecordInput!): DailyRecord!
+  updateDailyRecord(id: String!, data: UpdateDailyRecordInput!): DailyRecord!
+  deleteDailyRecord(id: String!): DailyRecord!
+  createCustomRecipe(data: CreateCustomRecipeInput!): CustomRecipe!
+  updateCustomRecipe(id: String!, data: UpdateCustomRecipeInput!): CustomRecipe!
+  deleteCustomRecipe(id: String!): CustomRecipe!
+  createCustomIngredient(data: CreateCustomIngredientInput!): CustomIngredient!
+  updateCustomIngredient(
+    id: String!
+    data: UpdateCustomIngredientInput!
+  ): CustomIngredient!
+  deleteCustomIngredient(id: String!): CustomIngredient!
+  createIngredientList(data: createIngredientListInput!): IngredientList!
+  updateIngredientList(
+    id: String!
+    data: updateIngredientListInput!
+  ): IngredientList!
+  deleteIngredientList(id: String!): IngredientList!
+}
+
+# type Subscription {
+
+# }
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+input UpdateDailyRecordInput {
+  date: String
+  current_weight: Int
+  calories: Int
+  fat: Int
+  carbs: Int
+  fiber: Int
+  protein: Int
+  food_string: String
+}
+
+input UpdateProfileInput {
+  age: Int
+  weight: Int
+  height: Int
+  gender: Boolean!
+  goal_weight: Int
+  activity_level: Int
+  paleo: Boolean
+  keto: Boolean
+  veg: Boolean
+  fat: Int
+  carbs: Int
+  protein: Int
+  fiber: Int
+  calories: Int
+}
+
+input CreateDailyRecordInput {
+  date: String!
+  current_weight: Int!
+  calories: Int!
+  fat: Int!
+  carbs: Int!
+  fiber: Int!
+  protein: Int!
+  food_string: String!
+}
+
+input CreateProfileInput {
+  age: Int!
+  weight: Int!
+  height: Int!
+  gender: Boolean!
+  goal_weight: Int
+  activity_level: Int
+  paleo: Boolean
+  keto: Boolean
+  veg: Boolean
+  fat: Int!
+  carbs: Int!
+  protein: Int!
+  fiber: Int!
+  calories: Int!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+input CreateCustomRecipeInput {
+  portions: Int!
+  name: String!
+}
+
+input UpdateCustomRecipeInput {
+  name: String
+  portions: Int
+}
+
+input createIngredientListInput {
+  recipe_id: String!
+  ingredient_id: String!
+  custom: Boolean!
+  amount: Float!
+  unit: String!
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+input UpdateUserInput {
+  name: String
+  email: String
+  password: String
+}
+
+input updateIngredientListInput {
+  amount: Float
+  unit: String
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String
+  updatedAt: String!
+  createdAt: String!
+  profile: Profile
+  dailyRecords: [DailyRecord!]
+}
+
+type Profile {
+  id: ID!
+  age: Int!
+  weight: Int!
+  height: Int!
+  gender: Boolean!
+  goal_weight: Int
+  activity_level: Int
+  paleo: Boolean
+  keto: Boolean
+  veg: Boolean
+  fat: Int!
+  carbs: Int!
+  protein: Int!
+  fiber: Int!
+  calories: Int!
+  updatedAt: String!
+  createdAt: String!
+}
+
+type DailyRecord {
+  id: ID!
+  date: String!
+  current_weight: Int!
+  calories: Int!
+  fat: Int!
+  carbs: Int!
+  fiber: Int!
+  protein: Int!
+  food_string: String!
+  updatedAt: String!
+  createdAt: String!
+}
+
+type CustomRecipe {
+  id: ID!
+  portions: Int!
+  name: String!
+  ingredient_list: [IngredientList!]
+  updatedAt: String!
+  createdAt: String!
+}
+
+type CustomIngredient {
+  id: ID!
+  name: String!
+  description: String!
+  fat: Int!
+  carbs: Int!
+  protein: Int!
+  fiber: Int!
+  updatedAt: String!
+  createdAt: String!
+}
+
+type IngredientList {
+  id: ID!
+  ingredient_id: String!
+  custom: Boolean!
+  amount: Float!
+  unit: String!
+  updatedAt: String!
+  createdAt: String!
+}
+
+input CreateCustomIngredientInput {
+  name: String!
+  description: String!
+  fat: Int!
+  carbs: Int!
+  protein: Int!
+  fiber: Int!
+}
+
+input UpdateCustomIngredientInput {
+  name: String
+  description: String
+  fat: Int
+  carbs: Int
+  protein: Int
+  fiber: Int
+}
+
+enum UserOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  email_ASC
+  email_DESC
+  password_ASC
+  password_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
