@@ -41,8 +41,6 @@ const User = {
     };
   },
   async deleteUser(parent, args, { prisma, request }, info) {
-    
-
     return prisma.mutation.deleteUser(
       {
         where: {
@@ -53,8 +51,6 @@ const User = {
     );
   },
   async updateUser(parent, args, { prisma, request }, info) {
-    
-
     if (typeof args.data.password === "string") {
       args.data.password = await hashPassword(args.data.password);
     }
@@ -71,4 +67,4 @@ const User = {
   }
 };
 
-export default User
+export default User;

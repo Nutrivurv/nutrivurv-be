@@ -1,14 +1,11 @@
-
-
 const Profile = {
   async deleteProfile(parent, args, { prisma, request }, info) {
-    
-
-    return prisma.mutation.deleteProfile({ where: { user_id: request.user_id } }, info);
+    return prisma.mutation.deleteProfile(
+      { where: { user_id: request.user_id } },
+      info
+    );
   },
   async updateProfile(parent, args, { prisma, request }, info) {
-    
-
     return prisma.mutation.updateProfile(
       {
         where: {

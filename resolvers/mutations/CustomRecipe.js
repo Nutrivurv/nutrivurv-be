@@ -1,8 +1,5 @@
-
-
 const CustomRecipe = {
   async createCustomRecipe(parent, args, { prisma, request }, info) {
-    
     return prisma.mutation.createCustomRecipe(
       {
         data: {
@@ -19,8 +16,6 @@ const CustomRecipe = {
     );
   },
   async deleteCustomRecipe(parent, args, { prisma, request }, info) {
-    
-
     if (request.user_id) {
       const recipeExists = await prisma.query.customRecipes({
         where: {
@@ -44,8 +39,6 @@ const CustomRecipe = {
     }
   },
   async updateCustomRecipe(parent, args, { prisma, request }, info) {
-    
-
     if (request.user_id) {
       const recipeExists = await prisma.query.customRecipes({
         where: {

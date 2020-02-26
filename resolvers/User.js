@@ -1,10 +1,7 @@
-
-
 const User = {
   email: {
     fragment: "fragment userId on User { id }",
     resolve(parent, args, { request }, info) {
-
       if (request.user_id && request.user_id === parent.id) {
         return parent.email;
       } else {
@@ -15,7 +12,6 @@ const User = {
   profile: {
     fragment: "fragment userId on User { id }",
     resolve(parent, args, { prisma, request }, info) {
-
       if (request.user_id) {
         return prisma.query.profile({
           where: {
@@ -30,7 +26,6 @@ const User = {
   dailyRecords: {
     fragment: "fragment userId on User { id }",
     resolve(parent, args, { prisma, request }, info) {
-      
       if (request.user_id && request.user_id == parent.id) {
         return prisma.query.dailyRecords({
           where: {

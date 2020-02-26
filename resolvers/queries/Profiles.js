@@ -1,5 +1,3 @@
-
-
 const Profiles = {
   myProfile(parent, args, { prisma, request }, info) {
     return prisma.query.profile({
@@ -9,8 +7,6 @@ const Profiles = {
     });
   },
   profiles(parent, args, { prisma, request }, info) {
-    
-
     if (request.user_id) {
       const opArgs = {
         first: args.first,
