@@ -12,7 +12,8 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "**/resolvers/*.{js,jsx}",
+      "**/resolvers/queries/*.{js,jsx}",
+      "**/resolvers/mutations/*.{js,jsx}",
       "!**/node_modules/**",
       "!**/vendor/**",
       "!**/__tests__/**",
