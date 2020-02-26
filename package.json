@@ -12,10 +12,13 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "**/*.{js,jsx}",
+      "**/resolvers/*.{js,jsx}",
       "!**/node_modules/**",
       "!**/vendor/**",
-      "!**/__tests__/**"
+      "!**/__tests__/**",
+      "!**/prisma/**",
+      "!**/generated/**",
+      "!**/coverage/**"
     ]
   },
   "devDependencies": {
