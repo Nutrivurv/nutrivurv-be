@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -104,15 +104,12 @@
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a>
-<a name='L49'></a><a href='#L49'>49</a>
-<a name='L50'></a><a href='#L50'>50</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -124,7 +121,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -140,30 +136,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import getUserId from "../utils/getUserId";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&nbsp;
 &nbsp;
 const User = <span class="cstat-no" title="statement not covered" >{</span>
   email: {
     fragment: "fragment userId on User { id }",
 <span class="fstat-no" title="function not covered" >    re</span>solve(parent, args, { request }, info) {
-      const userId = <span class="cstat-no" title="statement not covered" >getUserId(request, false);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (userId &amp;&amp; userId === parent.id) {</span>
+<span class="cstat-no" title="statement not covered" >      if (request.user_id &amp;&amp; request.user_id === parent.id) {</span>
 <span class="cstat-no" title="statement not covered" >        return parent.email;</span>
       } else {
 <span class="cstat-no" title="statement not covered" >        return null;</span>
@@ -173,9 +168,8 @@ const User = <span class="cstat-no" title="statement not covered" >{</span>
   profile: {
     fragment: "fragment userId on User { id }",
 <span class="fstat-no" title="function not covered" >    re</span>solve(parent, args, { prisma, request }, info) {
-      const userId = <span class="cstat-no" title="statement not covered" >getUserId(request, false);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (userId) {</span>
+<span class="cstat-no" title="statement not covered" >      if (request.user_id) {</span>
 <span class="cstat-no" title="statement not covered" >        return prisma.query.profile({</span>
           where: {
             user_id: parent.id
@@ -189,8 +183,8 @@ const User = <span class="cstat-no" title="statement not covered" >{</span>
   dailyRecords: {
     fragment: "fragment userId on User { id }",
 <span class="fstat-no" title="function not covered" >    re</span>solve(parent, args, { prisma, request }, info) {
-      const userId = <span class="cstat-no" title="statement not covered" >getUserId(request, false);</span>
-<span class="cstat-no" title="statement not covered" >      if (userId &amp;&amp; userId == parent.id) {</span>
+      
+<span class="cstat-no" title="statement not covered" >      if (request.user_id &amp;&amp; request.user_id == parent.id) {</span>
 <span class="cstat-no" title="statement not covered" >        return prisma.query.dailyRecords({</span>
           where: {
             user_id: parent.id
@@ -211,7 +205,7 @@ export { User as default };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Feb 24 2020 19:33:57 GMT-0700 (Mountain Standard Time)
+                at Tue Feb 25 2020 19:49:16 GMT-0700 (Mountain Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
