@@ -1,3 +1,4 @@
+version: "2"
 exclude_patterns:
   - "tests/"
   - "spec/"
@@ -6,6 +7,6 @@ exclude_patterns:
   - "coverage/"
   - "generated/"
 checks:
-  -    similar-code:
-  -    config:
-  -    threshold: 3
+  - similar-code:
+  - config:
+  - threshold: 3
