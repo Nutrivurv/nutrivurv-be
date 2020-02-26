@@ -1,5 +1,3 @@
-
-
 const Users = {
   users(parent, args, { prisma }, info) {
     const opArgs = {
@@ -22,8 +20,6 @@ const Users = {
     return prisma.query.users(opArgs, info);
   },
   me(parent, args, { prisma, request }, info) {
-    
-
     return prisma.query.user({
       where: {
         id: request.user_id
@@ -31,8 +27,6 @@ const Users = {
     });
   },
   user(parent, args, { prisma, request }, info) {
-    
-
     if (request.user_id) {
       return prisma.query.user({
         where: {

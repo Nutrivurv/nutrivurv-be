@@ -1,8 +1,5 @@
-
 const CustomRecipes = {
   myRecipes(parent, args, { prisma, request }, info) {
-    
-
     if (request.user_id) {
       return prisma.query.customRecipes({
         where: {
@@ -14,8 +11,6 @@ const CustomRecipes = {
     }
   },
   recipe(parent, args, { prisma, request }, info) {
-    
-
     if (request.user_id) {
       return prisma.query.customRecipe({
         where: {

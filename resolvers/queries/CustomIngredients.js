@@ -1,9 +1,5 @@
-
-
 const CustomIngredients = {
   myIngredients(parent, args, { prisma, request }, info) {
-    
-
     if (request.user_id) {
       return prisma.query.customIngredients({
         where: {
@@ -15,8 +11,6 @@ const CustomIngredients = {
     }
   },
   ingredient(parent, args, { prisma, request }, info) {
-    
-
     if (request.user_id) {
       return prisma.query.customIngredient({
         where: {

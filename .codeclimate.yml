@@ -5,3 +5,7 @@ exclude_patterns:
     - "**/node_modules/"
     - "coverage/"
     - "generated/"
+    checks:
+        similar-code:
+          config:
+            threshold: 3

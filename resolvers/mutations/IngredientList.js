@@ -1,9 +1,5 @@
-
-
 const IngredientList = {
   async createIngredientList(parent, args, { prisma, request }, info) {
-    
-
     return prisma.mutation.createIngredientList(
       {
         data: {
@@ -25,8 +21,6 @@ const IngredientList = {
     );
   },
   async updateIngredientList(parent, args, { prisma, request }, info) {
-    
-
     if (request.user_id) {
       const ingredientListExists = await prisma.query.ingredientList({
         where: {
@@ -51,8 +45,6 @@ const IngredientList = {
     }
   },
   async deleteIngredientList(parent, args, { prisma, request }, info) {
-    
-
     if (request.user_id) {
       const ingredientListExist = await prisma.query.ingredientList({
         where: {
@@ -77,4 +69,4 @@ const IngredientList = {
   }
 };
 
-export default IngredientList
+export default IngredientList;

@@ -1,8 +1,5 @@
-
-
 const CustomIngredient = {
   async createCustomIngredient(parent, args, { prisma, request }, info) {
-    
     return prisma.mutation.createCustomIngredient(
       {
         data: {
@@ -19,8 +16,6 @@ const CustomIngredient = {
     );
   },
   async deleteCustomIngredient(parent, args, { prisma, request }, info) {
-    
-
     if (request.user_id) {
       const ingredientExists = await prisma.query.customIngredients({
         where: {
@@ -44,8 +39,6 @@ const CustomIngredient = {
     }
   },
   async updateCustomIngredient(parent, args, { prisma, request }, info) {
-    
-
     if (request.user_id) {
       const ingredientExists = await prisma.query.customIngredients({
         where: {
