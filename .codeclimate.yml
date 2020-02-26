@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 exclude_patterns:
   - "tests/"
   - "spec/"
@@ -6,7 +6,3 @@ exclude_patterns:
   - "**/node_modules/"
   - "coverage/"
   - "generated/"
-checks:
-  - similar-code:
-  - config:
-  - threshold: 3
