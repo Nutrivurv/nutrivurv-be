@@ -1,3 +1,6 @@
+![Code Maintainability](https://api.codeclimate.com/v1/badges/9ac982aab59ee2c30f71/maintainability)
+![Test Coverage](https://api.codeclimate.com/v1/badges/9ac982aab59ee2c30f71/test_coverage)
+
 # API Documentation
 
 ## Backend deployed at [Heroku](https://labspt7-nutrition-tracker-be.herokuapp.com/)
