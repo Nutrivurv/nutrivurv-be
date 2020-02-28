@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
 
 const isLoggedIn = async (resolve, parent, args, ctx, info) => {
   const permit = ctx.request.request.headers.authorization;
@@ -17,4 +17,4 @@ const isLoggedIn = async (resolve, parent, args, ctx, info) => {
   return resolve();
 };
 
-export default isLoggedIn;
+module.exports = isLoggedIn;
