@@ -18,14 +18,7 @@
       "lcov"
     ],
     "collectCoverageFrom": [
-      "**/resolvers/queries/*.{js,jsx}",
-      "**/resolvers/mutations/*.{js,jsx}",
-      "!**/node_modules/**",
-      "!**/vendor/**",
-      "!**/__tests__/**",
-      "!**/prisma/**",
-      "!**/generated/**",
-      "!**/coverage/**"
+      "**/utils/*.{js,jsx}"
     ]
   },
   "devDependencies": {
