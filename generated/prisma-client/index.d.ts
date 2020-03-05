@@ -421,12 +421,6 @@ export type ProfileOrderByInput =
   | "goal_weight_DESC"
   | "activity_level_ASC"
   | "activity_level_DESC"
-  | "paleo_ASC"
-  | "paleo_DESC"
-  | "keto_ASC"
-  | "keto_DESC"
-  | "veg_ASC"
-  | "veg_DESC"
   | "fat_ASC"
   | "fat_DESC"
   | "carbs_ASC"
@@ -751,12 +745,6 @@ export interface ProfileWhereInput {
   activity_level_lte?: Maybe<Int>;
   activity_level_gt?: Maybe<Int>;
   activity_level_gte?: Maybe<Int>;
-  paleo?: Maybe<Boolean>;
-  paleo_not?: Maybe<Boolean>;
-  keto?: Maybe<Boolean>;
-  keto_not?: Maybe<Boolean>;
-  veg?: Maybe<Boolean>;
-  veg_not?: Maybe<Boolean>;
   fat?: Maybe<Int>;
   fat_not?: Maybe<Int>;
   fat_in?: Maybe<Int[] | Int>;
@@ -1171,12 +1159,9 @@ export interface ProfileCreateWithoutUserInput {
   age: Int;
   weight: Int;
   height: Int;
-  gender: Boolean;
+  gender?: Maybe<Boolean>;
   goal_weight?: Maybe<Int>;
   activity_level?: Maybe<Int>;
-  paleo?: Maybe<Boolean>;
-  keto?: Maybe<Boolean>;
-  veg?: Maybe<Boolean>;
   fat?: Maybe<Int>;
   carbs?: Maybe<Int>;
   protein?: Maybe<Int>;
@@ -1374,9 +1359,6 @@ export interface ProfileUpdateWithoutUserDataInput {
   gender?: Maybe<Boolean>;
   goal_weight?: Maybe<Int>;
   activity_level?: Maybe<Int>;
-  paleo?: Maybe<Boolean>;
-  keto?: Maybe<Boolean>;
-  veg?: Maybe<Boolean>;
   fat?: Maybe<Int>;
   carbs?: Maybe<Int>;
   protein?: Maybe<Int>;
@@ -2344,12 +2326,9 @@ export interface ProfileCreateInput {
   age: Int;
   weight: Int;
   height: Int;
-  gender: Boolean;
+  gender?: Maybe<Boolean>;
   goal_weight?: Maybe<Int>;
   activity_level?: Maybe<Int>;
-  paleo?: Maybe<Boolean>;
-  keto?: Maybe<Boolean>;
-  veg?: Maybe<Boolean>;
   fat?: Maybe<Int>;
   carbs?: Maybe<Int>;
   protein?: Maybe<Int>;
@@ -2382,9 +2361,6 @@ export interface ProfileUpdateInput {
   gender?: Maybe<Boolean>;
   goal_weight?: Maybe<Int>;
   activity_level?: Maybe<Int>;
-  paleo?: Maybe<Boolean>;
-  keto?: Maybe<Boolean>;
-  veg?: Maybe<Boolean>;
   fat?: Maybe<Int>;
   carbs?: Maybe<Int>;
   protein?: Maybe<Int>;
@@ -2423,9 +2399,6 @@ export interface ProfileUpdateManyMutationInput {
   gender?: Maybe<Boolean>;
   goal_weight?: Maybe<Int>;
   activity_level?: Maybe<Int>;
-  paleo?: Maybe<Boolean>;
-  keto?: Maybe<Boolean>;
-  veg?: Maybe<Boolean>;
   fat?: Maybe<Int>;
   carbs?: Maybe<Int>;
   protein?: Maybe<Int>;
@@ -2786,12 +2759,9 @@ export interface Profile {
   age: Int;
   weight: Int;
   height: Int;
-  gender: Boolean;
+  gender?: Boolean;
   goal_weight?: Int;
   activity_level?: Int;
-  paleo?: Boolean;
-  keto?: Boolean;
-  veg?: Boolean;
   fat?: Int;
   carbs?: Int;
   protein?: Int;
@@ -2810,9 +2780,6 @@ export interface ProfilePromise extends Promise<Profile>, Fragmentable {
   gender: () => Promise<Boolean>;
   goal_weight: () => Promise<Int>;
   activity_level: () => Promise<Int>;
-  paleo: () => Promise<Boolean>;
-  keto: () => Promise<Boolean>;
-  veg: () => Promise<Boolean>;
   fat: () => Promise<Int>;
   carbs: () => Promise<Int>;
   protein: () => Promise<Int>;
@@ -2834,9 +2801,6 @@ export interface ProfileSubscription
   gender: () => Promise<AsyncIterator<Boolean>>;
   goal_weight: () => Promise<AsyncIterator<Int>>;
   activity_level: () => Promise<AsyncIterator<Int>>;
-  paleo: () => Promise<AsyncIterator<Boolean>>;
-  keto: () => Promise<AsyncIterator<Boolean>>;
-  veg: () => Promise<AsyncIterator<Boolean>>;
   fat: () => Promise<AsyncIterator<Int>>;
   carbs: () => Promise<AsyncIterator<Int>>;
   protein: () => Promise<AsyncIterator<Int>>;
@@ -2858,9 +2822,6 @@ export interface ProfileNullablePromise
   gender: () => Promise<Boolean>;
   goal_weight: () => Promise<Int>;
   activity_level: () => Promise<Int>;
-  paleo: () => Promise<Boolean>;
-  keto: () => Promise<Boolean>;
-  veg: () => Promise<Boolean>;
   fat: () => Promise<Int>;
   carbs: () => Promise<Int>;
   protein: () => Promise<Int>;
@@ -3737,12 +3698,9 @@ export interface ProfilePreviousValues {
   age: Int;
   weight: Int;
   height: Int;
-  gender: Boolean;
+  gender?: Boolean;
   goal_weight?: Int;
   activity_level?: Int;
-  paleo?: Boolean;
-  keto?: Boolean;
-  veg?: Boolean;
   fat?: Int;
   carbs?: Int;
   protein?: Int;
@@ -3763,9 +3721,6 @@ export interface ProfilePreviousValuesPromise
   gender: () => Promise<Boolean>;
   goal_weight: () => Promise<Int>;
   activity_level: () => Promise<Int>;
-  paleo: () => Promise<Boolean>;
-  keto: () => Promise<Boolean>;
-  veg: () => Promise<Boolean>;
   fat: () => Promise<Int>;
   carbs: () => Promise<Int>;
   protein: () => Promise<Int>;
@@ -3786,9 +3741,6 @@ export interface ProfilePreviousValuesSubscription
   gender: () => Promise<AsyncIterator<Boolean>>;
   goal_weight: () => Promise<AsyncIterator<Int>>;
   activity_level: () => Promise<AsyncIterator<Int>>;
-  paleo: () => Promise<AsyncIterator<Boolean>>;
-  keto: () => Promise<AsyncIterator<Boolean>>;
-  veg: () => Promise<AsyncIterator<Boolean>>;
   fat: () => Promise<AsyncIterator<Int>>;
   carbs: () => Promise<AsyncIterator<Int>>;
   protein: () => Promise<AsyncIterator<Int>>;

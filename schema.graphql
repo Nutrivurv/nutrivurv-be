@@ -17,6 +17,7 @@ type Query {
   ingredient(id: String!): CustomIngredient
   myIngredients: [CustomIngredient!]
   profiles: [Profile!]
+  myDailyRecordCount: Int!
 }
 
 type Mutation {
@@ -74,9 +75,6 @@ input UpdateProfileInput {
   gender: Boolean
   goal_weight: Int
   activity_level: Int
-  paleo: Boolean
-  keto: Boolean
-  veg: Boolean
   fat: Int
   carbs: Int
   protein: Int
@@ -99,12 +97,9 @@ input CreateProfileInput {
   age: Int!
   weight: Int!
   height: Int!
-  gender: Boolean!
+  gender: Boolean
   goal_weight: Int
   activity_level: Int
-  paleo: Boolean
-  keto: Boolean
-  veg: Boolean
   fat: Int
   carbs: Int
   protein: Int
@@ -167,17 +162,14 @@ type Profile {
   age: Int!
   weight: Int!
   height: Int!
-  gender: Boolean!
+  gender: Boolean
   goal_weight: Int
   activity_level: Int
-  paleo: Boolean
-  keto: Boolean
-  veg: Boolean
-  fat: Int!
-  carbs: Int!
-  protein: Int!
-  fiber: Int!
-  calories: Int!
+  fat: Int
+  carbs: Int
+  protein: Int
+  fiber: Int
+  calories: Int
   updatedAt: String!
   createdAt: String!
 }
