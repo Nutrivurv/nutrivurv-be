@@ -1706,12 +1706,9 @@ type Profile {
   age: Int!
   weight: Int!
   height: Int!
-  gender: Boolean!
+  gender: Boolean
   goal_weight: Int
   activity_level: Int
-  paleo: Boolean
-  keto: Boolean
-  veg: Boolean
   fat: Int
   carbs: Int
   protein: Int
@@ -1734,12 +1731,9 @@ input ProfileCreateInput {
   age: Int!
   weight: Int!
   height: Int!
-  gender: Boolean!
+  gender: Boolean
   goal_weight: Int
   activity_level: Int
-  paleo: Boolean
-  keto: Boolean
-  veg: Boolean
   fat: Int
   carbs: Int
   protein: Int
@@ -1759,12 +1753,9 @@ input ProfileCreateWithoutUserInput {
   age: Int!
   weight: Int!
   height: Int!
-  gender: Boolean!
+  gender: Boolean
   goal_weight: Int
   activity_level: Int
-  paleo: Boolean
-  keto: Boolean
-  veg: Boolean
   fat: Int
   carbs: Int
   protein: Int
@@ -1794,12 +1785,6 @@ enum ProfileOrderByInput {
   goal_weight_DESC
   activity_level_ASC
   activity_level_DESC
-  paleo_ASC
-  paleo_DESC
-  keto_ASC
-  keto_DESC
-  veg_ASC
-  veg_DESC
   fat_ASC
   fat_DESC
   carbs_ASC
@@ -1822,12 +1807,9 @@ type ProfilePreviousValues {
   age: Int!
   weight: Int!
   height: Int!
-  gender: Boolean!
+  gender: Boolean
   goal_weight: Int
   activity_level: Int
-  paleo: Boolean
-  keto: Boolean
-  veg: Boolean
   fat: Int
   carbs: Int
   protein: Int
@@ -1863,9 +1845,6 @@ input ProfileUpdateInput {
   gender: Boolean
   goal_weight: Int
   activity_level: Int
-  paleo: Boolean
-  keto: Boolean
-  veg: Boolean
   fat: Int
   carbs: Int
   protein: Int
@@ -1882,9 +1861,6 @@ input ProfileUpdateManyMutationInput {
   gender: Boolean
   goal_weight: Int
   activity_level: Int
-  paleo: Boolean
-  keto: Boolean
-  veg: Boolean
   fat: Int
   carbs: Int
   protein: Int
@@ -1909,9 +1885,6 @@ input ProfileUpdateWithoutUserDataInput {
   gender: Boolean
   goal_weight: Int
   activity_level: Int
-  paleo: Boolean
-  keto: Boolean
-  veg: Boolean
   fat: Int
   carbs: Int
   protein: Int
@@ -1995,12 +1968,6 @@ input ProfileWhereInput {
   activity_level_lte: Int
   activity_level_gt: Int
   activity_level_gte: Int
-  paleo: Boolean
-  paleo_not: Boolean
-  keto: Boolean
-  keto_not: Boolean
-  veg: Boolean
-  veg_not: Boolean
   fat: Int
   fat_not: Int
   fat_in: [Int!]
