@@ -40,6 +40,7 @@ type CustomIngredient {
   carbs: Int!
   protein: Int!
   fiber: Int!
+  calories: Int!
   user: User!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -60,6 +61,7 @@ input CustomIngredientCreateInput {
   carbs: Int!
   protein: Int!
   fiber: Int!
+  calories: Int!
   user: UserCreateOneWithoutCustom_ingredientsInput!
 }
 
@@ -77,6 +79,7 @@ input CustomIngredientCreateWithoutUserInput {
   carbs: Int!
   protein: Int!
   fiber: Int!
+  calories: Int!
 }
 
 type CustomIngredientEdge {
@@ -101,6 +104,8 @@ enum CustomIngredientOrderByInput {
   protein_DESC
   fiber_ASC
   fiber_DESC
+  calories_ASC
+  calories_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -116,6 +121,7 @@ type CustomIngredientPreviousValues {
   carbs: Int!
   protein: Int!
   fiber: Int!
+  calories: Int!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -209,6 +215,14 @@ input CustomIngredientScalarWhereInput {
   fiber_lte: Int
   fiber_gt: Int
   fiber_gte: Int
+  calories: Int
+  calories_not: Int
+  calories_in: [Int!]
+  calories_not_in: [Int!]
+  calories_lt: Int
+  calories_lte: Int
+  calories_gt: Int
+  calories_gte: Int
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
@@ -256,6 +270,7 @@ input CustomIngredientUpdateInput {
   carbs: Int
   protein: Int
   fiber: Int
+  calories: Int
   user: UserUpdateOneRequiredWithoutCustom_ingredientsInput
 }
 
@@ -267,6 +282,7 @@ input CustomIngredientUpdateManyDataInput {
   carbs: Int
   protein: Int
   fiber: Int
+  calories: Int
 }
 
 input CustomIngredientUpdateManyMutationInput {
@@ -277,6 +293,7 @@ input CustomIngredientUpdateManyMutationInput {
   carbs: Int
   protein: Int
   fiber: Int
+  calories: Int
 }
 
 input CustomIngredientUpdateManyWithoutUserInput {
@@ -304,6 +321,7 @@ input CustomIngredientUpdateWithoutUserDataInput {
   carbs: Int
   protein: Int
   fiber: Int
+  calories: Int
 }
 
 input CustomIngredientUpdateWithWhereUniqueWithoutUserInput {
@@ -406,6 +424,14 @@ input CustomIngredientWhereInput {
   fiber_lte: Int
   fiber_gt: Int
   fiber_gte: Int
+  calories: Int
+  calories_not: Int
+  calories_in: [Int!]
+  calories_not_in: [Int!]
+  calories_lt: Int
+  calories_lte: Int
+  calories_gt: Int
+  calories_gte: Int
   user: UserWhereInput
   updatedAt: DateTime
   updatedAt_not: DateTime

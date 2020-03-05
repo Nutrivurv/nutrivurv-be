@@ -399,6 +399,8 @@ export type CustomIngredientOrderByInput =
   | "protein_DESC"
   | "fiber_ASC"
   | "fiber_DESC"
+  | "calories_ASC"
+  | "calories_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC"
   | "createdAt_ASC"
@@ -1076,6 +1078,14 @@ export interface CustomIngredientWhereInput {
   fiber_lte?: Maybe<Int>;
   fiber_gt?: Maybe<Int>;
   fiber_gte?: Maybe<Int>;
+  calories?: Maybe<Int>;
+  calories_not?: Maybe<Int>;
+  calories_in?: Maybe<Int[] | Int>;
+  calories_not_in?: Maybe<Int[] | Int>;
+  calories_lt?: Maybe<Int>;
+  calories_lte?: Maybe<Int>;
+  calories_gt?: Maybe<Int>;
+  calories_gte?: Maybe<Int>;
   user?: Maybe<UserWhereInput>;
   updatedAt?: Maybe<DateTimeInput>;
   updatedAt_not?: Maybe<DateTimeInput>;
@@ -1129,6 +1139,7 @@ export interface CustomIngredientCreateInput {
   carbs: Int;
   protein: Int;
   fiber: Int;
+  calories: Int;
   user: UserCreateOneWithoutCustom_ingredientsInput;
 }
 
@@ -1262,6 +1273,7 @@ export interface CustomIngredientCreateWithoutUserInput {
   carbs: Int;
   protein: Int;
   fiber: Int;
+  calories: Int;
 }
 
 export interface IngredientListCreateManyWithoutUserInput {
@@ -1322,6 +1334,7 @@ export interface CustomIngredientUpdateInput {
   carbs?: Maybe<Int>;
   protein?: Maybe<Int>;
   fiber?: Maybe<Int>;
+  calories?: Maybe<Int>;
   user?: Maybe<UserUpdateOneRequiredWithoutCustom_ingredientsInput>;
 }
 
@@ -1718,6 +1731,7 @@ export interface CustomIngredientUpdateWithoutUserDataInput {
   carbs?: Maybe<Int>;
   protein?: Maybe<Int>;
   fiber?: Maybe<Int>;
+  calories?: Maybe<Int>;
 }
 
 export interface CustomIngredientUpsertWithWhereUniqueWithoutUserInput {
@@ -1815,6 +1829,14 @@ export interface CustomIngredientScalarWhereInput {
   fiber_lte?: Maybe<Int>;
   fiber_gt?: Maybe<Int>;
   fiber_gte?: Maybe<Int>;
+  calories?: Maybe<Int>;
+  calories_not?: Maybe<Int>;
+  calories_in?: Maybe<Int[] | Int>;
+  calories_not_in?: Maybe<Int[] | Int>;
+  calories_lt?: Maybe<Int>;
+  calories_lte?: Maybe<Int>;
+  calories_gt?: Maybe<Int>;
+  calories_gte?: Maybe<Int>;
   updatedAt?: Maybe<DateTimeInput>;
   updatedAt_not?: Maybe<DateTimeInput>;
   updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
@@ -1855,6 +1877,7 @@ export interface CustomIngredientUpdateManyDataInput {
   carbs?: Maybe<Int>;
   protein?: Maybe<Int>;
   fiber?: Maybe<Int>;
+  calories?: Maybe<Int>;
 }
 
 export interface UserUpsertWithoutIngredient_listInput {
@@ -2186,6 +2209,7 @@ export interface CustomIngredientUpdateManyMutationInput {
   carbs?: Maybe<Int>;
   protein?: Maybe<Int>;
   fiber?: Maybe<Int>;
+  calories?: Maybe<Int>;
 }
 
 export interface CustomRecipeCreateInput {
@@ -2544,6 +2568,7 @@ export interface CustomIngredient {
   carbs: Int;
   protein: Int;
   fiber: Int;
+  calories: Int;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
@@ -2559,6 +2584,7 @@ export interface CustomIngredientPromise
   carbs: () => Promise<Int>;
   protein: () => Promise<Int>;
   fiber: () => Promise<Int>;
+  calories: () => Promise<Int>;
   user: <T = UserPromise>() => T;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
@@ -2575,6 +2601,7 @@ export interface CustomIngredientSubscription
   carbs: () => Promise<AsyncIterator<Int>>;
   protein: () => Promise<AsyncIterator<Int>>;
   fiber: () => Promise<AsyncIterator<Int>>;
+  calories: () => Promise<AsyncIterator<Int>>;
   user: <T = UserSubscription>() => T;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -2591,6 +2618,7 @@ export interface CustomIngredientNullablePromise
   carbs: () => Promise<Int>;
   protein: () => Promise<Int>;
   fiber: () => Promise<Int>;
+  calories: () => Promise<Int>;
   user: <T = UserPromise>() => T;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
@@ -3438,6 +3466,7 @@ export interface CustomIngredientPreviousValues {
   carbs: Int;
   protein: Int;
   fiber: Int;
+  calories: Int;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
@@ -3453,6 +3482,7 @@ export interface CustomIngredientPreviousValuesPromise
   carbs: () => Promise<Int>;
   protein: () => Promise<Int>;
   fiber: () => Promise<Int>;
+  calories: () => Promise<Int>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
 }
@@ -3468,6 +3498,7 @@ export interface CustomIngredientPreviousValuesSubscription
   carbs: () => Promise<AsyncIterator<Int>>;
   protein: () => Promise<AsyncIterator<Int>>;
   fiber: () => Promise<AsyncIterator<Int>>;
+  calories: () => Promise<AsyncIterator<Int>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
