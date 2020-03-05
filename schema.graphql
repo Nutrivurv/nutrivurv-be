@@ -205,6 +205,7 @@ type CustomIngredient {
   carbs: Int!
   protein: Int!
   fiber: Int!
+  calories: Int!
   updatedAt: String!
   createdAt: String!
 }
@@ -226,6 +227,7 @@ input CreateCustomIngredientInput {
   carbs: Int!
   protein: Int!
   fiber: Int!
+  calories: Int!
 }
 
 input UpdateCustomIngredientInput {
@@ -235,6 +237,7 @@ input UpdateCustomIngredientInput {
   carbs: Int
   protein: Int
   fiber: Int
+  calories: Int
 }
 
 enum UserOrderByInput {
