@@ -25,6 +25,7 @@ type Profile {
   gender: Boolean
   goal_weight: Int
   activity_level: Int
+  diet: String
   fat: Int
   carbs: Int
   protein: Int

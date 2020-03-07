@@ -75,6 +75,7 @@ input UpdateProfileInput {
   gender: Boolean
   goal_weight: Int
   activity_level: Int
+  diet: String
   fat: Int
   carbs: Int
   protein: Int
@@ -100,6 +101,7 @@ input CreateProfileInput {
   gender: Boolean
   goal_weight: Int
   activity_level: Int
+  diet: String
   fat: Int
   carbs: Int
   protein: Int
@@ -165,6 +167,7 @@ type Profile {
   gender: Boolean
   goal_weight: Int
   activity_level: Int
+  diet: String
   fat: Int
   carbs: Int
   protein: Int

@@ -1735,6 +1735,7 @@ type Profile {
   gender: Boolean
   goal_weight: Int
   activity_level: Int
+  diet: String
   fat: Int
   carbs: Int
   protein: Int
@@ -1760,6 +1761,7 @@ input ProfileCreateInput {
   gender: Boolean
   goal_weight: Int
   activity_level: Int
+  diet: String
   fat: Int
   carbs: Int
   protein: Int
@@ -1782,6 +1784,7 @@ input ProfileCreateWithoutUserInput {
   gender: Boolean
   goal_weight: Int
   activity_level: Int
+  diet: String
   fat: Int
   carbs: Int
   protein: Int
@@ -1811,6 +1814,8 @@ enum ProfileOrderByInput {
   goal_weight_DESC
   activity_level_ASC
   activity_level_DESC
+  diet_ASC
+  diet_DESC
   fat_ASC
   fat_DESC
   carbs_ASC
@@ -1836,6 +1841,7 @@ type ProfilePreviousValues {
   gender: Boolean
   goal_weight: Int
   activity_level: Int
+  diet: String
   fat: Int
   carbs: Int
   protein: Int
@@ -1871,6 +1877,7 @@ input ProfileUpdateInput {
   gender: Boolean
   goal_weight: Int
   activity_level: Int
+  diet: String
   fat: Int
   carbs: Int
   protein: Int
@@ -1887,6 +1894,7 @@ input ProfileUpdateManyMutationInput {
   gender: Boolean
   goal_weight: Int
   activity_level: Int
+  diet: String
   fat: Int
   carbs: Int
   protein: Int
@@ -1911,6 +1919,7 @@ input ProfileUpdateWithoutUserDataInput {
   gender: Boolean
   goal_weight: Int
   activity_level: Int
+  diet: String
   fat: Int
   carbs: Int
   protein: Int
@@ -1994,6 +2003,20 @@ input ProfileWhereInput {
   activity_level_lte: Int
   activity_level_gt: Int
   activity_level_gte: Int
+  diet: String
+  diet_not: String
+  diet_in: [String!]
+  diet_not_in: [String!]
+  diet_lt: String
+  diet_lte: String
+  diet_gt: String
+  diet_gte: String
+  diet_contains: String
+  diet_not_contains: String
+  diet_starts_with: String
+  diet_not_starts_with: String
+  diet_ends_with: String
+  diet_not_ends_with: String
   fat: Int
   fat_not: Int
   fat_in: [Int!]
