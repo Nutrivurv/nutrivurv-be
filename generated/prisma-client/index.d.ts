@@ -423,6 +423,8 @@ export type ProfileOrderByInput =
   | "goal_weight_DESC"
   | "activity_level_ASC"
   | "activity_level_DESC"
+  | "diet_ASC"
+  | "diet_DESC"
   | "fat_ASC"
   | "fat_DESC"
   | "carbs_ASC"
@@ -747,6 +749,20 @@ export interface ProfileWhereInput {
   activity_level_lte?: Maybe<Int>;
   activity_level_gt?: Maybe<Int>;
   activity_level_gte?: Maybe<Int>;
+  diet?: Maybe<String>;
+  diet_not?: Maybe<String>;
+  diet_in?: Maybe<String[] | String>;
+  diet_not_in?: Maybe<String[] | String>;
+  diet_lt?: Maybe<String>;
+  diet_lte?: Maybe<String>;
+  diet_gt?: Maybe<String>;
+  diet_gte?: Maybe<String>;
+  diet_contains?: Maybe<String>;
+  diet_not_contains?: Maybe<String>;
+  diet_starts_with?: Maybe<String>;
+  diet_not_starts_with?: Maybe<String>;
+  diet_ends_with?: Maybe<String>;
+  diet_not_ends_with?: Maybe<String>;
   fat?: Maybe<Int>;
   fat_not?: Maybe<Int>;
   fat_in?: Maybe<Int[] | Int>;
@@ -1173,6 +1189,7 @@ export interface ProfileCreateWithoutUserInput {
   gender?: Maybe<Boolean>;
   goal_weight?: Maybe<Int>;
   activity_level?: Maybe<Int>;
+  diet?: Maybe<String>;
   fat?: Maybe<Int>;
   carbs?: Maybe<Int>;
   protein?: Maybe<Int>;
@@ -1372,6 +1389,7 @@ export interface ProfileUpdateWithoutUserDataInput {
   gender?: Maybe<Boolean>;
   goal_weight?: Maybe<Int>;
   activity_level?: Maybe<Int>;
+  diet?: Maybe<String>;
   fat?: Maybe<Int>;
   carbs?: Maybe<Int>;
   protein?: Maybe<Int>;
@@ -2353,6 +2371,7 @@ export interface ProfileCreateInput {
   gender?: Maybe<Boolean>;
   goal_weight?: Maybe<Int>;
   activity_level?: Maybe<Int>;
+  diet?: Maybe<String>;
   fat?: Maybe<Int>;
   carbs?: Maybe<Int>;
   protein?: Maybe<Int>;
@@ -2385,6 +2404,7 @@ export interface ProfileUpdateInput {
   gender?: Maybe<Boolean>;
   goal_weight?: Maybe<Int>;
   activity_level?: Maybe<Int>;
+  diet?: Maybe<String>;
   fat?: Maybe<Int>;
   carbs?: Maybe<Int>;
   protein?: Maybe<Int>;
@@ -2423,6 +2443,7 @@ export interface ProfileUpdateManyMutationInput {
   gender?: Maybe<Boolean>;
   goal_weight?: Maybe<Int>;
   activity_level?: Maybe<Int>;
+  diet?: Maybe<String>;
   fat?: Maybe<Int>;
   carbs?: Maybe<Int>;
   protein?: Maybe<Int>;
@@ -2790,6 +2811,7 @@ export interface Profile {
   gender?: Boolean;
   goal_weight?: Int;
   activity_level?: Int;
+  diet?: String;
   fat?: Int;
   carbs?: Int;
   protein?: Int;
@@ -2808,6 +2830,7 @@ export interface ProfilePromise extends Promise<Profile>, Fragmentable {
   gender: () => Promise<Boolean>;
   goal_weight: () => Promise<Int>;
   activity_level: () => Promise<Int>;
+  diet: () => Promise<String>;
   fat: () => Promise<Int>;
   carbs: () => Promise<Int>;
   protein: () => Promise<Int>;
@@ -2829,6 +2852,7 @@ export interface ProfileSubscription
   gender: () => Promise<AsyncIterator<Boolean>>;
   goal_weight: () => Promise<AsyncIterator<Int>>;
   activity_level: () => Promise<AsyncIterator<Int>>;
+  diet: () => Promise<AsyncIterator<String>>;
   fat: () => Promise<AsyncIterator<Int>>;
   carbs: () => Promise<AsyncIterator<Int>>;
   protein: () => Promise<AsyncIterator<Int>>;
@@ -2850,6 +2874,7 @@ export interface ProfileNullablePromise
   gender: () => Promise<Boolean>;
   goal_weight: () => Promise<Int>;
   activity_level: () => Promise<Int>;
+  diet: () => Promise<String>;
   fat: () => Promise<Int>;
   carbs: () => Promise<Int>;
   protein: () => Promise<Int>;
@@ -3732,6 +3757,7 @@ export interface ProfilePreviousValues {
   gender?: Boolean;
   goal_weight?: Int;
   activity_level?: Int;
+  diet?: String;
   fat?: Int;
   carbs?: Int;
   protein?: Int;
@@ -3752,6 +3778,7 @@ export interface ProfilePreviousValuesPromise
   gender: () => Promise<Boolean>;
   goal_weight: () => Promise<Int>;
   activity_level: () => Promise<Int>;
+  diet: () => Promise<String>;
   fat: () => Promise<Int>;
   carbs: () => Promise<Int>;
   protein: () => Promise<Int>;
@@ -3772,6 +3799,7 @@ export interface ProfilePreviousValuesSubscription
   gender: () => Promise<AsyncIterator<Boolean>>;
   goal_weight: () => Promise<AsyncIterator<Int>>;
   activity_level: () => Promise<AsyncIterator<Int>>;
+  diet: () => Promise<AsyncIterator<String>>;
   fat: () => Promise<AsyncIterator<Int>>;
   carbs: () => Promise<AsyncIterator<Int>>;
   protein: () => Promise<AsyncIterator<Int>>;
