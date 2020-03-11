@@ -794,6 +794,7 @@ type DailyRecord {
   fiber: Int!
   protein: Int!
   food_string: String!
+  meal_type: String!
   user: User!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -816,6 +817,7 @@ input DailyRecordCreateInput {
   fiber: Int!
   protein: Int!
   food_string: String!
+  meal_type: String!
   user: UserCreateOneWithoutDaily_recordsInput!
 }
 
@@ -835,6 +837,7 @@ input DailyRecordCreateWithoutUserInput {
   fiber: Int!
   protein: Int!
   food_string: String!
+  meal_type: String!
 }
 
 type DailyRecordEdge {
@@ -863,6 +866,8 @@ enum DailyRecordOrderByInput {
   protein_DESC
   food_string_ASC
   food_string_DESC
+  meal_type_ASC
+  meal_type_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -880,6 +885,7 @@ type DailyRecordPreviousValues {
   fiber: Int!
   protein: Int!
   food_string: String!
+  meal_type: String!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -989,6 +995,20 @@ input DailyRecordScalarWhereInput {
   food_string_not_starts_with: String
   food_string_ends_with: String
   food_string_not_ends_with: String
+  meal_type: String
+  meal_type_not: String
+  meal_type_in: [String!]
+  meal_type_not_in: [String!]
+  meal_type_lt: String
+  meal_type_lte: String
+  meal_type_gt: String
+  meal_type_gte: String
+  meal_type_contains: String
+  meal_type_not_contains: String
+  meal_type_starts_with: String
+  meal_type_not_starts_with: String
+  meal_type_ends_with: String
+  meal_type_not_ends_with: String
   updatedAt: DateTime
   updatedAt_not: DateTime
   updatedAt_in: [DateTime!]
@@ -1038,6 +1058,7 @@ input DailyRecordUpdateInput {
   fiber: Int
   protein: Int
   food_string: String
+  meal_type: String
   user: UserUpdateOneRequiredWithoutDaily_recordsInput
 }
 
@@ -1051,6 +1072,7 @@ input DailyRecordUpdateManyDataInput {
   fiber: Int
   protein: Int
   food_string: String
+  meal_type: String
 }
 
 input DailyRecordUpdateManyMutationInput {
@@ -1063,6 +1085,7 @@ input DailyRecordUpdateManyMutationInput {
   fiber: Int
   protein: Int
   food_string: String
+  meal_type: String
 }
 
 input DailyRecordUpdateManyWithoutUserInput {
@@ -1092,6 +1115,7 @@ input DailyRecordUpdateWithoutUserDataInput {
   fiber: Int
   protein: Int
   food_string: String
+  meal_type: String
 }
 
 input DailyRecordUpdateWithWhereUniqueWithoutUserInput {
@@ -1210,6 +1234,20 @@ input DailyRecordWhereInput {
   food_string_not_starts_with: String
   food_string_ends_with: String
   food_string_not_ends_with: String
+  meal_type: String
+  meal_type_not: String
+  meal_type_in: [String!]
+  meal_type_not_in: [String!]
+  meal_type_lt: String
+  meal_type_lte: String
+  meal_type_gt: String
+  meal_type_gte: String
+  meal_type_contains: String
+  meal_type_not_contains: String
+  meal_type_starts_with: String
+  meal_type_not_starts_with: String
+  meal_type_ends_with: String
+  meal_type_not_ends_with: String
   user: UserWhereInput
   updatedAt: DateTime
   updatedAt_not: DateTime

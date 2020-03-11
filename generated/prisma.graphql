@@ -1,5 +1,5 @@
 # source: http://192.168.99.100:4466
-# timestamp: Sat Mar 07 2020 08:28:22 GMT-0700 (Mountain Standard Time)
+# timestamp: Tue Mar 10 2020 19:20:30 GMT-0700 (Mountain Standard Time)
 
 type AggregateCustomIngredient {
   count: Int!
@@ -1511,6 +1511,7 @@ type DailyRecord implements Node {
   fiber: Int!
   protein: Int!
   food_string: String!
+  meal_type: String!
   user: User!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -1537,6 +1538,7 @@ input DailyRecordCreateInput {
   fiber: Int!
   protein: Int!
   food_string: String!
+  meal_type: String!
   user: UserCreateOneWithoutDaily_recordsInput!
 }
 
@@ -1556,6 +1558,7 @@ input DailyRecordCreateWithoutUserInput {
   fiber: Int!
   protein: Int!
   food_string: String!
+  meal_type: String!
 }
 
 """An edge in a connection."""
@@ -1588,6 +1591,8 @@ enum DailyRecordOrderByInput {
   protein_DESC
   food_string_ASC
   food_string_DESC
+  meal_type_ASC
+  meal_type_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1605,6 +1610,7 @@ type DailyRecordPreviousValues {
   fiber: Int!
   protein: Int!
   food_string: String!
+  meal_type: String!
   updatedAt: DateTime!
   createdAt: DateTime!
 }
@@ -1910,6 +1916,46 @@ input DailyRecordScalarWhereInput {
 
   """All values not ending with the given string."""
   food_string_not_ends_with: String
+  meal_type: String
+
+  """All values that are not equal to given value."""
+  meal_type_not: String
+
+  """All values that are contained in given list."""
+  meal_type_in: [String!]
+
+  """All values that are not contained in given list."""
+  meal_type_not_in: [String!]
+
+  """All values less than the given value."""
+  meal_type_lt: String
+
+  """All values less than or equal the given value."""
+  meal_type_lte: String
+
+  """All values greater than the given value."""
+  meal_type_gt: String
+
+  """All values greater than or equal the given value."""
+  meal_type_gte: String
+
+  """All values containing the given string."""
+  meal_type_contains: String
+
+  """All values not containing the given string."""
+  meal_type_not_contains: String
+
+  """All values starting with the given string."""
+  meal_type_starts_with: String
+
+  """All values not starting with the given string."""
+  meal_type_not_starts_with: String
+
+  """All values ending with the given string."""
+  meal_type_ends_with: String
+
+  """All values not ending with the given string."""
+  meal_type_not_ends_with: String
   updatedAt: DateTime
 
   """All values that are not equal to given value."""
@@ -2003,6 +2049,7 @@ input DailyRecordUpdateInput {
   fiber: Int
   protein: Int
   food_string: String
+  meal_type: String
   user: UserUpdateOneRequiredWithoutDaily_recordsInput
 }
 
@@ -2016,6 +2063,7 @@ input DailyRecordUpdateManyDataInput {
   fiber: Int
   protein: Int
   food_string: String
+  meal_type: String
 }
 
 input DailyRecordUpdateManyMutationInput {
@@ -2028,6 +2076,7 @@ input DailyRecordUpdateManyMutationInput {
   fiber: Int
   protein: Int
   food_string: String
+  meal_type: String
 }
 
 input DailyRecordUpdateManyWithoutUserInput {
@@ -2057,6 +2106,7 @@ input DailyRecordUpdateWithoutUserDataInput {
   fiber: Int
   protein: Int
   food_string: String
+  meal_type: String
 }
 
 input DailyRecordUpdateWithWhereUniqueWithoutUserInput {
@@ -2371,6 +2421,46 @@ input DailyRecordWhereInput {
 
   """All values not ending with the given string."""
   food_string_not_ends_with: String
+  meal_type: String
+
+  """All values that are not equal to given value."""
+  meal_type_not: String
+
+  """All values that are contained in given list."""
+  meal_type_in: [String!]
+
+  """All values that are not contained in given list."""
+  meal_type_not_in: [String!]
+
+  """All values less than the given value."""
+  meal_type_lt: String
+
+  """All values less than or equal the given value."""
+  meal_type_lte: String
+
+  """All values greater than the given value."""
+  meal_type_gt: String
+
+  """All values greater than or equal the given value."""
+  meal_type_gte: String
+
+  """All values containing the given string."""
+  meal_type_contains: String
+
+  """All values not containing the given string."""
+  meal_type_not_contains: String
+
+  """All values starting with the given string."""
+  meal_type_starts_with: String
+
+  """All values not starting with the given string."""
+  meal_type_not_starts_with: String
+
+  """All values ending with the given string."""
+  meal_type_ends_with: String
+
+  """All values not ending with the given string."""
+  meal_type_not_ends_with: String
   updatedAt: DateTime
 
   """All values that are not equal to given value."""

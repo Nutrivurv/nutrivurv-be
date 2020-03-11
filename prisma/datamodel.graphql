@@ -47,6 +47,7 @@ type DailyRecord {
   fiber: Int!
   protein: Int!
   food_string: String!
+  meal_type: String!
   user: User! @relation(link: INLINE, name: "DailyToUser", onDelete: SET_NULL)
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
