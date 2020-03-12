@@ -4,7 +4,10 @@ const opts = {
   port: process.env.PORT || 4000,
   cors: {
     credentials: true,
-    origin: ["http://localhost:3000"]
+    origin: [
+      "http://localhost:3000",
+      "https://nutrition-tracker-fe-pt7-dqdkuajes.now.sh/"
+    ]
   }
 };
 

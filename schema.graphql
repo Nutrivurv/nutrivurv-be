@@ -66,6 +66,7 @@ input UpdateDailyRecordInput {
   fiber: Int
   protein: Int
   food_string: String
+  meal_type: String
 }
 
 input UpdateProfileInput {
@@ -92,6 +93,7 @@ input CreateDailyRecordInput {
   fiber: Int!
   protein: Int!
   food_string: String!
+  meal_type: String!
 }
 
 input CreateProfileInput {
@@ -187,6 +189,7 @@ type DailyRecord {
   fiber: Int!
   protein: Int!
   food_string: String!
+  meal_type: String!
   updatedAt: String!
   createdAt: String!
 }
