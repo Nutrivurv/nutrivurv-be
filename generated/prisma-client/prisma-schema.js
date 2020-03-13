@@ -15,6 +15,10 @@ type AggregateDailyRecord {
   count: Int!
 }
 
+type AggregateFavoriteFood {
+  count: Int!
+}
+
 type AggregateIngredientList {
   count: Int!
 }
@@ -1276,6 +1280,279 @@ input DailyRecordWhereUniqueInput {
 
 scalar DateTime
 
+type FavoriteFood {
+  id: ID!
+  food_id: String!
+  custom: Boolean!
+  user_id: String!
+  user: User!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type FavoriteFoodConnection {
+  pageInfo: PageInfo!
+  edges: [FavoriteFoodEdge]!
+  aggregate: AggregateFavoriteFood!
+}
+
+input FavoriteFoodCreateInput {
+  id: ID
+  food_id: String!
+  custom: Boolean!
+  user_id: String!
+  user: UserCreateOneWithoutFavoritesInput!
+}
+
+input FavoriteFoodCreateManyWithoutUserInput {
+  create: [FavoriteFoodCreateWithoutUserInput!]
+  connect: [FavoriteFoodWhereUniqueInput!]
+}
+
+input FavoriteFoodCreateWithoutUserInput {
+  id: ID
+  food_id: String!
+  custom: Boolean!
+  user_id: String!
+}
+
+type FavoriteFoodEdge {
+  node: FavoriteFood!
+  cursor: String!
+}
+
+enum FavoriteFoodOrderByInput {
+  id_ASC
+  id_DESC
+  food_id_ASC
+  food_id_DESC
+  custom_ASC
+  custom_DESC
+  user_id_ASC
+  user_id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type FavoriteFoodPreviousValues {
+  id: ID!
+  food_id: String!
+  custom: Boolean!
+  user_id: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input FavoriteFoodScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  food_id: String
+  food_id_not: String
+  food_id_in: [String!]
+  food_id_not_in: [String!]
+  food_id_lt: String
+  food_id_lte: String
+  food_id_gt: String
+  food_id_gte: String
+  food_id_contains: String
+  food_id_not_contains: String
+  food_id_starts_with: String
+  food_id_not_starts_with: String
+  food_id_ends_with: String
+  food_id_not_ends_with: String
+  custom: Boolean
+  custom_not: Boolean
+  user_id: String
+  user_id_not: String
+  user_id_in: [String!]
+  user_id_not_in: [String!]
+  user_id_lt: String
+  user_id_lte: String
+  user_id_gt: String
+  user_id_gte: String
+  user_id_contains: String
+  user_id_not_contains: String
+  user_id_starts_with: String
+  user_id_not_starts_with: String
+  user_id_ends_with: String
+  user_id_not_ends_with: String
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [FavoriteFoodScalarWhereInput!]
+  OR: [FavoriteFoodScalarWhereInput!]
+  NOT: [FavoriteFoodScalarWhereInput!]
+}
+
+type FavoriteFoodSubscriptionPayload {
+  mutation: MutationType!
+  node: FavoriteFood
+  updatedFields: [String!]
+  previousValues: FavoriteFoodPreviousValues
+}
+
+input FavoriteFoodSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: FavoriteFoodWhereInput
+  AND: [FavoriteFoodSubscriptionWhereInput!]
+  OR: [FavoriteFoodSubscriptionWhereInput!]
+  NOT: [FavoriteFoodSubscriptionWhereInput!]
+}
+
+input FavoriteFoodUpdateInput {
+  food_id: String
+  custom: Boolean
+  user_id: String
+  user: UserUpdateOneRequiredWithoutFavoritesInput
+}
+
+input FavoriteFoodUpdateManyDataInput {
+  food_id: String
+  custom: Boolean
+  user_id: String
+}
+
+input FavoriteFoodUpdateManyMutationInput {
+  food_id: String
+  custom: Boolean
+  user_id: String
+}
+
+input FavoriteFoodUpdateManyWithoutUserInput {
+  create: [FavoriteFoodCreateWithoutUserInput!]
+  delete: [FavoriteFoodWhereUniqueInput!]
+  connect: [FavoriteFoodWhereUniqueInput!]
+  set: [FavoriteFoodWhereUniqueInput!]
+  disconnect: [FavoriteFoodWhereUniqueInput!]
+  update: [FavoriteFoodUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [FavoriteFoodUpsertWithWhereUniqueWithoutUserInput!]
+  deleteMany: [FavoriteFoodScalarWhereInput!]
+  updateMany: [FavoriteFoodUpdateManyWithWhereNestedInput!]
+}
+
+input FavoriteFoodUpdateManyWithWhereNestedInput {
+  where: FavoriteFoodScalarWhereInput!
+  data: FavoriteFoodUpdateManyDataInput!
+}
+
+input FavoriteFoodUpdateWithoutUserDataInput {
+  food_id: String
+  custom: Boolean
+  user_id: String
+}
+
+input FavoriteFoodUpdateWithWhereUniqueWithoutUserInput {
+  where: FavoriteFoodWhereUniqueInput!
+  data: FavoriteFoodUpdateWithoutUserDataInput!
+}
+
+input FavoriteFoodUpsertWithWhereUniqueWithoutUserInput {
+  where: FavoriteFoodWhereUniqueInput!
+  update: FavoriteFoodUpdateWithoutUserDataInput!
+  create: FavoriteFoodCreateWithoutUserInput!
+}
+
+input FavoriteFoodWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  food_id: String
+  food_id_not: String
+  food_id_in: [String!]
+  food_id_not_in: [String!]
+  food_id_lt: String
+  food_id_lte: String
+  food_id_gt: String
+  food_id_gte: String
+  food_id_contains: String
+  food_id_not_contains: String
+  food_id_starts_with: String
+  food_id_not_starts_with: String
+  food_id_ends_with: String
+  food_id_not_ends_with: String
+  custom: Boolean
+  custom_not: Boolean
+  user_id: String
+  user_id_not: String
+  user_id_in: [String!]
+  user_id_not_in: [String!]
+  user_id_lt: String
+  user_id_lte: String
+  user_id_gt: String
+  user_id_gte: String
+  user_id_contains: String
+  user_id_not_contains: String
+  user_id_starts_with: String
+  user_id_not_starts_with: String
+  user_id_ends_with: String
+  user_id_not_ends_with: String
+  user: UserWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [FavoriteFoodWhereInput!]
+  OR: [FavoriteFoodWhereInput!]
+  NOT: [FavoriteFoodWhereInput!]
+}
+
+input FavoriteFoodWhereUniqueInput {
+  id: ID
+}
+
 type IngredientList {
   id: ID!
   user_id: String!
@@ -1727,6 +2004,12 @@ type Mutation {
   upsertDailyRecord(where: DailyRecordWhereUniqueInput!, create: DailyRecordCreateInput!, update: DailyRecordUpdateInput!): DailyRecord!
   deleteDailyRecord(where: DailyRecordWhereUniqueInput!): DailyRecord
   deleteManyDailyRecords(where: DailyRecordWhereInput): BatchPayload!
+  createFavoriteFood(data: FavoriteFoodCreateInput!): FavoriteFood!
+  updateFavoriteFood(data: FavoriteFoodUpdateInput!, where: FavoriteFoodWhereUniqueInput!): FavoriteFood
+  updateManyFavoriteFoods(data: FavoriteFoodUpdateManyMutationInput!, where: FavoriteFoodWhereInput): BatchPayload!
+  upsertFavoriteFood(where: FavoriteFoodWhereUniqueInput!, create: FavoriteFoodCreateInput!, update: FavoriteFoodUpdateInput!): FavoriteFood!
+  deleteFavoriteFood(where: FavoriteFoodWhereUniqueInput!): FavoriteFood
+  deleteManyFavoriteFoods(where: FavoriteFoodWhereInput): BatchPayload!
   createIngredientList(data: IngredientListCreateInput!): IngredientList!
   updateIngredientList(data: IngredientListUpdateInput!, where: IngredientListWhereUniqueInput!): IngredientList
   updateManyIngredientLists(data: IngredientListUpdateManyMutationInput!, where: IngredientListWhereInput): BatchPayload!
@@ -2132,6 +2415,9 @@ type Query {
   dailyRecord(where: DailyRecordWhereUniqueInput!): DailyRecord
   dailyRecords(where: DailyRecordWhereInput, orderBy: DailyRecordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [DailyRecord]!
   dailyRecordsConnection(where: DailyRecordWhereInput, orderBy: DailyRecordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DailyRecordConnection!
+  favoriteFood(where: FavoriteFoodWhereUniqueInput!): FavoriteFood
+  favoriteFoods(where: FavoriteFoodWhereInput, orderBy: FavoriteFoodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FavoriteFood]!
+  favoriteFoodsConnection(where: FavoriteFoodWhereInput, orderBy: FavoriteFoodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FavoriteFoodConnection!
   ingredientList(where: IngredientListWhereUniqueInput!): IngredientList
   ingredientLists(where: IngredientListWhereInput, orderBy: IngredientListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientList]!
   ingredientListsConnection(where: IngredientListWhereInput, orderBy: IngredientListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): IngredientListConnection!
@@ -2148,6 +2434,7 @@ type Subscription {
   customIngredient(where: CustomIngredientSubscriptionWhereInput): CustomIngredientSubscriptionPayload
   customRecipe(where: CustomRecipeSubscriptionWhereInput): CustomRecipeSubscriptionPayload
   dailyRecord(where: DailyRecordSubscriptionWhereInput): DailyRecordSubscriptionPayload
+  favoriteFood(where: FavoriteFoodSubscriptionWhereInput): FavoriteFoodSubscriptionPayload
   ingredientList(where: IngredientListSubscriptionWhereInput): IngredientListSubscriptionPayload
   profile(where: ProfileSubscriptionWhereInput): ProfileSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
@@ -2165,6 +2452,7 @@ type User {
   custom_recipes(where: CustomRecipeWhereInput, orderBy: CustomRecipeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CustomRecipe!]
   custom_ingredients(where: CustomIngredientWhereInput, orderBy: CustomIngredientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CustomIngredient!]
   ingredient_list(where: IngredientListWhereInput, orderBy: IngredientListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientList!]
+  favorites(where: FavoriteFoodWhereInput, orderBy: FavoriteFoodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FavoriteFood!]
 }
 
 type UserConnection {
@@ -2183,6 +2471,7 @@ input UserCreateInput {
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
+  favorites: FavoriteFoodCreateManyWithoutUserInput
 }
 
 input UserCreateOneWithoutCustom_ingredientsInput {
@@ -2197,6 +2486,11 @@ input UserCreateOneWithoutCustom_recipesInput {
 
 input UserCreateOneWithoutDaily_recordsInput {
   create: UserCreateWithoutDaily_recordsInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutFavoritesInput {
+  create: UserCreateWithoutFavoritesInput
   connect: UserWhereUniqueInput
 }
 
@@ -2219,6 +2513,7 @@ input UserCreateWithoutCustom_ingredientsInput {
   daily_records: DailyRecordCreateManyWithoutUserInput
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
+  favorites: FavoriteFoodCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutCustom_recipesInput {
@@ -2230,6 +2525,7 @@ input UserCreateWithoutCustom_recipesInput {
   daily_records: DailyRecordCreateManyWithoutUserInput
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
+  favorites: FavoriteFoodCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutDaily_recordsInput {
@@ -2238,6 +2534,19 @@ input UserCreateWithoutDaily_recordsInput {
   email: String!
   password: String!
   profile: ProfileCreateOneWithoutUserInput
+  custom_recipes: CustomRecipeCreateManyWithoutUserInput
+  custom_ingredients: CustomIngredientCreateManyWithoutUserInput
+  ingredient_list: IngredientListCreateManyWithoutUserInput
+  favorites: FavoriteFoodCreateManyWithoutUserInput
+}
+
+input UserCreateWithoutFavoritesInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  profile: ProfileCreateOneWithoutUserInput
+  daily_records: DailyRecordCreateManyWithoutUserInput
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
@@ -2252,6 +2561,7 @@ input UserCreateWithoutIngredient_listInput {
   daily_records: DailyRecordCreateManyWithoutUserInput
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
+  favorites: FavoriteFoodCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutProfileInput {
@@ -2263,6 +2573,7 @@ input UserCreateWithoutProfileInput {
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
+  favorites: FavoriteFoodCreateManyWithoutUserInput
 }
 
 type UserEdge {
@@ -2321,6 +2632,7 @@ input UserUpdateInput {
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
+  favorites: FavoriteFoodUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
@@ -2350,6 +2662,13 @@ input UserUpdateOneRequiredWithoutDaily_recordsInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateOneRequiredWithoutFavoritesInput {
+  create: UserCreateWithoutFavoritesInput
+  update: UserUpdateWithoutFavoritesDataInput
+  upsert: UserUpsertWithoutFavoritesInput
+  connect: UserWhereUniqueInput
+}
+
 input UserUpdateOneRequiredWithoutIngredient_listInput {
   create: UserCreateWithoutIngredient_listInput
   update: UserUpdateWithoutIngredient_listDataInput
@@ -2372,6 +2691,7 @@ input UserUpdateWithoutCustom_ingredientsDataInput {
   daily_records: DailyRecordUpdateManyWithoutUserInput
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
+  favorites: FavoriteFoodUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutCustom_recipesDataInput {
@@ -2382,6 +2702,7 @@ input UserUpdateWithoutCustom_recipesDataInput {
   daily_records: DailyRecordUpdateManyWithoutUserInput
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
+  favorites: FavoriteFoodUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutDaily_recordsDataInput {
@@ -2389,6 +2710,18 @@ input UserUpdateWithoutDaily_recordsDataInput {
   email: String
   password: String
   profile: ProfileUpdateOneWithoutUserInput
+  custom_recipes: CustomRecipeUpdateManyWithoutUserInput
+  custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
+  ingredient_list: IngredientListUpdateManyWithoutUserInput
+  favorites: FavoriteFoodUpdateManyWithoutUserInput
+}
+
+input UserUpdateWithoutFavoritesDataInput {
+  name: String
+  email: String
+  password: String
+  profile: ProfileUpdateOneWithoutUserInput
+  daily_records: DailyRecordUpdateManyWithoutUserInput
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
@@ -2402,6 +2735,7 @@ input UserUpdateWithoutIngredient_listDataInput {
   daily_records: DailyRecordUpdateManyWithoutUserInput
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
+  favorites: FavoriteFoodUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutProfileDataInput {
@@ -2412,6 +2746,7 @@ input UserUpdateWithoutProfileDataInput {
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
+  favorites: FavoriteFoodUpdateManyWithoutUserInput
 }
 
 input UserUpsertWithoutCustom_ingredientsInput {
@@ -2427,6 +2762,11 @@ input UserUpsertWithoutCustom_recipesInput {
 input UserUpsertWithoutDaily_recordsInput {
   update: UserUpdateWithoutDaily_recordsDataInput!
   create: UserCreateWithoutDaily_recordsInput!
+}
+
+input UserUpsertWithoutFavoritesInput {
+  update: UserUpdateWithoutFavoritesDataInput!
+  create: UserCreateWithoutFavoritesInput!
 }
 
 input UserUpsertWithoutIngredient_listInput {
@@ -2525,6 +2865,9 @@ input UserWhereInput {
   ingredient_list_every: IngredientListWhereInput
   ingredient_list_some: IngredientListWhereInput
   ingredient_list_none: IngredientListWhereInput
+  favorites_every: FavoriteFoodWhereInput
+  favorites_some: FavoriteFoodWhereInput
+  favorites_none: FavoriteFoodWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]

@@ -14,6 +14,8 @@ type User {
     @relation(name: "IngredientToUser", onDelete: CASCADE)
   ingredient_list: [IngredientList!]
     @relation(name: "IngredientListToUser", onDelete: CASCADE)
+  favorites: [FavoriteFood!]
+    @relation(name: "FavoriteListToUser", onDelete: CASCADE)
 }
 
 type Profile {
@@ -93,6 +95,17 @@ type IngredientList {
     @relation(link: INLINE, name: "IngredientListToRecipe", onDelete: SET_NULL)
   user: User!
     @relation(link: INLINE, name: "IngredientListToUser", onDelete: SET_NULL)
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+}
+
+type FavoriteFood {
+  id: ID! @unique @id
+  food_id: String!
+  custom: Boolean!
+  user_id: String!
+  user: User!
+    @relation(link: INLINE, name: "FavoriteListToUser", onDelete: SET_NULL)
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }
