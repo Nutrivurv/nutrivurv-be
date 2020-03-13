@@ -18,6 +18,7 @@ type Query {
   myIngredients: [CustomIngredient!]
   profiles: [Profile!]
   myDailyRecordCount: Int!
+  myFavoriteFoods: [FavoriteFood!]
 }
 
 type Mutation {
@@ -46,6 +47,9 @@ type Mutation {
     data: updateIngredientListInput!
   ): IngredientList!
   deleteIngredientList(id: String!): IngredientList!
+  createFavoriteFood(data: CreateFavoriteFoodInput): FavoriteFood!
+  updateFavoriteFood(id: String! data: UpdateFavoriteFoodInput!): FavoriteFood!
+  deleteFavoriteFood(id: String!): FavoriteFood!
 }
 
 # type Subscription {
@@ -158,6 +162,7 @@ type User {
   updatedAt: String!
   createdAt: String!
   profile: Profile
+  favorites: [FavoriteFood!]
   dailyRecords: [DailyRecord!]
 }
 
@@ -244,6 +249,24 @@ input UpdateCustomIngredientInput {
   protein: Int
   fiber: Int
   calories: Int
+}
+
+type FavoriteFood {
+  id: ID!
+  food_id: String!
+  custom: Boolean!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input CreateFavoriteFoodInput {
+  food_id: String!
+  custom: Boolean!
+}
+
+input UpdateFavoriteFoodInput {
+  food_id: String
+  custom: Boolean
 }
 
 enum UserOrderByInput {

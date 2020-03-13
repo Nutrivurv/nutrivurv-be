@@ -36,6 +36,20 @@ const User = {
         return null;
       }
     }
+  },
+  favorites: {
+    fragment: "fragment userId on User { id }",
+    resolve(parent, args, { prisma, request }, info) {
+      if (request.user_id) {
+        return prisma.query.favoriteFoods({
+          where: {
+            user_id: parent.id
+          }
+        });
+      } else {
+        return null;
+      }
+    }
   }
 };
 

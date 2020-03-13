@@ -19,6 +19,7 @@ export interface Exists {
   customIngredient: (where?: CustomIngredientWhereInput) => Promise<boolean>;
   customRecipe: (where?: CustomRecipeWhereInput) => Promise<boolean>;
   dailyRecord: (where?: DailyRecordWhereInput) => Promise<boolean>;
+  favoriteFood: (where?: FavoriteFoodWhereInput) => Promise<boolean>;
   ingredientList: (where?: IngredientListWhereInput) => Promise<boolean>;
   profile: (where?: ProfileWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
@@ -106,6 +107,27 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => DailyRecordConnectionPromise;
+  favoriteFood: (
+    where: FavoriteFoodWhereUniqueInput
+  ) => FavoriteFoodNullablePromise;
+  favoriteFoods: (args?: {
+    where?: FavoriteFoodWhereInput;
+    orderBy?: FavoriteFoodOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<FavoriteFood>;
+  favoriteFoodsConnection: (args?: {
+    where?: FavoriteFoodWhereInput;
+    orderBy?: FavoriteFoodOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FavoriteFoodConnectionPromise;
   ingredientList: (
     where: IngredientListWhereUniqueInput
   ) => IngredientListNullablePromise;
@@ -231,6 +253,26 @@ export interface Prisma {
   deleteManyDailyRecords: (
     where?: DailyRecordWhereInput
   ) => BatchPayloadPromise;
+  createFavoriteFood: (data: FavoriteFoodCreateInput) => FavoriteFoodPromise;
+  updateFavoriteFood: (args: {
+    data: FavoriteFoodUpdateInput;
+    where: FavoriteFoodWhereUniqueInput;
+  }) => FavoriteFoodPromise;
+  updateManyFavoriteFoods: (args: {
+    data: FavoriteFoodUpdateManyMutationInput;
+    where?: FavoriteFoodWhereInput;
+  }) => BatchPayloadPromise;
+  upsertFavoriteFood: (args: {
+    where: FavoriteFoodWhereUniqueInput;
+    create: FavoriteFoodCreateInput;
+    update: FavoriteFoodUpdateInput;
+  }) => FavoriteFoodPromise;
+  deleteFavoriteFood: (
+    where: FavoriteFoodWhereUniqueInput
+  ) => FavoriteFoodPromise;
+  deleteManyFavoriteFoods: (
+    where?: FavoriteFoodWhereInput
+  ) => BatchPayloadPromise;
   createIngredientList: (
     data: IngredientListCreateInput
   ) => IngredientListPromise;
@@ -303,6 +345,9 @@ export interface Subscription {
   dailyRecord: (
     where?: DailyRecordSubscriptionWhereInput
   ) => DailyRecordSubscriptionPayloadSubscription;
+  favoriteFood: (
+    where?: FavoriteFoodSubscriptionWhereInput
+  ) => FavoriteFoodSubscriptionPayloadSubscription;
   ingredientList: (
     where?: IngredientListSubscriptionWhereInput
   ) => IngredientListSubscriptionPayloadSubscription;
@@ -403,6 +448,20 @@ export type CustomIngredientOrderByInput =
   | "fiber_DESC"
   | "calories_ASC"
   | "calories_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC";
+
+export type FavoriteFoodOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "food_id_ASC"
+  | "food_id_DESC"
+  | "custom_ASC"
+  | "custom_DESC"
+  | "user_id_ASC"
+  | "user_id_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC"
   | "createdAt_ASC"
@@ -689,6 +748,9 @@ export interface UserWhereInput {
   ingredient_list_every?: Maybe<IngredientListWhereInput>;
   ingredient_list_some?: Maybe<IngredientListWhereInput>;
   ingredient_list_none?: Maybe<IngredientListWhereInput>;
+  favorites_every?: Maybe<FavoriteFoodWhereInput>;
+  favorites_some?: Maybe<FavoriteFoodWhereInput>;
+  favorites_none?: Maybe<FavoriteFoodWhereInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
@@ -1140,11 +1202,82 @@ export interface CustomIngredientWhereInput {
   NOT?: Maybe<CustomIngredientWhereInput[] | CustomIngredientWhereInput>;
 }
 
+export interface FavoriteFoodWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  food_id?: Maybe<String>;
+  food_id_not?: Maybe<String>;
+  food_id_in?: Maybe<String[] | String>;
+  food_id_not_in?: Maybe<String[] | String>;
+  food_id_lt?: Maybe<String>;
+  food_id_lte?: Maybe<String>;
+  food_id_gt?: Maybe<String>;
+  food_id_gte?: Maybe<String>;
+  food_id_contains?: Maybe<String>;
+  food_id_not_contains?: Maybe<String>;
+  food_id_starts_with?: Maybe<String>;
+  food_id_not_starts_with?: Maybe<String>;
+  food_id_ends_with?: Maybe<String>;
+  food_id_not_ends_with?: Maybe<String>;
+  custom?: Maybe<Boolean>;
+  custom_not?: Maybe<Boolean>;
+  user_id?: Maybe<String>;
+  user_id_not?: Maybe<String>;
+  user_id_in?: Maybe<String[] | String>;
+  user_id_not_in?: Maybe<String[] | String>;
+  user_id_lt?: Maybe<String>;
+  user_id_lte?: Maybe<String>;
+  user_id_gt?: Maybe<String>;
+  user_id_gte?: Maybe<String>;
+  user_id_contains?: Maybe<String>;
+  user_id_not_contains?: Maybe<String>;
+  user_id_starts_with?: Maybe<String>;
+  user_id_not_starts_with?: Maybe<String>;
+  user_id_ends_with?: Maybe<String>;
+  user_id_not_ends_with?: Maybe<String>;
+  user?: Maybe<UserWhereInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<FavoriteFoodWhereInput[] | FavoriteFoodWhereInput>;
+  OR?: Maybe<FavoriteFoodWhereInput[] | FavoriteFoodWhereInput>;
+  NOT?: Maybe<FavoriteFoodWhereInput[] | FavoriteFoodWhereInput>;
+}
+
 export type CustomRecipeWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
 export type DailyRecordWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type FavoriteFoodWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
@@ -1189,6 +1322,7 @@ export interface UserCreateWithoutCustom_ingredientsInput {
   daily_records?: Maybe<DailyRecordCreateManyWithoutUserInput>;
   custom_recipes?: Maybe<CustomRecipeCreateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
 }
 
 export interface ProfileCreateOneWithoutUserInput {
@@ -1286,6 +1420,7 @@ export interface UserCreateWithoutIngredient_listInput {
   daily_records?: Maybe<DailyRecordCreateManyWithoutUserInput>;
   custom_recipes?: Maybe<CustomRecipeCreateManyWithoutUserInput>;
   custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
 }
 
 export interface CustomIngredientCreateManyWithoutUserInput {
@@ -1308,6 +1443,22 @@ export interface CustomIngredientCreateWithoutUserInput {
   protein: Int;
   fiber: Int;
   calories: Int;
+}
+
+export interface FavoriteFoodCreateManyWithoutUserInput {
+  create?: Maybe<
+    FavoriteFoodCreateWithoutUserInput[] | FavoriteFoodCreateWithoutUserInput
+  >;
+  connect?: Maybe<
+    FavoriteFoodWhereUniqueInput[] | FavoriteFoodWhereUniqueInput
+  >;
+}
+
+export interface FavoriteFoodCreateWithoutUserInput {
+  id?: Maybe<ID_Input>;
+  food_id: String;
+  custom: Boolean;
+  user_id: String;
 }
 
 export interface IngredientListCreateManyWithoutUserInput {
@@ -1358,6 +1509,7 @@ export interface UserCreateWithoutCustom_recipesInput {
   daily_records?: Maybe<DailyRecordCreateManyWithoutUserInput>;
   custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
 }
 
 export interface CustomIngredientUpdateInput {
@@ -1387,6 +1539,7 @@ export interface UserUpdateWithoutCustom_ingredientsDataInput {
   daily_records?: Maybe<DailyRecordUpdateManyWithoutUserInput>;
   custom_recipes?: Maybe<CustomRecipeUpdateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
 }
 
 export interface ProfileUpdateOneWithoutUserInput {
@@ -1733,6 +1886,7 @@ export interface UserUpdateWithoutIngredient_listDataInput {
   daily_records?: Maybe<DailyRecordUpdateManyWithoutUserInput>;
   custom_recipes?: Maybe<CustomRecipeUpdateManyWithoutUserInput>;
   custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
 }
 
 export interface CustomIngredientUpdateManyWithoutUserInput {
@@ -1929,6 +2083,129 @@ export interface CustomIngredientUpdateManyDataInput {
   protein?: Maybe<Int>;
   fiber?: Maybe<Int>;
   calories?: Maybe<Int>;
+}
+
+export interface FavoriteFoodUpdateManyWithoutUserInput {
+  create?: Maybe<
+    FavoriteFoodCreateWithoutUserInput[] | FavoriteFoodCreateWithoutUserInput
+  >;
+  delete?: Maybe<FavoriteFoodWhereUniqueInput[] | FavoriteFoodWhereUniqueInput>;
+  connect?: Maybe<
+    FavoriteFoodWhereUniqueInput[] | FavoriteFoodWhereUniqueInput
+  >;
+  set?: Maybe<FavoriteFoodWhereUniqueInput[] | FavoriteFoodWhereUniqueInput>;
+  disconnect?: Maybe<
+    FavoriteFoodWhereUniqueInput[] | FavoriteFoodWhereUniqueInput
+  >;
+  update?: Maybe<
+    | FavoriteFoodUpdateWithWhereUniqueWithoutUserInput[]
+    | FavoriteFoodUpdateWithWhereUniqueWithoutUserInput
+  >;
+  upsert?: Maybe<
+    | FavoriteFoodUpsertWithWhereUniqueWithoutUserInput[]
+    | FavoriteFoodUpsertWithWhereUniqueWithoutUserInput
+  >;
+  deleteMany?: Maybe<
+    FavoriteFoodScalarWhereInput[] | FavoriteFoodScalarWhereInput
+  >;
+  updateMany?: Maybe<
+    | FavoriteFoodUpdateManyWithWhereNestedInput[]
+    | FavoriteFoodUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface FavoriteFoodUpdateWithWhereUniqueWithoutUserInput {
+  where: FavoriteFoodWhereUniqueInput;
+  data: FavoriteFoodUpdateWithoutUserDataInput;
+}
+
+export interface FavoriteFoodUpdateWithoutUserDataInput {
+  food_id?: Maybe<String>;
+  custom?: Maybe<Boolean>;
+  user_id?: Maybe<String>;
+}
+
+export interface FavoriteFoodUpsertWithWhereUniqueWithoutUserInput {
+  where: FavoriteFoodWhereUniqueInput;
+  update: FavoriteFoodUpdateWithoutUserDataInput;
+  create: FavoriteFoodCreateWithoutUserInput;
+}
+
+export interface FavoriteFoodScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  food_id?: Maybe<String>;
+  food_id_not?: Maybe<String>;
+  food_id_in?: Maybe<String[] | String>;
+  food_id_not_in?: Maybe<String[] | String>;
+  food_id_lt?: Maybe<String>;
+  food_id_lte?: Maybe<String>;
+  food_id_gt?: Maybe<String>;
+  food_id_gte?: Maybe<String>;
+  food_id_contains?: Maybe<String>;
+  food_id_not_contains?: Maybe<String>;
+  food_id_starts_with?: Maybe<String>;
+  food_id_not_starts_with?: Maybe<String>;
+  food_id_ends_with?: Maybe<String>;
+  food_id_not_ends_with?: Maybe<String>;
+  custom?: Maybe<Boolean>;
+  custom_not?: Maybe<Boolean>;
+  user_id?: Maybe<String>;
+  user_id_not?: Maybe<String>;
+  user_id_in?: Maybe<String[] | String>;
+  user_id_not_in?: Maybe<String[] | String>;
+  user_id_lt?: Maybe<String>;
+  user_id_lte?: Maybe<String>;
+  user_id_gt?: Maybe<String>;
+  user_id_gte?: Maybe<String>;
+  user_id_contains?: Maybe<String>;
+  user_id_not_contains?: Maybe<String>;
+  user_id_starts_with?: Maybe<String>;
+  user_id_not_starts_with?: Maybe<String>;
+  user_id_ends_with?: Maybe<String>;
+  user_id_not_ends_with?: Maybe<String>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<FavoriteFoodScalarWhereInput[] | FavoriteFoodScalarWhereInput>;
+  OR?: Maybe<FavoriteFoodScalarWhereInput[] | FavoriteFoodScalarWhereInput>;
+  NOT?: Maybe<FavoriteFoodScalarWhereInput[] | FavoriteFoodScalarWhereInput>;
+}
+
+export interface FavoriteFoodUpdateManyWithWhereNestedInput {
+  where: FavoriteFoodScalarWhereInput;
+  data: FavoriteFoodUpdateManyDataInput;
+}
+
+export interface FavoriteFoodUpdateManyDataInput {
+  food_id?: Maybe<String>;
+  custom?: Maybe<Boolean>;
+  user_id?: Maybe<String>;
 }
 
 export interface UserUpsertWithoutIngredient_listInput {
@@ -2229,6 +2506,7 @@ export interface UserUpdateWithoutCustom_recipesDataInput {
   daily_records?: Maybe<DailyRecordUpdateManyWithoutUserInput>;
   custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpsertWithoutCustom_recipesInput {
@@ -2315,6 +2593,7 @@ export interface UserCreateWithoutDaily_recordsInput {
   custom_recipes?: Maybe<CustomRecipeCreateManyWithoutUserInput>;
   custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
 }
 
 export interface DailyRecordUpdateInput {
@@ -2346,6 +2625,7 @@ export interface UserUpdateWithoutDaily_recordsDataInput {
   custom_recipes?: Maybe<CustomRecipeUpdateManyWithoutUserInput>;
   custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpsertWithoutDaily_recordsInput {
@@ -2364,6 +2644,67 @@ export interface DailyRecordUpdateManyMutationInput {
   protein?: Maybe<Int>;
   food_string?: Maybe<String>;
   meal_type?: Maybe<String>;
+}
+
+export interface FavoriteFoodCreateInput {
+  id?: Maybe<ID_Input>;
+  food_id: String;
+  custom: Boolean;
+  user_id: String;
+  user: UserCreateOneWithoutFavoritesInput;
+}
+
+export interface UserCreateOneWithoutFavoritesInput {
+  create?: Maybe<UserCreateWithoutFavoritesInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutFavoritesInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  email: String;
+  password: String;
+  profile?: Maybe<ProfileCreateOneWithoutUserInput>;
+  daily_records?: Maybe<DailyRecordCreateManyWithoutUserInput>;
+  custom_recipes?: Maybe<CustomRecipeCreateManyWithoutUserInput>;
+  custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
+  ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
+}
+
+export interface FavoriteFoodUpdateInput {
+  food_id?: Maybe<String>;
+  custom?: Maybe<Boolean>;
+  user_id?: Maybe<String>;
+  user?: Maybe<UserUpdateOneRequiredWithoutFavoritesInput>;
+}
+
+export interface UserUpdateOneRequiredWithoutFavoritesInput {
+  create?: Maybe<UserCreateWithoutFavoritesInput>;
+  update?: Maybe<UserUpdateWithoutFavoritesDataInput>;
+  upsert?: Maybe<UserUpsertWithoutFavoritesInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutFavoritesDataInput {
+  name?: Maybe<String>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  profile?: Maybe<ProfileUpdateOneWithoutUserInput>;
+  daily_records?: Maybe<DailyRecordUpdateManyWithoutUserInput>;
+  custom_recipes?: Maybe<CustomRecipeUpdateManyWithoutUserInput>;
+  custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
+  ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
+}
+
+export interface UserUpsertWithoutFavoritesInput {
+  update: UserUpdateWithoutFavoritesDataInput;
+  create: UserCreateWithoutFavoritesInput;
+}
+
+export interface FavoriteFoodUpdateManyMutationInput {
+  food_id?: Maybe<String>;
+  custom?: Maybe<Boolean>;
+  user_id?: Maybe<String>;
 }
 
 export interface IngredientListCreateInput {
@@ -2430,6 +2771,7 @@ export interface UserCreateWithoutProfileInput {
   custom_recipes?: Maybe<CustomRecipeCreateManyWithoutUserInput>;
   custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
 }
 
 export interface ProfileUpdateInput {
@@ -2464,6 +2806,7 @@ export interface UserUpdateWithoutProfileDataInput {
   custom_recipes?: Maybe<CustomRecipeUpdateManyWithoutUserInput>;
   custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpsertWithoutProfileInput {
@@ -2497,6 +2840,7 @@ export interface UserCreateInput {
   custom_recipes?: Maybe<CustomRecipeCreateManyWithoutUserInput>;
   custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
 }
 
 export interface UserUpdateInput {
@@ -2508,6 +2852,7 @@ export interface UserUpdateInput {
   custom_recipes?: Maybe<CustomRecipeUpdateManyWithoutUserInput>;
   custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -2567,6 +2912,23 @@ export interface DailyRecordSubscriptionWhereInput {
   >;
   NOT?: Maybe<
     DailyRecordSubscriptionWhereInput[] | DailyRecordSubscriptionWhereInput
+  >;
+}
+
+export interface FavoriteFoodSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<FavoriteFoodWhereInput>;
+  AND?: Maybe<
+    FavoriteFoodSubscriptionWhereInput[] | FavoriteFoodSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    FavoriteFoodSubscriptionWhereInput[] | FavoriteFoodSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    FavoriteFoodSubscriptionWhereInput[] | FavoriteFoodSubscriptionWhereInput
   >;
 }
 
@@ -2734,6 +3096,15 @@ export interface UserPromise extends Promise<User>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  favorites: <T = FragmentableArray<FavoriteFood>>(args?: {
+    where?: FavoriteFoodWhereInput;
+    orderBy?: FavoriteFoodOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface UserSubscription
@@ -2788,6 +3159,15 @@ export interface UserSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  favorites: <T = Promise<AsyncIterator<FavoriteFoodSubscription>>>(args?: {
+    where?: FavoriteFoodWhereInput;
+    orderBy?: FavoriteFoodOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface UserNullablePromise
@@ -2830,6 +3210,15 @@ export interface UserNullablePromise
   ingredient_list: <T = FragmentableArray<IngredientList>>(args?: {
     where?: IngredientListWhereInput;
     orderBy?: IngredientListOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  favorites: <T = FragmentableArray<FavoriteFood>>(args?: {
+    where?: FavoriteFoodWhereInput;
+    orderBy?: FavoriteFoodOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -3126,6 +3515,51 @@ export interface IngredientListNullablePromise
   createdAt: () => Promise<DateTimeOutput>;
 }
 
+export interface FavoriteFood {
+  id: ID_Output;
+  food_id: String;
+  custom: Boolean;
+  user_id: String;
+  updatedAt: DateTimeOutput;
+  createdAt: DateTimeOutput;
+}
+
+export interface FavoriteFoodPromise
+  extends Promise<FavoriteFood>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  food_id: () => Promise<String>;
+  custom: () => Promise<Boolean>;
+  user_id: () => Promise<String>;
+  user: <T = UserPromise>() => T;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface FavoriteFoodSubscription
+  extends Promise<AsyncIterator<FavoriteFood>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  food_id: () => Promise<AsyncIterator<String>>;
+  custom: () => Promise<AsyncIterator<Boolean>>;
+  user_id: () => Promise<AsyncIterator<String>>;
+  user: <T = UserSubscription>() => T;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface FavoriteFoodNullablePromise
+  extends Promise<FavoriteFood | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  food_id: () => Promise<String>;
+  custom: () => Promise<Boolean>;
+  user_id: () => Promise<String>;
+  user: <T = UserPromise>() => T;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
 export interface CustomIngredientConnection {
   pageInfo: PageInfo;
   edges: CustomIngredientEdge[];
@@ -3313,6 +3747,62 @@ export interface AggregateDailyRecordPromise
 
 export interface AggregateDailyRecordSubscription
   extends Promise<AsyncIterator<AggregateDailyRecord>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface FavoriteFoodConnection {
+  pageInfo: PageInfo;
+  edges: FavoriteFoodEdge[];
+}
+
+export interface FavoriteFoodConnectionPromise
+  extends Promise<FavoriteFoodConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<FavoriteFoodEdge>>() => T;
+  aggregate: <T = AggregateFavoriteFoodPromise>() => T;
+}
+
+export interface FavoriteFoodConnectionSubscription
+  extends Promise<AsyncIterator<FavoriteFoodConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<FavoriteFoodEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateFavoriteFoodSubscription>() => T;
+}
+
+export interface FavoriteFoodEdge {
+  node: FavoriteFood;
+  cursor: String;
+}
+
+export interface FavoriteFoodEdgePromise
+  extends Promise<FavoriteFoodEdge>,
+    Fragmentable {
+  node: <T = FavoriteFoodPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface FavoriteFoodEdgeSubscription
+  extends Promise<AsyncIterator<FavoriteFoodEdge>>,
+    Fragmentable {
+  node: <T = FavoriteFoodSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateFavoriteFood {
+  count: Int;
+}
+
+export interface AggregateFavoriteFoodPromise
+  extends Promise<AggregateFavoriteFood>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateFavoriteFoodSubscription
+  extends Promise<AsyncIterator<AggregateFavoriteFood>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
@@ -3701,6 +4191,62 @@ export interface DailyRecordPreviousValuesSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
+export interface FavoriteFoodSubscriptionPayload {
+  mutation: MutationType;
+  node: FavoriteFood;
+  updatedFields: String[];
+  previousValues: FavoriteFoodPreviousValues;
+}
+
+export interface FavoriteFoodSubscriptionPayloadPromise
+  extends Promise<FavoriteFoodSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = FavoriteFoodPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = FavoriteFoodPreviousValuesPromise>() => T;
+}
+
+export interface FavoriteFoodSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<FavoriteFoodSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = FavoriteFoodSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = FavoriteFoodPreviousValuesSubscription>() => T;
+}
+
+export interface FavoriteFoodPreviousValues {
+  id: ID_Output;
+  food_id: String;
+  custom: Boolean;
+  user_id: String;
+  updatedAt: DateTimeOutput;
+  createdAt: DateTimeOutput;
+}
+
+export interface FavoriteFoodPreviousValuesPromise
+  extends Promise<FavoriteFoodPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  food_id: () => Promise<String>;
+  custom: () => Promise<Boolean>;
+  user_id: () => Promise<String>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface FavoriteFoodPreviousValuesSubscription
+  extends Promise<AsyncIterator<FavoriteFoodPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  food_id: () => Promise<AsyncIterator<String>>;
+  custom: () => Promise<AsyncIterator<Boolean>>;
+  user_id: () => Promise<AsyncIterator<String>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
 export interface IngredientListSubscriptionPayload {
   mutation: MutationType;
   node: IngredientList;
@@ -3973,6 +4519,10 @@ export const models: Model[] = [
   },
   {
     name: "IngredientList",
+    embedded: false
+  },
+  {
+    name: "FavoriteFood",
     embedded: false
   }
 ];

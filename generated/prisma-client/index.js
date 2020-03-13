@@ -27,6 +27,10 @@ var models = [
   {
     name: "IngredientList",
     embedded: false
+  },
+  {
+    name: "FavoriteFood",
+    embedded: false
   }
 ];
 exports.Prisma = prisma_lib_1.makePrismaClientClass({
