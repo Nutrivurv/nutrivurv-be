@@ -7,7 +7,8 @@ const opts = {
     origin: [
       "http://localhost:3000",
       "https://nutrition-tracker-fe-pt7-dqdkuajes.now.sh/",
-      "http://nutrivurv.com/"
+      "http://nutrivurv.com/",
+      "https://nutrivurv.herokuapp.com/"
     ]
   }
 };
