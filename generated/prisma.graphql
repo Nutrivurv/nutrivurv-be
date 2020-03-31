@@ -1,5 +1,5 @@
 # source: http://192.168.99.100:4466
-# timestamp: Thu Mar 12 2020 20:29:49 GMT-0700 (Mountain Standard Time)
+# timestamp: Mon Mar 30 2020 20:27:50 GMT-0700 (Mountain Standard Time)
 
 type AggregateCustomIngredient {
   count: Int!
@@ -26,6 +26,10 @@ type AggregateProfile {
 }
 
 type AggregateUser {
+  count: Int!
+}
+
+type AggregateWeightLog {
   count: Int!
 }
 
@@ -1508,7 +1512,6 @@ type DailyRecord implements Node {
   id: ID!
   user_id: String!
   date: String!
-  current_weight: Int!
   calories: Int!
   fat: Int!
   carbs: Int!
@@ -1535,7 +1538,6 @@ input DailyRecordCreateInput {
   id: ID
   user_id: String!
   date: String!
-  current_weight: Int!
   calories: Int!
   fat: Int!
   carbs: Int!
@@ -1555,7 +1557,6 @@ input DailyRecordCreateWithoutUserInput {
   id: ID
   user_id: String!
   date: String!
-  current_weight: Int!
   calories: Int!
   fat: Int!
   carbs: Int!
@@ -1581,8 +1582,6 @@ enum DailyRecordOrderByInput {
   user_id_DESC
   date_ASC
   date_DESC
-  current_weight_ASC
-  current_weight_DESC
   calories_ASC
   calories_DESC
   fat_ASC
@@ -1607,7 +1606,6 @@ type DailyRecordPreviousValues {
   id: ID!
   user_id: String!
   date: String!
-  current_weight: Int!
   calories: Int!
   fat: Int!
   carbs: Int!
@@ -1748,28 +1746,6 @@ input DailyRecordScalarWhereInput {
 
   """All values not ending with the given string."""
   date_not_ends_with: String
-  current_weight: Int
-
-  """All values that are not equal to given value."""
-  current_weight_not: Int
-
-  """All values that are contained in given list."""
-  current_weight_in: [Int!]
-
-  """All values that are not contained in given list."""
-  current_weight_not_in: [Int!]
-
-  """All values less than the given value."""
-  current_weight_lt: Int
-
-  """All values less than or equal the given value."""
-  current_weight_lte: Int
-
-  """All values greater than the given value."""
-  current_weight_gt: Int
-
-  """All values greater than or equal the given value."""
-  current_weight_gte: Int
   calories: Int
 
   """All values that are not equal to given value."""
@@ -2046,7 +2022,6 @@ input DailyRecordSubscriptionWhereInput {
 input DailyRecordUpdateInput {
   user_id: String
   date: String
-  current_weight: Int
   calories: Int
   fat: Int
   carbs: Int
@@ -2060,7 +2035,6 @@ input DailyRecordUpdateInput {
 input DailyRecordUpdateManyDataInput {
   user_id: String
   date: String
-  current_weight: Int
   calories: Int
   fat: Int
   carbs: Int
@@ -2073,7 +2047,6 @@ input DailyRecordUpdateManyDataInput {
 input DailyRecordUpdateManyMutationInput {
   user_id: String
   date: String
-  current_weight: Int
   calories: Int
   fat: Int
   carbs: Int
@@ -2103,7 +2076,6 @@ input DailyRecordUpdateManyWithWhereNestedInput {
 input DailyRecordUpdateWithoutUserDataInput {
   user_id: String
   date: String
-  current_weight: Int
   calories: Int
   fat: Int
   carbs: Int
@@ -2253,28 +2225,6 @@ input DailyRecordWhereInput {
 
   """All values not ending with the given string."""
   date_not_ends_with: String
-  current_weight: Int
-
-  """All values that are not equal to given value."""
-  current_weight_not: Int
-
-  """All values that are contained in given list."""
-  current_weight_in: [Int!]
-
-  """All values that are not contained in given list."""
-  current_weight_not_in: [Int!]
-
-  """All values less than the given value."""
-  current_weight_lt: Int
-
-  """All values less than or equal the given value."""
-  current_weight_lte: Int
-
-  """All values greater than the given value."""
-  current_weight_gt: Int
-
-  """All values greater than or equal the given value."""
-  current_weight_gte: Int
   calories: Int
 
   """All values that are not equal to given value."""
@@ -3876,6 +3826,7 @@ type Mutation {
   createCustomIngredient(data: CustomIngredientCreateInput!): CustomIngredient!
   createIngredientList(data: IngredientListCreateInput!): IngredientList!
   createFavoriteFood(data: FavoriteFoodCreateInput!): FavoriteFood!
+  createWeightLog(data: WeightLogCreateInput!): WeightLog!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
   updateDailyRecord(data: DailyRecordUpdateInput!, where: DailyRecordWhereUniqueInput!): DailyRecord
@@ -3883,6 +3834,7 @@ type Mutation {
   updateCustomIngredient(data: CustomIngredientUpdateInput!, where: CustomIngredientWhereUniqueInput!): CustomIngredient
   updateIngredientList(data: IngredientListUpdateInput!, where: IngredientListWhereUniqueInput!): IngredientList
   updateFavoriteFood(data: FavoriteFoodUpdateInput!, where: FavoriteFoodWhereUniqueInput!): FavoriteFood
+  updateWeightLog(data: WeightLogUpdateInput!, where: WeightLogWhereUniqueInput!): WeightLog
   deleteUser(where: UserWhereUniqueInput!): User
   deleteProfile(where: ProfileWhereUniqueInput!): Profile
   deleteDailyRecord(where: DailyRecordWhereUniqueInput!): DailyRecord
@@ -3890,6 +3842,7 @@ type Mutation {
   deleteCustomIngredient(where: CustomIngredientWhereUniqueInput!): CustomIngredient
   deleteIngredientList(where: IngredientListWhereUniqueInput!): IngredientList
   deleteFavoriteFood(where: FavoriteFoodWhereUniqueInput!): FavoriteFood
+  deleteWeightLog(where: WeightLogWhereUniqueInput!): WeightLog
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertProfile(where: ProfileWhereUniqueInput!, create: ProfileCreateInput!, update: ProfileUpdateInput!): Profile!
   upsertDailyRecord(where: DailyRecordWhereUniqueInput!, create: DailyRecordCreateInput!, update: DailyRecordUpdateInput!): DailyRecord!
@@ -3897,6 +3850,7 @@ type Mutation {
   upsertCustomIngredient(where: CustomIngredientWhereUniqueInput!, create: CustomIngredientCreateInput!, update: CustomIngredientUpdateInput!): CustomIngredient!
   upsertIngredientList(where: IngredientListWhereUniqueInput!, create: IngredientListCreateInput!, update: IngredientListUpdateInput!): IngredientList!
   upsertFavoriteFood(where: FavoriteFoodWhereUniqueInput!, create: FavoriteFoodCreateInput!, update: FavoriteFoodUpdateInput!): FavoriteFood!
+  upsertWeightLog(where: WeightLogWhereUniqueInput!, create: WeightLogCreateInput!, update: WeightLogUpdateInput!): WeightLog!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyProfiles(data: ProfileUpdateManyMutationInput!, where: ProfileWhereInput): BatchPayload!
   updateManyDailyRecords(data: DailyRecordUpdateManyMutationInput!, where: DailyRecordWhereInput): BatchPayload!
@@ -3904,6 +3858,7 @@ type Mutation {
   updateManyCustomIngredients(data: CustomIngredientUpdateManyMutationInput!, where: CustomIngredientWhereInput): BatchPayload!
   updateManyIngredientLists(data: IngredientListUpdateManyMutationInput!, where: IngredientListWhereInput): BatchPayload!
   updateManyFavoriteFoods(data: FavoriteFoodUpdateManyMutationInput!, where: FavoriteFoodWhereInput): BatchPayload!
+  updateManyWeightLogs(data: WeightLogUpdateManyMutationInput!, where: WeightLogWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyProfiles(where: ProfileWhereInput): BatchPayload!
   deleteManyDailyRecords(where: DailyRecordWhereInput): BatchPayload!
@@ -3911,6 +3866,7 @@ type Mutation {
   deleteManyCustomIngredients(where: CustomIngredientWhereInput): BatchPayload!
   deleteManyIngredientLists(where: IngredientListWhereInput): BatchPayload!
   deleteManyFavoriteFoods(where: FavoriteFoodWhereInput): BatchPayload!
+  deleteManyWeightLogs(where: WeightLogWhereInput): BatchPayload!
   executeRaw(database: PrismaDatabase, query: String!): Json!
 }
 
@@ -4591,6 +4547,7 @@ type Query {
   customIngredients(where: CustomIngredientWhereInput, orderBy: CustomIngredientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CustomIngredient]!
   ingredientLists(where: IngredientListWhereInput, orderBy: IngredientListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientList]!
   favoriteFoods(where: FavoriteFoodWhereInput, orderBy: FavoriteFoodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FavoriteFood]!
+  weightLogs(where: WeightLogWhereInput, orderBy: WeightLogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WeightLog]!
   user(where: UserWhereUniqueInput!): User
   profile(where: ProfileWhereUniqueInput!): Profile
   dailyRecord(where: DailyRecordWhereUniqueInput!): DailyRecord
@@ -4598,6 +4555,7 @@ type Query {
   customIngredient(where: CustomIngredientWhereUniqueInput!): CustomIngredient
   ingredientList(where: IngredientListWhereUniqueInput!): IngredientList
   favoriteFood(where: FavoriteFoodWhereUniqueInput!): FavoriteFood
+  weightLog(where: WeightLogWhereUniqueInput!): WeightLog
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   profilesConnection(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProfileConnection!
   dailyRecordsConnection(where: DailyRecordWhereInput, orderBy: DailyRecordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DailyRecordConnection!
@@ -4605,6 +4563,7 @@ type Query {
   customIngredientsConnection(where: CustomIngredientWhereInput, orderBy: CustomIngredientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CustomIngredientConnection!
   ingredientListsConnection(where: IngredientListWhereInput, orderBy: IngredientListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): IngredientListConnection!
   favoriteFoodsConnection(where: FavoriteFoodWhereInput, orderBy: FavoriteFoodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FavoriteFoodConnection!
+  weightLogsConnection(where: WeightLogWhereInput, orderBy: WeightLogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WeightLogConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -4621,6 +4580,7 @@ type Subscription {
   customIngredient(where: CustomIngredientSubscriptionWhereInput): CustomIngredientSubscriptionPayload
   ingredientList(where: IngredientListSubscriptionWhereInput): IngredientListSubscriptionPayload
   favoriteFood(where: FavoriteFoodSubscriptionWhereInput): FavoriteFoodSubscriptionPayload
+  weightLog(where: WeightLogSubscriptionWhereInput): WeightLogSubscriptionPayload
 }
 
 type User implements Node {
@@ -4636,6 +4596,7 @@ type User implements Node {
   custom_ingredients(where: CustomIngredientWhereInput, orderBy: CustomIngredientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CustomIngredient!]
   ingredient_list(where: IngredientListWhereInput, orderBy: IngredientListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientList!]
   favorites(where: FavoriteFoodWhereInput, orderBy: FavoriteFoodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FavoriteFood!]
+  weight_logs(where: WeightLogWhereInput, orderBy: WeightLogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WeightLog!]
 }
 
 """A connection to a list of items."""
@@ -4659,6 +4620,7 @@ input UserCreateInput {
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
 }
 
 input UserCreateOneWithoutCustom_ingredientsInput {
@@ -4691,6 +4653,11 @@ input UserCreateOneWithoutProfileInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutWeight_logsInput {
+  create: UserCreateWithoutWeight_logsInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateWithoutCustom_ingredientsInput {
   id: ID
   name: String!
@@ -4701,6 +4668,7 @@ input UserCreateWithoutCustom_ingredientsInput {
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutCustom_recipesInput {
@@ -4713,6 +4681,7 @@ input UserCreateWithoutCustom_recipesInput {
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutDaily_recordsInput {
@@ -4725,6 +4694,7 @@ input UserCreateWithoutDaily_recordsInput {
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutFavoritesInput {
@@ -4737,6 +4707,7 @@ input UserCreateWithoutFavoritesInput {
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutIngredient_listInput {
@@ -4749,6 +4720,7 @@ input UserCreateWithoutIngredient_listInput {
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutProfileInput {
@@ -4756,6 +4728,20 @@ input UserCreateWithoutProfileInput {
   name: String!
   email: String!
   password: String!
+  daily_records: DailyRecordCreateManyWithoutUserInput
+  custom_recipes: CustomRecipeCreateManyWithoutUserInput
+  custom_ingredients: CustomIngredientCreateManyWithoutUserInput
+  ingredient_list: IngredientListCreateManyWithoutUserInput
+  favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
+}
+
+input UserCreateWithoutWeight_logsInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  profile: ProfileCreateOneWithoutUserInput
   daily_records: DailyRecordCreateManyWithoutUserInput
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
@@ -4843,6 +4829,7 @@ input UserUpdateInput {
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
@@ -4893,6 +4880,13 @@ input UserUpdateOneRequiredWithoutProfileInput {
   upsert: UserUpsertWithoutProfileInput
 }
 
+input UserUpdateOneRequiredWithoutWeight_logsInput {
+  create: UserCreateWithoutWeight_logsInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutWeight_logsDataInput
+  upsert: UserUpsertWithoutWeight_logsInput
+}
+
 input UserUpdateWithoutCustom_ingredientsDataInput {
   name: String
   email: String
@@ -4902,6 +4896,7 @@ input UserUpdateWithoutCustom_ingredientsDataInput {
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutCustom_recipesDataInput {
@@ -4913,6 +4908,7 @@ input UserUpdateWithoutCustom_recipesDataInput {
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutDaily_recordsDataInput {
@@ -4924,6 +4920,7 @@ input UserUpdateWithoutDaily_recordsDataInput {
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutFavoritesDataInput {
@@ -4935,6 +4932,7 @@ input UserUpdateWithoutFavoritesDataInput {
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutIngredient_listDataInput {
@@ -4946,12 +4944,26 @@ input UserUpdateWithoutIngredient_listDataInput {
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutProfileDataInput {
   name: String
   email: String
   password: String
+  daily_records: DailyRecordUpdateManyWithoutUserInput
+  custom_recipes: CustomRecipeUpdateManyWithoutUserInput
+  custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
+  ingredient_list: IngredientListUpdateManyWithoutUserInput
+  favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
+}
+
+input UserUpdateWithoutWeight_logsDataInput {
+  name: String
+  email: String
+  password: String
+  profile: ProfileUpdateOneWithoutUserInput
   daily_records: DailyRecordUpdateManyWithoutUserInput
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
@@ -4987,6 +4999,11 @@ input UserUpsertWithoutIngredient_listInput {
 input UserUpsertWithoutProfileInput {
   update: UserUpdateWithoutProfileDataInput!
   create: UserCreateWithoutProfileInput!
+}
+
+input UserUpsertWithoutWeight_logsInput {
+  update: UserUpdateWithoutWeight_logsDataInput!
+  create: UserCreateWithoutWeight_logsInput!
 }
 
 input UserWhereInput {
@@ -5218,9 +5235,574 @@ input UserWhereInput {
   favorites_every: FavoriteFoodWhereInput
   favorites_some: FavoriteFoodWhereInput
   favorites_none: FavoriteFoodWhereInput
+  weight_logs_every: WeightLogWhereInput
+  weight_logs_some: WeightLogWhereInput
+  weight_logs_none: WeightLogWhereInput
 }
 
 input UserWhereUniqueInput {
   id: ID
   email: String
+}
+
+type WeightLog implements Node {
+  id: ID!
+  date: String!
+  user_id: String!
+  current_weight: Int!
+  user: User!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type WeightLogConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [WeightLogEdge]!
+  aggregate: AggregateWeightLog!
+}
+
+input WeightLogCreateInput {
+  id: ID
+  date: String!
+  user_id: String!
+  current_weight: Int!
+  user: UserCreateOneWithoutWeight_logsInput!
+}
+
+input WeightLogCreateManyWithoutUserInput {
+  create: [WeightLogCreateWithoutUserInput!]
+  connect: [WeightLogWhereUniqueInput!]
+}
+
+input WeightLogCreateWithoutUserInput {
+  id: ID
+  date: String!
+  user_id: String!
+  current_weight: Int!
+}
+
+"""An edge in a connection."""
+type WeightLogEdge {
+  """The item at the end of the edge."""
+  node: WeightLog!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum WeightLogOrderByInput {
+  id_ASC
+  id_DESC
+  date_ASC
+  date_DESC
+  user_id_ASC
+  user_id_DESC
+  current_weight_ASC
+  current_weight_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type WeightLogPreviousValues {
+  id: ID!
+  date: String!
+  user_id: String!
+  current_weight: Int!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input WeightLogScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WeightLogScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WeightLogScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WeightLogScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  date: String
+
+  """All values that are not equal to given value."""
+  date_not: String
+
+  """All values that are contained in given list."""
+  date_in: [String!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [String!]
+
+  """All values less than the given value."""
+  date_lt: String
+
+  """All values less than or equal the given value."""
+  date_lte: String
+
+  """All values greater than the given value."""
+  date_gt: String
+
+  """All values greater than or equal the given value."""
+  date_gte: String
+
+  """All values containing the given string."""
+  date_contains: String
+
+  """All values not containing the given string."""
+  date_not_contains: String
+
+  """All values starting with the given string."""
+  date_starts_with: String
+
+  """All values not starting with the given string."""
+  date_not_starts_with: String
+
+  """All values ending with the given string."""
+  date_ends_with: String
+
+  """All values not ending with the given string."""
+  date_not_ends_with: String
+  user_id: String
+
+  """All values that are not equal to given value."""
+  user_id_not: String
+
+  """All values that are contained in given list."""
+  user_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  user_id_not_in: [String!]
+
+  """All values less than the given value."""
+  user_id_lt: String
+
+  """All values less than or equal the given value."""
+  user_id_lte: String
+
+  """All values greater than the given value."""
+  user_id_gt: String
+
+  """All values greater than or equal the given value."""
+  user_id_gte: String
+
+  """All values containing the given string."""
+  user_id_contains: String
+
+  """All values not containing the given string."""
+  user_id_not_contains: String
+
+  """All values starting with the given string."""
+  user_id_starts_with: String
+
+  """All values not starting with the given string."""
+  user_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  user_id_ends_with: String
+
+  """All values not ending with the given string."""
+  user_id_not_ends_with: String
+  current_weight: Int
+
+  """All values that are not equal to given value."""
+  current_weight_not: Int
+
+  """All values that are contained in given list."""
+  current_weight_in: [Int!]
+
+  """All values that are not contained in given list."""
+  current_weight_not_in: [Int!]
+
+  """All values less than the given value."""
+  current_weight_lt: Int
+
+  """All values less than or equal the given value."""
+  current_weight_lte: Int
+
+  """All values greater than the given value."""
+  current_weight_gt: Int
+
+  """All values greater than or equal the given value."""
+  current_weight_gte: Int
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+}
+
+type WeightLogSubscriptionPayload {
+  mutation: MutationType!
+  node: WeightLog
+  updatedFields: [String!]
+  previousValues: WeightLogPreviousValues
+}
+
+input WeightLogSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WeightLogSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WeightLogSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WeightLogSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: WeightLogWhereInput
+}
+
+input WeightLogUpdateInput {
+  date: String
+  user_id: String
+  current_weight: Int
+  user: UserUpdateOneRequiredWithoutWeight_logsInput
+}
+
+input WeightLogUpdateManyDataInput {
+  date: String
+  user_id: String
+  current_weight: Int
+}
+
+input WeightLogUpdateManyMutationInput {
+  date: String
+  user_id: String
+  current_weight: Int
+}
+
+input WeightLogUpdateManyWithoutUserInput {
+  create: [WeightLogCreateWithoutUserInput!]
+  connect: [WeightLogWhereUniqueInput!]
+  set: [WeightLogWhereUniqueInput!]
+  disconnect: [WeightLogWhereUniqueInput!]
+  delete: [WeightLogWhereUniqueInput!]
+  update: [WeightLogUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [WeightLogUpdateManyWithWhereNestedInput!]
+  deleteMany: [WeightLogScalarWhereInput!]
+  upsert: [WeightLogUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input WeightLogUpdateManyWithWhereNestedInput {
+  where: WeightLogScalarWhereInput!
+  data: WeightLogUpdateManyDataInput!
+}
+
+input WeightLogUpdateWithoutUserDataInput {
+  date: String
+  user_id: String
+  current_weight: Int
+}
+
+input WeightLogUpdateWithWhereUniqueWithoutUserInput {
+  where: WeightLogWhereUniqueInput!
+  data: WeightLogUpdateWithoutUserDataInput!
+}
+
+input WeightLogUpsertWithWhereUniqueWithoutUserInput {
+  where: WeightLogWhereUniqueInput!
+  update: WeightLogUpdateWithoutUserDataInput!
+  create: WeightLogCreateWithoutUserInput!
+}
+
+input WeightLogWhereInput {
+  """Logical AND on all given filters."""
+  AND: [WeightLogWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [WeightLogWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [WeightLogWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  date: String
+
+  """All values that are not equal to given value."""
+  date_not: String
+
+  """All values that are contained in given list."""
+  date_in: [String!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [String!]
+
+  """All values less than the given value."""
+  date_lt: String
+
+  """All values less than or equal the given value."""
+  date_lte: String
+
+  """All values greater than the given value."""
+  date_gt: String
+
+  """All values greater than or equal the given value."""
+  date_gte: String
+
+  """All values containing the given string."""
+  date_contains: String
+
+  """All values not containing the given string."""
+  date_not_contains: String
+
+  """All values starting with the given string."""
+  date_starts_with: String
+
+  """All values not starting with the given string."""
+  date_not_starts_with: String
+
+  """All values ending with the given string."""
+  date_ends_with: String
+
+  """All values not ending with the given string."""
+  date_not_ends_with: String
+  user_id: String
+
+  """All values that are not equal to given value."""
+  user_id_not: String
+
+  """All values that are contained in given list."""
+  user_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  user_id_not_in: [String!]
+
+  """All values less than the given value."""
+  user_id_lt: String
+
+  """All values less than or equal the given value."""
+  user_id_lte: String
+
+  """All values greater than the given value."""
+  user_id_gt: String
+
+  """All values greater than or equal the given value."""
+  user_id_gte: String
+
+  """All values containing the given string."""
+  user_id_contains: String
+
+  """All values not containing the given string."""
+  user_id_not_contains: String
+
+  """All values starting with the given string."""
+  user_id_starts_with: String
+
+  """All values not starting with the given string."""
+  user_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  user_id_ends_with: String
+
+  """All values not ending with the given string."""
+  user_id_not_ends_with: String
+  current_weight: Int
+
+  """All values that are not equal to given value."""
+  current_weight_not: Int
+
+  """All values that are contained in given list."""
+  current_weight_in: [Int!]
+
+  """All values that are not contained in given list."""
+  current_weight_not_in: [Int!]
+
+  """All values less than the given value."""
+  current_weight_lt: Int
+
+  """All values less than or equal the given value."""
+  current_weight_lte: Int
+
+  """All values greater than the given value."""
+  current_weight_gt: Int
+
+  """All values greater than or equal the given value."""
+  current_weight_gte: Int
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  user: UserWhereInput
+}
+
+input WeightLogWhereUniqueInput {
+  id: ID
 }

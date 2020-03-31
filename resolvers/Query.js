@@ -4,6 +4,7 @@ import DailyRecords from "./queries/DailyRecords.js";
 import Profiles from "./queries/Profiles.js";
 import Users from "./queries/Users.js";
 import FavoriteFoods from "./queries/FavoriteFoods.js";
+import WeightLogs from "./queries/weightLogs.js"
 
 export default {
   ...CustomRecipes,
@@ -11,5 +12,6 @@ export default {
   ...DailyRecords,
   ...Profiles,
   ...Users,
-  ...FavoriteFoods
+  ...FavoriteFoods,
+  ...WeightLogs
 };
