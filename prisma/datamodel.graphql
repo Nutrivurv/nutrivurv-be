@@ -16,6 +16,7 @@ type User {
     @relation(name: "IngredientListToUser", onDelete: CASCADE)
   favorites: [FavoriteFood!]
     @relation(name: "FavoriteListToUser", onDelete: CASCADE)
+    weight_logs: [WeightLog!] @relation(name: "WeightToUser", onDelete: CASCADE)
 }
 
 type Profile {
@@ -42,7 +43,6 @@ type DailyRecord {
   id: ID! @unique @id
   user_id: String!
   date: String!
-  current_weight: Int!
   calories: Int!
   fat: Int!
   carbs: Int!
@@ -106,6 +106,16 @@ type FavoriteFood {
   user_id: String!
   user: User!
     @relation(link: INLINE, name: "FavoriteListToUser", onDelete: SET_NULL)
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+}
+
+type WeightLog {
+  id: ID! @unique @id
+  date: String!
+  user_id: String!
+  current_weight: Int!
+  user: User! @relation(link: INLINE, name: "WeightToUser", onDelete: SET_NULL)
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }

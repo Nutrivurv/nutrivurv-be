@@ -50,6 +50,20 @@ const User = {
         return null;
       }
     }
+  },
+  weightLogs: {
+    fragment: "fragment userId on User { id }",
+    resolve(parent, args, { prisma, request }, info) {
+      if (request.user_id) {
+        return prisma.query.weightLogs({
+          where: {
+            user_id: parent.id
+          }
+        });
+      } else {
+        return null;
+      }
+    }
   }
 };
 

@@ -31,6 +31,10 @@ type AggregateUser {
   count: Int!
 }
 
+type AggregateWeightLog {
+  count: Int!
+}
+
 type BatchPayload {
   count: Long!
 }
@@ -791,7 +795,6 @@ type DailyRecord {
   id: ID!
   user_id: String!
   date: String!
-  current_weight: Int!
   calories: Int!
   fat: Int!
   carbs: Int!
@@ -814,7 +817,6 @@ input DailyRecordCreateInput {
   id: ID
   user_id: String!
   date: String!
-  current_weight: Int!
   calories: Int!
   fat: Int!
   carbs: Int!
@@ -834,7 +836,6 @@ input DailyRecordCreateWithoutUserInput {
   id: ID
   user_id: String!
   date: String!
-  current_weight: Int!
   calories: Int!
   fat: Int!
   carbs: Int!
@@ -856,8 +857,6 @@ enum DailyRecordOrderByInput {
   user_id_DESC
   date_ASC
   date_DESC
-  current_weight_ASC
-  current_weight_DESC
   calories_ASC
   calories_DESC
   fat_ASC
@@ -882,7 +881,6 @@ type DailyRecordPreviousValues {
   id: ID!
   user_id: String!
   date: String!
-  current_weight: Int!
   calories: Int!
   fat: Int!
   carbs: Int!
@@ -937,14 +935,6 @@ input DailyRecordScalarWhereInput {
   date_not_starts_with: String
   date_ends_with: String
   date_not_ends_with: String
-  current_weight: Int
-  current_weight_not: Int
-  current_weight_in: [Int!]
-  current_weight_not_in: [Int!]
-  current_weight_lt: Int
-  current_weight_lte: Int
-  current_weight_gt: Int
-  current_weight_gte: Int
   calories: Int
   calories_not: Int
   calories_in: [Int!]
@@ -1055,7 +1045,6 @@ input DailyRecordSubscriptionWhereInput {
 input DailyRecordUpdateInput {
   user_id: String
   date: String
-  current_weight: Int
   calories: Int
   fat: Int
   carbs: Int
@@ -1069,7 +1058,6 @@ input DailyRecordUpdateInput {
 input DailyRecordUpdateManyDataInput {
   user_id: String
   date: String
-  current_weight: Int
   calories: Int
   fat: Int
   carbs: Int
@@ -1082,7 +1070,6 @@ input DailyRecordUpdateManyDataInput {
 input DailyRecordUpdateManyMutationInput {
   user_id: String
   date: String
-  current_weight: Int
   calories: Int
   fat: Int
   carbs: Int
@@ -1112,7 +1099,6 @@ input DailyRecordUpdateManyWithWhereNestedInput {
 input DailyRecordUpdateWithoutUserDataInput {
   user_id: String
   date: String
-  current_weight: Int
   calories: Int
   fat: Int
   carbs: Int
@@ -1176,14 +1162,6 @@ input DailyRecordWhereInput {
   date_not_starts_with: String
   date_ends_with: String
   date_not_ends_with: String
-  current_weight: Int
-  current_weight_not: Int
-  current_weight_in: [Int!]
-  current_weight_not_in: [Int!]
-  current_weight_lt: Int
-  current_weight_lte: Int
-  current_weight_gt: Int
-  current_weight_gte: Int
   calories: Int
   calories_not: Int
   calories_in: [Int!]
@@ -2028,6 +2006,12 @@ type Mutation {
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createWeightLog(data: WeightLogCreateInput!): WeightLog!
+  updateWeightLog(data: WeightLogUpdateInput!, where: WeightLogWhereUniqueInput!): WeightLog
+  updateManyWeightLogs(data: WeightLogUpdateManyMutationInput!, where: WeightLogWhereInput): BatchPayload!
+  upsertWeightLog(where: WeightLogWhereUniqueInput!, create: WeightLogCreateInput!, update: WeightLogUpdateInput!): WeightLog!
+  deleteWeightLog(where: WeightLogWhereUniqueInput!): WeightLog
+  deleteManyWeightLogs(where: WeightLogWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -2427,6 +2411,9 @@ type Query {
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  weightLog(where: WeightLogWhereUniqueInput!): WeightLog
+  weightLogs(where: WeightLogWhereInput, orderBy: WeightLogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WeightLog]!
+  weightLogsConnection(where: WeightLogWhereInput, orderBy: WeightLogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WeightLogConnection!
   node(id: ID!): Node
 }
 
@@ -2438,6 +2425,7 @@ type Subscription {
   ingredientList(where: IngredientListSubscriptionWhereInput): IngredientListSubscriptionPayload
   profile(where: ProfileSubscriptionWhereInput): ProfileSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  weightLog(where: WeightLogSubscriptionWhereInput): WeightLogSubscriptionPayload
 }
 
 type User {
@@ -2453,6 +2441,7 @@ type User {
   custom_ingredients(where: CustomIngredientWhereInput, orderBy: CustomIngredientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CustomIngredient!]
   ingredient_list(where: IngredientListWhereInput, orderBy: IngredientListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientList!]
   favorites(where: FavoriteFoodWhereInput, orderBy: FavoriteFoodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FavoriteFood!]
+  weight_logs(where: WeightLogWhereInput, orderBy: WeightLogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WeightLog!]
 }
 
 type UserConnection {
@@ -2472,6 +2461,7 @@ input UserCreateInput {
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
 }
 
 input UserCreateOneWithoutCustom_ingredientsInput {
@@ -2504,6 +2494,11 @@ input UserCreateOneWithoutProfileInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutWeight_logsInput {
+  create: UserCreateWithoutWeight_logsInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateWithoutCustom_ingredientsInput {
   id: ID
   name: String!
@@ -2514,6 +2509,7 @@ input UserCreateWithoutCustom_ingredientsInput {
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutCustom_recipesInput {
@@ -2526,6 +2522,7 @@ input UserCreateWithoutCustom_recipesInput {
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutDaily_recordsInput {
@@ -2538,6 +2535,7 @@ input UserCreateWithoutDaily_recordsInput {
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutFavoritesInput {
@@ -2550,6 +2548,7 @@ input UserCreateWithoutFavoritesInput {
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutIngredient_listInput {
@@ -2562,6 +2561,7 @@ input UserCreateWithoutIngredient_listInput {
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutProfileInput {
@@ -2569,6 +2569,20 @@ input UserCreateWithoutProfileInput {
   name: String!
   email: String!
   password: String!
+  daily_records: DailyRecordCreateManyWithoutUserInput
+  custom_recipes: CustomRecipeCreateManyWithoutUserInput
+  custom_ingredients: CustomIngredientCreateManyWithoutUserInput
+  ingredient_list: IngredientListCreateManyWithoutUserInput
+  favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
+}
+
+input UserCreateWithoutWeight_logsInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  profile: ProfileCreateOneWithoutUserInput
   daily_records: DailyRecordCreateManyWithoutUserInput
   custom_recipes: CustomRecipeCreateManyWithoutUserInput
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
@@ -2633,6 +2647,7 @@ input UserUpdateInput {
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
@@ -2683,6 +2698,13 @@ input UserUpdateOneRequiredWithoutProfileInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateOneRequiredWithoutWeight_logsInput {
+  create: UserCreateWithoutWeight_logsInput
+  update: UserUpdateWithoutWeight_logsDataInput
+  upsert: UserUpsertWithoutWeight_logsInput
+  connect: UserWhereUniqueInput
+}
+
 input UserUpdateWithoutCustom_ingredientsDataInput {
   name: String
   email: String
@@ -2692,6 +2714,7 @@ input UserUpdateWithoutCustom_ingredientsDataInput {
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutCustom_recipesDataInput {
@@ -2703,6 +2726,7 @@ input UserUpdateWithoutCustom_recipesDataInput {
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutDaily_recordsDataInput {
@@ -2714,6 +2738,7 @@ input UserUpdateWithoutDaily_recordsDataInput {
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutFavoritesDataInput {
@@ -2725,6 +2750,7 @@ input UserUpdateWithoutFavoritesDataInput {
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutIngredient_listDataInput {
@@ -2736,12 +2762,26 @@ input UserUpdateWithoutIngredient_listDataInput {
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutProfileDataInput {
   name: String
   email: String
   password: String
+  daily_records: DailyRecordUpdateManyWithoutUserInput
+  custom_recipes: CustomRecipeUpdateManyWithoutUserInput
+  custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
+  ingredient_list: IngredientListUpdateManyWithoutUserInput
+  favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
+}
+
+input UserUpdateWithoutWeight_logsDataInput {
+  name: String
+  email: String
+  password: String
+  profile: ProfileUpdateOneWithoutUserInput
   daily_records: DailyRecordUpdateManyWithoutUserInput
   custom_recipes: CustomRecipeUpdateManyWithoutUserInput
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
@@ -2777,6 +2817,11 @@ input UserUpsertWithoutIngredient_listInput {
 input UserUpsertWithoutProfileInput {
   update: UserUpdateWithoutProfileDataInput!
   create: UserCreateWithoutProfileInput!
+}
+
+input UserUpsertWithoutWeight_logsInput {
+  update: UserUpdateWithoutWeight_logsDataInput!
+  create: UserCreateWithoutWeight_logsInput!
 }
 
 input UserWhereInput {
@@ -2868,6 +2913,9 @@ input UserWhereInput {
   favorites_every: FavoriteFoodWhereInput
   favorites_some: FavoriteFoodWhereInput
   favorites_none: FavoriteFoodWhereInput
+  weight_logs_every: WeightLogWhereInput
+  weight_logs_some: WeightLogWhereInput
+  weight_logs_none: WeightLogWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
@@ -2876,6 +2924,291 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   email: String
+}
+
+type WeightLog {
+  id: ID!
+  date: String!
+  user_id: String!
+  current_weight: Int!
+  user: User!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type WeightLogConnection {
+  pageInfo: PageInfo!
+  edges: [WeightLogEdge]!
+  aggregate: AggregateWeightLog!
+}
+
+input WeightLogCreateInput {
+  id: ID
+  date: String!
+  user_id: String!
+  current_weight: Int!
+  user: UserCreateOneWithoutWeight_logsInput!
+}
+
+input WeightLogCreateManyWithoutUserInput {
+  create: [WeightLogCreateWithoutUserInput!]
+  connect: [WeightLogWhereUniqueInput!]
+}
+
+input WeightLogCreateWithoutUserInput {
+  id: ID
+  date: String!
+  user_id: String!
+  current_weight: Int!
+}
+
+type WeightLogEdge {
+  node: WeightLog!
+  cursor: String!
+}
+
+enum WeightLogOrderByInput {
+  id_ASC
+  id_DESC
+  date_ASC
+  date_DESC
+  user_id_ASC
+  user_id_DESC
+  current_weight_ASC
+  current_weight_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type WeightLogPreviousValues {
+  id: ID!
+  date: String!
+  user_id: String!
+  current_weight: Int!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input WeightLogScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  date: String
+  date_not: String
+  date_in: [String!]
+  date_not_in: [String!]
+  date_lt: String
+  date_lte: String
+  date_gt: String
+  date_gte: String
+  date_contains: String
+  date_not_contains: String
+  date_starts_with: String
+  date_not_starts_with: String
+  date_ends_with: String
+  date_not_ends_with: String
+  user_id: String
+  user_id_not: String
+  user_id_in: [String!]
+  user_id_not_in: [String!]
+  user_id_lt: String
+  user_id_lte: String
+  user_id_gt: String
+  user_id_gte: String
+  user_id_contains: String
+  user_id_not_contains: String
+  user_id_starts_with: String
+  user_id_not_starts_with: String
+  user_id_ends_with: String
+  user_id_not_ends_with: String
+  current_weight: Int
+  current_weight_not: Int
+  current_weight_in: [Int!]
+  current_weight_not_in: [Int!]
+  current_weight_lt: Int
+  current_weight_lte: Int
+  current_weight_gt: Int
+  current_weight_gte: Int
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [WeightLogScalarWhereInput!]
+  OR: [WeightLogScalarWhereInput!]
+  NOT: [WeightLogScalarWhereInput!]
+}
+
+type WeightLogSubscriptionPayload {
+  mutation: MutationType!
+  node: WeightLog
+  updatedFields: [String!]
+  previousValues: WeightLogPreviousValues
+}
+
+input WeightLogSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: WeightLogWhereInput
+  AND: [WeightLogSubscriptionWhereInput!]
+  OR: [WeightLogSubscriptionWhereInput!]
+  NOT: [WeightLogSubscriptionWhereInput!]
+}
+
+input WeightLogUpdateInput {
+  date: String
+  user_id: String
+  current_weight: Int
+  user: UserUpdateOneRequiredWithoutWeight_logsInput
+}
+
+input WeightLogUpdateManyDataInput {
+  date: String
+  user_id: String
+  current_weight: Int
+}
+
+input WeightLogUpdateManyMutationInput {
+  date: String
+  user_id: String
+  current_weight: Int
+}
+
+input WeightLogUpdateManyWithoutUserInput {
+  create: [WeightLogCreateWithoutUserInput!]
+  delete: [WeightLogWhereUniqueInput!]
+  connect: [WeightLogWhereUniqueInput!]
+  set: [WeightLogWhereUniqueInput!]
+  disconnect: [WeightLogWhereUniqueInput!]
+  update: [WeightLogUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [WeightLogUpsertWithWhereUniqueWithoutUserInput!]
+  deleteMany: [WeightLogScalarWhereInput!]
+  updateMany: [WeightLogUpdateManyWithWhereNestedInput!]
+}
+
+input WeightLogUpdateManyWithWhereNestedInput {
+  where: WeightLogScalarWhereInput!
+  data: WeightLogUpdateManyDataInput!
+}
+
+input WeightLogUpdateWithoutUserDataInput {
+  date: String
+  user_id: String
+  current_weight: Int
+}
+
+input WeightLogUpdateWithWhereUniqueWithoutUserInput {
+  where: WeightLogWhereUniqueInput!
+  data: WeightLogUpdateWithoutUserDataInput!
+}
+
+input WeightLogUpsertWithWhereUniqueWithoutUserInput {
+  where: WeightLogWhereUniqueInput!
+  update: WeightLogUpdateWithoutUserDataInput!
+  create: WeightLogCreateWithoutUserInput!
+}
+
+input WeightLogWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  date: String
+  date_not: String
+  date_in: [String!]
+  date_not_in: [String!]
+  date_lt: String
+  date_lte: String
+  date_gt: String
+  date_gte: String
+  date_contains: String
+  date_not_contains: String
+  date_starts_with: String
+  date_not_starts_with: String
+  date_ends_with: String
+  date_not_ends_with: String
+  user_id: String
+  user_id_not: String
+  user_id_in: [String!]
+  user_id_not_in: [String!]
+  user_id_lt: String
+  user_id_lte: String
+  user_id_gt: String
+  user_id_gte: String
+  user_id_contains: String
+  user_id_not_contains: String
+  user_id_starts_with: String
+  user_id_not_starts_with: String
+  user_id_ends_with: String
+  user_id_not_ends_with: String
+  current_weight: Int
+  current_weight_not: Int
+  current_weight_in: [Int!]
+  current_weight_not_in: [Int!]
+  current_weight_lt: Int
+  current_weight_lte: Int
+  current_weight_gt: Int
+  current_weight_gte: Int
+  user: UserWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [WeightLogWhereInput!]
+  OR: [WeightLogWhereInput!]
+  NOT: [WeightLogWhereInput!]
+}
+
+input WeightLogWhereUniqueInput {
+  id: ID
 }
 `
       }

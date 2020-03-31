@@ -5,6 +5,7 @@ import DailyRecord from "./mutations/DailyRecord.js";
 import CustomRecipe from "./mutations/CustomRecipe.js";
 import CustomIngredient from "./mutations/CustomIngredient.js";
 import FavoriteFood from "./mutations/FavoriteFoods.js";
+import WeightLogs from "./mutations/WeightLogs.js";
 
 export default {
   ...User,
@@ -13,5 +14,6 @@ export default {
   ...DailyRecord,
   ...CustomIngredient,
   ...CustomRecipe,
-  ...FavoriteFood
+  ...FavoriteFood,
+  ...WeightLogs
 };

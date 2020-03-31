@@ -23,6 +23,7 @@ export interface Exists {
   ingredientList: (where?: IngredientListWhereInput) => Promise<boolean>;
   profile: (where?: ProfileWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
+  weightLog: (where?: WeightLogWhereInput) => Promise<boolean>;
 }
 
 export interface Node {}
@@ -187,6 +188,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => UserConnectionPromise;
+  weightLog: (where: WeightLogWhereUniqueInput) => WeightLogNullablePromise;
+  weightLogs: (args?: {
+    where?: WeightLogWhereInput;
+    orderBy?: WeightLogOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<WeightLog>;
+  weightLogsConnection: (args?: {
+    where?: WeightLogWhereInput;
+    orderBy?: WeightLogOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => WeightLogConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
@@ -327,6 +347,22 @@ export interface Prisma {
   }) => UserPromise;
   deleteUser: (where: UserWhereUniqueInput) => UserPromise;
   deleteManyUsers: (where?: UserWhereInput) => BatchPayloadPromise;
+  createWeightLog: (data: WeightLogCreateInput) => WeightLogPromise;
+  updateWeightLog: (args: {
+    data: WeightLogUpdateInput;
+    where: WeightLogWhereUniqueInput;
+  }) => WeightLogPromise;
+  updateManyWeightLogs: (args: {
+    data: WeightLogUpdateManyMutationInput;
+    where?: WeightLogWhereInput;
+  }) => BatchPayloadPromise;
+  upsertWeightLog: (args: {
+    where: WeightLogWhereUniqueInput;
+    create: WeightLogCreateInput;
+    update: WeightLogUpdateInput;
+  }) => WeightLogPromise;
+  deleteWeightLog: (where: WeightLogWhereUniqueInput) => WeightLogPromise;
+  deleteManyWeightLogs: (where?: WeightLogWhereInput) => BatchPayloadPromise;
 
   /**
    * Subscriptions
@@ -357,6 +393,9 @@ export interface Subscription {
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
+  weightLog: (
+    where?: WeightLogSubscriptionWhereInput
+  ) => WeightLogSubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
@@ -374,8 +413,6 @@ export type DailyRecordOrderByInput =
   | "user_id_DESC"
   | "date_ASC"
   | "date_DESC"
-  | "current_weight_ASC"
-  | "current_weight_DESC"
   | "calories_ASC"
   | "calories_DESC"
   | "fat_ASC"
@@ -462,6 +499,20 @@ export type FavoriteFoodOrderByInput =
   | "custom_DESC"
   | "user_id_ASC"
   | "user_id_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC";
+
+export type WeightLogOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "date_ASC"
+  | "date_DESC"
+  | "user_id_ASC"
+  | "user_id_DESC"
+  | "current_weight_ASC"
+  | "current_weight_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC"
   | "createdAt_ASC"
@@ -564,14 +615,6 @@ export interface DailyRecordWhereInput {
   date_not_starts_with?: Maybe<String>;
   date_ends_with?: Maybe<String>;
   date_not_ends_with?: Maybe<String>;
-  current_weight?: Maybe<Int>;
-  current_weight_not?: Maybe<Int>;
-  current_weight_in?: Maybe<Int[] | Int>;
-  current_weight_not_in?: Maybe<Int[] | Int>;
-  current_weight_lt?: Maybe<Int>;
-  current_weight_lte?: Maybe<Int>;
-  current_weight_gt?: Maybe<Int>;
-  current_weight_gte?: Maybe<Int>;
   calories?: Maybe<Int>;
   calories_not?: Maybe<Int>;
   calories_in?: Maybe<Int[] | Int>;
@@ -751,6 +794,9 @@ export interface UserWhereInput {
   favorites_every?: Maybe<FavoriteFoodWhereInput>;
   favorites_some?: Maybe<FavoriteFoodWhereInput>;
   favorites_none?: Maybe<FavoriteFoodWhereInput>;
+  weight_logs_every?: Maybe<WeightLogWhereInput>;
+  weight_logs_some?: Maybe<WeightLogWhereInput>;
+  weight_logs_none?: Maybe<WeightLogWhereInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
@@ -1269,6 +1315,79 @@ export interface FavoriteFoodWhereInput {
   NOT?: Maybe<FavoriteFoodWhereInput[] | FavoriteFoodWhereInput>;
 }
 
+export interface WeightLogWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  date?: Maybe<String>;
+  date_not?: Maybe<String>;
+  date_in?: Maybe<String[] | String>;
+  date_not_in?: Maybe<String[] | String>;
+  date_lt?: Maybe<String>;
+  date_lte?: Maybe<String>;
+  date_gt?: Maybe<String>;
+  date_gte?: Maybe<String>;
+  date_contains?: Maybe<String>;
+  date_not_contains?: Maybe<String>;
+  date_starts_with?: Maybe<String>;
+  date_not_starts_with?: Maybe<String>;
+  date_ends_with?: Maybe<String>;
+  date_not_ends_with?: Maybe<String>;
+  user_id?: Maybe<String>;
+  user_id_not?: Maybe<String>;
+  user_id_in?: Maybe<String[] | String>;
+  user_id_not_in?: Maybe<String[] | String>;
+  user_id_lt?: Maybe<String>;
+  user_id_lte?: Maybe<String>;
+  user_id_gt?: Maybe<String>;
+  user_id_gte?: Maybe<String>;
+  user_id_contains?: Maybe<String>;
+  user_id_not_contains?: Maybe<String>;
+  user_id_starts_with?: Maybe<String>;
+  user_id_not_starts_with?: Maybe<String>;
+  user_id_ends_with?: Maybe<String>;
+  user_id_not_ends_with?: Maybe<String>;
+  current_weight?: Maybe<Int>;
+  current_weight_not?: Maybe<Int>;
+  current_weight_in?: Maybe<Int[] | Int>;
+  current_weight_not_in?: Maybe<Int[] | Int>;
+  current_weight_lt?: Maybe<Int>;
+  current_weight_lte?: Maybe<Int>;
+  current_weight_gt?: Maybe<Int>;
+  current_weight_gte?: Maybe<Int>;
+  user?: Maybe<UserWhereInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<WeightLogWhereInput[] | WeightLogWhereInput>;
+  OR?: Maybe<WeightLogWhereInput[] | WeightLogWhereInput>;
+  NOT?: Maybe<WeightLogWhereInput[] | WeightLogWhereInput>;
+}
+
 export type CustomRecipeWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
@@ -1293,6 +1412,10 @@ export type ProfileWhereUniqueInput = AtLeastOne<{
 export type UserWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
   email?: Maybe<String>;
+}>;
+
+export type WeightLogWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
 }>;
 
 export interface CustomIngredientCreateInput {
@@ -1323,6 +1446,7 @@ export interface UserCreateWithoutCustom_ingredientsInput {
   custom_recipes?: Maybe<CustomRecipeCreateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
 }
 
 export interface ProfileCreateOneWithoutUserInput {
@@ -1358,7 +1482,6 @@ export interface DailyRecordCreateWithoutUserInput {
   id?: Maybe<ID_Input>;
   user_id: String;
   date: String;
-  current_weight: Int;
   calories: Int;
   fat: Int;
   carbs: Int;
@@ -1421,6 +1544,7 @@ export interface UserCreateWithoutIngredient_listInput {
   custom_recipes?: Maybe<CustomRecipeCreateManyWithoutUserInput>;
   custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
 }
 
 export interface CustomIngredientCreateManyWithoutUserInput {
@@ -1459,6 +1583,20 @@ export interface FavoriteFoodCreateWithoutUserInput {
   food_id: String;
   custom: Boolean;
   user_id: String;
+}
+
+export interface WeightLogCreateManyWithoutUserInput {
+  create?: Maybe<
+    WeightLogCreateWithoutUserInput[] | WeightLogCreateWithoutUserInput
+  >;
+  connect?: Maybe<WeightLogWhereUniqueInput[] | WeightLogWhereUniqueInput>;
+}
+
+export interface WeightLogCreateWithoutUserInput {
+  id?: Maybe<ID_Input>;
+  date: String;
+  user_id: String;
+  current_weight: Int;
 }
 
 export interface IngredientListCreateManyWithoutUserInput {
@@ -1510,6 +1648,7 @@ export interface UserCreateWithoutCustom_recipesInput {
   custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
 }
 
 export interface CustomIngredientUpdateInput {
@@ -1540,6 +1679,7 @@ export interface UserUpdateWithoutCustom_ingredientsDataInput {
   custom_recipes?: Maybe<CustomRecipeUpdateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
 }
 
 export interface ProfileUpdateOneWithoutUserInput {
@@ -1607,7 +1747,6 @@ export interface DailyRecordUpdateWithWhereUniqueWithoutUserInput {
 export interface DailyRecordUpdateWithoutUserDataInput {
   user_id?: Maybe<String>;
   date?: Maybe<String>;
-  current_weight?: Maybe<Int>;
   calories?: Maybe<Int>;
   fat?: Maybe<Int>;
   carbs?: Maybe<Int>;
@@ -1666,14 +1805,6 @@ export interface DailyRecordScalarWhereInput {
   date_not_starts_with?: Maybe<String>;
   date_ends_with?: Maybe<String>;
   date_not_ends_with?: Maybe<String>;
-  current_weight?: Maybe<Int>;
-  current_weight_not?: Maybe<Int>;
-  current_weight_in?: Maybe<Int[] | Int>;
-  current_weight_not_in?: Maybe<Int[] | Int>;
-  current_weight_lt?: Maybe<Int>;
-  current_weight_lte?: Maybe<Int>;
-  current_weight_gt?: Maybe<Int>;
-  current_weight_gte?: Maybe<Int>;
   calories?: Maybe<Int>;
   calories_not?: Maybe<Int>;
   calories_in?: Maybe<Int[] | Int>;
@@ -1771,7 +1902,6 @@ export interface DailyRecordUpdateManyWithWhereNestedInput {
 export interface DailyRecordUpdateManyDataInput {
   user_id?: Maybe<String>;
   date?: Maybe<String>;
-  current_weight?: Maybe<Int>;
   calories?: Maybe<Int>;
   fat?: Maybe<Int>;
   carbs?: Maybe<Int>;
@@ -1887,6 +2017,7 @@ export interface UserUpdateWithoutIngredient_listDataInput {
   custom_recipes?: Maybe<CustomRecipeUpdateManyWithoutUserInput>;
   custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
 }
 
 export interface CustomIngredientUpdateManyWithoutUserInput {
@@ -2208,6 +2339,129 @@ export interface FavoriteFoodUpdateManyDataInput {
   user_id?: Maybe<String>;
 }
 
+export interface WeightLogUpdateManyWithoutUserInput {
+  create?: Maybe<
+    WeightLogCreateWithoutUserInput[] | WeightLogCreateWithoutUserInput
+  >;
+  delete?: Maybe<WeightLogWhereUniqueInput[] | WeightLogWhereUniqueInput>;
+  connect?: Maybe<WeightLogWhereUniqueInput[] | WeightLogWhereUniqueInput>;
+  set?: Maybe<WeightLogWhereUniqueInput[] | WeightLogWhereUniqueInput>;
+  disconnect?: Maybe<WeightLogWhereUniqueInput[] | WeightLogWhereUniqueInput>;
+  update?: Maybe<
+    | WeightLogUpdateWithWhereUniqueWithoutUserInput[]
+    | WeightLogUpdateWithWhereUniqueWithoutUserInput
+  >;
+  upsert?: Maybe<
+    | WeightLogUpsertWithWhereUniqueWithoutUserInput[]
+    | WeightLogUpsertWithWhereUniqueWithoutUserInput
+  >;
+  deleteMany?: Maybe<WeightLogScalarWhereInput[] | WeightLogScalarWhereInput>;
+  updateMany?: Maybe<
+    | WeightLogUpdateManyWithWhereNestedInput[]
+    | WeightLogUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface WeightLogUpdateWithWhereUniqueWithoutUserInput {
+  where: WeightLogWhereUniqueInput;
+  data: WeightLogUpdateWithoutUserDataInput;
+}
+
+export interface WeightLogUpdateWithoutUserDataInput {
+  date?: Maybe<String>;
+  user_id?: Maybe<String>;
+  current_weight?: Maybe<Int>;
+}
+
+export interface WeightLogUpsertWithWhereUniqueWithoutUserInput {
+  where: WeightLogWhereUniqueInput;
+  update: WeightLogUpdateWithoutUserDataInput;
+  create: WeightLogCreateWithoutUserInput;
+}
+
+export interface WeightLogScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  date?: Maybe<String>;
+  date_not?: Maybe<String>;
+  date_in?: Maybe<String[] | String>;
+  date_not_in?: Maybe<String[] | String>;
+  date_lt?: Maybe<String>;
+  date_lte?: Maybe<String>;
+  date_gt?: Maybe<String>;
+  date_gte?: Maybe<String>;
+  date_contains?: Maybe<String>;
+  date_not_contains?: Maybe<String>;
+  date_starts_with?: Maybe<String>;
+  date_not_starts_with?: Maybe<String>;
+  date_ends_with?: Maybe<String>;
+  date_not_ends_with?: Maybe<String>;
+  user_id?: Maybe<String>;
+  user_id_not?: Maybe<String>;
+  user_id_in?: Maybe<String[] | String>;
+  user_id_not_in?: Maybe<String[] | String>;
+  user_id_lt?: Maybe<String>;
+  user_id_lte?: Maybe<String>;
+  user_id_gt?: Maybe<String>;
+  user_id_gte?: Maybe<String>;
+  user_id_contains?: Maybe<String>;
+  user_id_not_contains?: Maybe<String>;
+  user_id_starts_with?: Maybe<String>;
+  user_id_not_starts_with?: Maybe<String>;
+  user_id_ends_with?: Maybe<String>;
+  user_id_not_ends_with?: Maybe<String>;
+  current_weight?: Maybe<Int>;
+  current_weight_not?: Maybe<Int>;
+  current_weight_in?: Maybe<Int[] | Int>;
+  current_weight_not_in?: Maybe<Int[] | Int>;
+  current_weight_lt?: Maybe<Int>;
+  current_weight_lte?: Maybe<Int>;
+  current_weight_gt?: Maybe<Int>;
+  current_weight_gte?: Maybe<Int>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<WeightLogScalarWhereInput[] | WeightLogScalarWhereInput>;
+  OR?: Maybe<WeightLogScalarWhereInput[] | WeightLogScalarWhereInput>;
+  NOT?: Maybe<WeightLogScalarWhereInput[] | WeightLogScalarWhereInput>;
+}
+
+export interface WeightLogUpdateManyWithWhereNestedInput {
+  where: WeightLogScalarWhereInput;
+  data: WeightLogUpdateManyDataInput;
+}
+
+export interface WeightLogUpdateManyDataInput {
+  date?: Maybe<String>;
+  user_id?: Maybe<String>;
+  current_weight?: Maybe<Int>;
+}
+
 export interface UserUpsertWithoutIngredient_listInput {
   update: UserUpdateWithoutIngredient_listDataInput;
   create: UserCreateWithoutIngredient_listInput;
@@ -2507,6 +2761,7 @@ export interface UserUpdateWithoutCustom_recipesDataInput {
   custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpsertWithoutCustom_recipesInput {
@@ -2568,7 +2823,6 @@ export interface DailyRecordCreateInput {
   id?: Maybe<ID_Input>;
   user_id: String;
   date: String;
-  current_weight: Int;
   calories: Int;
   fat: Int;
   carbs: Int;
@@ -2594,12 +2848,12 @@ export interface UserCreateWithoutDaily_recordsInput {
   custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
 }
 
 export interface DailyRecordUpdateInput {
   user_id?: Maybe<String>;
   date?: Maybe<String>;
-  current_weight?: Maybe<Int>;
   calories?: Maybe<Int>;
   fat?: Maybe<Int>;
   carbs?: Maybe<Int>;
@@ -2626,6 +2880,7 @@ export interface UserUpdateWithoutDaily_recordsDataInput {
   custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpsertWithoutDaily_recordsInput {
@@ -2636,7 +2891,6 @@ export interface UserUpsertWithoutDaily_recordsInput {
 export interface DailyRecordUpdateManyMutationInput {
   user_id?: Maybe<String>;
   date?: Maybe<String>;
-  current_weight?: Maybe<Int>;
   calories?: Maybe<Int>;
   fat?: Maybe<Int>;
   carbs?: Maybe<Int>;
@@ -2669,6 +2923,7 @@ export interface UserCreateWithoutFavoritesInput {
   custom_recipes?: Maybe<CustomRecipeCreateManyWithoutUserInput>;
   custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
 }
 
 export interface FavoriteFoodUpdateInput {
@@ -2694,6 +2949,7 @@ export interface UserUpdateWithoutFavoritesDataInput {
   custom_recipes?: Maybe<CustomRecipeUpdateManyWithoutUserInput>;
   custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpsertWithoutFavoritesInput {
@@ -2772,6 +3028,7 @@ export interface UserCreateWithoutProfileInput {
   custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
 }
 
 export interface ProfileUpdateInput {
@@ -2807,6 +3064,7 @@ export interface UserUpdateWithoutProfileDataInput {
   custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpsertWithoutProfileInput {
@@ -2841,6 +3099,7 @@ export interface UserCreateInput {
   custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
 }
 
 export interface UserUpdateInput {
@@ -2853,12 +3112,76 @@ export interface UserUpdateInput {
   custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpdateManyMutationInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
+}
+
+export interface WeightLogCreateInput {
+  id?: Maybe<ID_Input>;
+  date: String;
+  user_id: String;
+  current_weight: Int;
+  user: UserCreateOneWithoutWeight_logsInput;
+}
+
+export interface UserCreateOneWithoutWeight_logsInput {
+  create?: Maybe<UserCreateWithoutWeight_logsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutWeight_logsInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  email: String;
+  password: String;
+  profile?: Maybe<ProfileCreateOneWithoutUserInput>;
+  daily_records?: Maybe<DailyRecordCreateManyWithoutUserInput>;
+  custom_recipes?: Maybe<CustomRecipeCreateManyWithoutUserInput>;
+  custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
+  ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
+}
+
+export interface WeightLogUpdateInput {
+  date?: Maybe<String>;
+  user_id?: Maybe<String>;
+  current_weight?: Maybe<Int>;
+  user?: Maybe<UserUpdateOneRequiredWithoutWeight_logsInput>;
+}
+
+export interface UserUpdateOneRequiredWithoutWeight_logsInput {
+  create?: Maybe<UserCreateWithoutWeight_logsInput>;
+  update?: Maybe<UserUpdateWithoutWeight_logsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutWeight_logsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutWeight_logsDataInput {
+  name?: Maybe<String>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  profile?: Maybe<ProfileUpdateOneWithoutUserInput>;
+  daily_records?: Maybe<DailyRecordUpdateManyWithoutUserInput>;
+  custom_recipes?: Maybe<CustomRecipeUpdateManyWithoutUserInput>;
+  custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
+  ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
+}
+
+export interface UserUpsertWithoutWeight_logsInput {
+  update: UserUpdateWithoutWeight_logsDataInput;
+  create: UserCreateWithoutWeight_logsInput;
+}
+
+export interface WeightLogUpdateManyMutationInput {
+  date?: Maybe<String>;
+  user_id?: Maybe<String>;
+  current_weight?: Maybe<Int>;
 }
 
 export interface CustomIngredientSubscriptionWhereInput {
@@ -2972,6 +3295,23 @@ export interface UserSubscriptionWhereInput {
   AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
   OR?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
   NOT?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
+}
+
+export interface WeightLogSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<WeightLogWhereInput>;
+  AND?: Maybe<
+    WeightLogSubscriptionWhereInput[] | WeightLogSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    WeightLogSubscriptionWhereInput[] | WeightLogSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    WeightLogSubscriptionWhereInput[] | WeightLogSubscriptionWhereInput
+  >;
 }
 
 export interface NodeNode {
@@ -3105,6 +3445,15 @@ export interface UserPromise extends Promise<User>, Fragmentable {
     first?: Int;
     last?: Int;
   }) => T;
+  weight_logs: <T = FragmentableArray<WeightLog>>(args?: {
+    where?: WeightLogWhereInput;
+    orderBy?: WeightLogOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface UserSubscription
@@ -3168,6 +3517,15 @@ export interface UserSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  weight_logs: <T = Promise<AsyncIterator<WeightLogSubscription>>>(args?: {
+    where?: WeightLogWhereInput;
+    orderBy?: WeightLogOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface UserNullablePromise
@@ -3219,6 +3577,15 @@ export interface UserNullablePromise
   favorites: <T = FragmentableArray<FavoriteFood>>(args?: {
     where?: FavoriteFoodWhereInput;
     orderBy?: FavoriteFoodOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  weight_logs: <T = FragmentableArray<WeightLog>>(args?: {
+    where?: WeightLogWhereInput;
+    orderBy?: WeightLogOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -3314,7 +3681,6 @@ export interface DailyRecord {
   id: ID_Output;
   user_id: String;
   date: String;
-  current_weight: Int;
   calories: Int;
   fat: Int;
   carbs: Int;
@@ -3330,7 +3696,6 @@ export interface DailyRecordPromise extends Promise<DailyRecord>, Fragmentable {
   id: () => Promise<ID_Output>;
   user_id: () => Promise<String>;
   date: () => Promise<String>;
-  current_weight: () => Promise<Int>;
   calories: () => Promise<Int>;
   fat: () => Promise<Int>;
   carbs: () => Promise<Int>;
@@ -3349,7 +3714,6 @@ export interface DailyRecordSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   user_id: () => Promise<AsyncIterator<String>>;
   date: () => Promise<AsyncIterator<String>>;
-  current_weight: () => Promise<AsyncIterator<Int>>;
   calories: () => Promise<AsyncIterator<Int>>;
   fat: () => Promise<AsyncIterator<Int>>;
   carbs: () => Promise<AsyncIterator<Int>>;
@@ -3368,7 +3732,6 @@ export interface DailyRecordNullablePromise
   id: () => Promise<ID_Output>;
   user_id: () => Promise<String>;
   date: () => Promise<String>;
-  current_weight: () => Promise<Int>;
   calories: () => Promise<Int>;
   fat: () => Promise<Int>;
   carbs: () => Promise<Int>;
@@ -3555,6 +3918,49 @@ export interface FavoriteFoodNullablePromise
   food_id: () => Promise<String>;
   custom: () => Promise<Boolean>;
   user_id: () => Promise<String>;
+  user: <T = UserPromise>() => T;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface WeightLog {
+  id: ID_Output;
+  date: String;
+  user_id: String;
+  current_weight: Int;
+  updatedAt: DateTimeOutput;
+  createdAt: DateTimeOutput;
+}
+
+export interface WeightLogPromise extends Promise<WeightLog>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  date: () => Promise<String>;
+  user_id: () => Promise<String>;
+  current_weight: () => Promise<Int>;
+  user: <T = UserPromise>() => T;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface WeightLogSubscription
+  extends Promise<AsyncIterator<WeightLog>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  date: () => Promise<AsyncIterator<String>>;
+  user_id: () => Promise<AsyncIterator<String>>;
+  current_weight: () => Promise<AsyncIterator<Int>>;
+  user: <T = UserSubscription>() => T;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface WeightLogNullablePromise
+  extends Promise<WeightLog | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  date: () => Promise<String>;
+  user_id: () => Promise<String>;
+  current_weight: () => Promise<Int>;
   user: <T = UserPromise>() => T;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
@@ -3971,6 +4377,62 @@ export interface AggregateUserSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+export interface WeightLogConnection {
+  pageInfo: PageInfo;
+  edges: WeightLogEdge[];
+}
+
+export interface WeightLogConnectionPromise
+  extends Promise<WeightLogConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<WeightLogEdge>>() => T;
+  aggregate: <T = AggregateWeightLogPromise>() => T;
+}
+
+export interface WeightLogConnectionSubscription
+  extends Promise<AsyncIterator<WeightLogConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<WeightLogEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateWeightLogSubscription>() => T;
+}
+
+export interface WeightLogEdge {
+  node: WeightLog;
+  cursor: String;
+}
+
+export interface WeightLogEdgePromise
+  extends Promise<WeightLogEdge>,
+    Fragmentable {
+  node: <T = WeightLogPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface WeightLogEdgeSubscription
+  extends Promise<AsyncIterator<WeightLogEdge>>,
+    Fragmentable {
+  node: <T = WeightLogSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateWeightLog {
+  count: Int;
+}
+
+export interface AggregateWeightLogPromise
+  extends Promise<AggregateWeightLog>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateWeightLogSubscription
+  extends Promise<AsyncIterator<AggregateWeightLog>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface BatchPayload {
   count: Long;
 }
@@ -4143,7 +4605,6 @@ export interface DailyRecordPreviousValues {
   id: ID_Output;
   user_id: String;
   date: String;
-  current_weight: Int;
   calories: Int;
   fat: Int;
   carbs: Int;
@@ -4161,7 +4622,6 @@ export interface DailyRecordPreviousValuesPromise
   id: () => Promise<ID_Output>;
   user_id: () => Promise<String>;
   date: () => Promise<String>;
-  current_weight: () => Promise<Int>;
   calories: () => Promise<Int>;
   fat: () => Promise<Int>;
   carbs: () => Promise<Int>;
@@ -4179,7 +4639,6 @@ export interface DailyRecordPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   user_id: () => Promise<AsyncIterator<String>>;
   date: () => Promise<AsyncIterator<String>>;
-  current_weight: () => Promise<AsyncIterator<Int>>;
   calories: () => Promise<AsyncIterator<Int>>;
   fat: () => Promise<AsyncIterator<Int>>;
   carbs: () => Promise<AsyncIterator<Int>>;
@@ -4454,6 +4913,62 @@ export interface UserPreviousValuesSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
+export interface WeightLogSubscriptionPayload {
+  mutation: MutationType;
+  node: WeightLog;
+  updatedFields: String[];
+  previousValues: WeightLogPreviousValues;
+}
+
+export interface WeightLogSubscriptionPayloadPromise
+  extends Promise<WeightLogSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = WeightLogPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = WeightLogPreviousValuesPromise>() => T;
+}
+
+export interface WeightLogSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<WeightLogSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = WeightLogSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = WeightLogPreviousValuesSubscription>() => T;
+}
+
+export interface WeightLogPreviousValues {
+  id: ID_Output;
+  date: String;
+  user_id: String;
+  current_weight: Int;
+  updatedAt: DateTimeOutput;
+  createdAt: DateTimeOutput;
+}
+
+export interface WeightLogPreviousValuesPromise
+  extends Promise<WeightLogPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  date: () => Promise<String>;
+  user_id: () => Promise<String>;
+  current_weight: () => Promise<Int>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface WeightLogPreviousValuesSubscription
+  extends Promise<AsyncIterator<WeightLogPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  date: () => Promise<AsyncIterator<String>>;
+  user_id: () => Promise<AsyncIterator<String>>;
+  current_weight: () => Promise<AsyncIterator<Int>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
@@ -4523,6 +5038,10 @@ export const models: Model[] = [
   },
   {
     name: "FavoriteFood",
+    embedded: false
+  },
+  {
+    name: "WeightLog",
     embedded: false
   }
 ];

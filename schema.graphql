@@ -10,16 +10,60 @@ type Query {
   ): [User!]
   me: User!
   myProfile: Profile
-  myDailyRecords: [DailyRecord!]
-  todaysRecords: [DailyRecord!]
+  myDailyRecords(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: DailyRecordOrderByInput
+  ): [DailyRecord!]
+  todaysRecords(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: DailyRecordOrderByInput
+  ): [DailyRecord!]
   user(id: String!): User
-  myRecipes: [CustomRecipe!]
+  myRecipes(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: CustomRecipeOrderByInput
+  ): [CustomRecipe!]
   recipe(id: String!): CustomRecipe
   ingredient(id: String!): CustomIngredient
-  myIngredients: [CustomIngredient!]
-  profiles: [Profile!]
+  myIngredients(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: CustomIngredientOrderByInput
+  ): [CustomIngredient!]
+  profiles(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: ProfileOrderByInput
+  ): [Profile!]
   myDailyRecordCount: Int!
-  myFavoriteFoods: [FavoriteFood!]
+  myFavoriteFoods(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: FavoriteFoodOrderByInput
+  ): [FavoriteFood!]
+  myWeightLogs(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: WeightLogOrderByInput
+  ): [WeightLog!]
+  weightLog(id: String!): WeightLog
 }
 
 type Mutation {
@@ -49,8 +93,11 @@ type Mutation {
   ): IngredientList!
   deleteIngredientList(id: String!): IngredientList!
   createFavoriteFood(data: CreateFavoriteFoodInput): FavoriteFood!
-  updateFavoriteFood(id: String! data: UpdateFavoriteFoodInput!): FavoriteFood!
+  updateFavoriteFood(id: String!, data: UpdateFavoriteFoodInput!): FavoriteFood!
   deleteFavoriteFood(id: String!): FavoriteFood!
+  createWeightLog(data: CreateWeightLogInput): WeightLog!
+  updateWeightLog(id: String! data: UpdateWeightLogInput): WeightLog!
+  deleteWeightLog(id: String!): WeightLog!
 }
 
 # type Subscription {
@@ -64,7 +111,6 @@ type AuthPayload {
 
 input UpdateDailyRecordInput {
   date: String
-  current_weight: Int
   calories: Int
   fat: Int
   carbs: Int
@@ -91,7 +137,6 @@ input UpdateProfileInput {
 
 input CreateDailyRecordInput {
   date: String!
-  current_weight: Int!
   calories: Int!
   fat: Int!
   carbs: Int!
@@ -165,6 +210,7 @@ type User {
   profile: Profile
   favorites: [FavoriteFood!]
   dailyRecords: [DailyRecord!]
+  weightLogs: [WeightLog!]
 }
 
 type Profile {
@@ -188,7 +234,6 @@ type Profile {
 type DailyRecord {
   id: ID!
   date: String!
-  current_weight: Int!
   calories: Int!
   fat: Int!
   carbs: Int!
@@ -270,6 +315,25 @@ input UpdateFavoriteFoodInput {
   custom: Boolean
 }
 
+type WeightLog {
+  id: ID!
+  date: String!
+  user_id: String!
+  current_weight: Int!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input CreateWeightLogInput {
+  current_weight: Int!
+  date: String!
+}
+
+input UpdateWeightLogInput {
+  current_weight: Int
+  date: String
+}
+
 enum UserOrderByInput {
   id_ASC
   id_DESC
@@ -289,4 +353,157 @@ enum MutationType {
   CREATED
   UPDATED
   DELETED
+}
+
+enum CustomIngredientOrderByInput {
+  id_ASC
+  id_DESC
+  user_id_ASC
+  user_id_DESC
+  name_ASC
+  name_DESC
+  description_ASC
+  description_DESC
+  fat_ASC
+  fat_DESC
+  carbs_ASC
+  carbs_DESC
+  protein_ASC
+  protein_DESC
+  fiber_ASC
+  fiber_DESC
+  calories_ASC
+  calories_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+enum CustomRecipeOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  user_id_ASC
+  user_id_DESC
+  portions_ASC
+  portions_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+enum DailyRecordOrderByInput {
+  id_ASC
+  id_DESC
+  user_id_ASC
+  user_id_DESC
+  date_ASC
+  date_DESC
+  calories_ASC
+  calories_DESC
+  fat_ASC
+  fat_DESC
+  carbs_ASC
+  carbs_DESC
+  fiber_ASC
+  fiber_DESC
+  protein_ASC
+  protein_DESC
+  food_string_ASC
+  food_string_DESC
+  meal_type_ASC
+  meal_type_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+enum FavoriteFoodOrderByInput {
+  id_ASC
+  id_DESC
+  food_id_ASC
+  food_id_DESC
+  custom_ASC
+  custom_DESC
+  user_id_ASC
+  user_id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+enum IngredientListOrderByInput {
+  id_ASC
+  id_DESC
+  user_id_ASC
+  user_id_DESC
+  recipe_id_ASC
+  recipe_id_DESC
+  ingredient_id_ASC
+  ingredient_id_DESC
+  custom_ASC
+  custom_DESC
+  amount_ASC
+  amount_DESC
+  unit_ASC
+  unit_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+enum ProfileOrderByInput {
+  id_ASC
+  id_DESC
+  user_id_ASC
+  user_id_DESC
+  age_ASC
+  age_DESC
+  weight_ASC
+  weight_DESC
+  height_ASC
+  height_DESC
+  gender_ASC
+  gender_DESC
+  goal_weight_ASC
+  goal_weight_DESC
+  activity_level_ASC
+  activity_level_DESC
+  diet_ASC
+  diet_DESC
+  fat_ASC
+  fat_DESC
+  carbs_ASC
+  carbs_DESC
+  protein_ASC
+  protein_DESC
+  fiber_ASC
+  fiber_DESC
+  calories_ASC
+  calories_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+enum WeightLogOrderByInput {
+  id_ASC
+  id_DESC
+  date_ASC
+  date_DESC
+  user_id_ASC
+  user_id_DESC
+  current_weight_ASC
+  current_weight_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
 }
