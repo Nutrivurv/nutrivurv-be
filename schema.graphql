@@ -11,6 +11,7 @@ type Query {
   me: User!
   myProfile: Profile
   myDailyRecords: [DailyRecord!]
+  todaysRecords: [DailyRecord!]
   user(id: String!): User
   myRecipes: [CustomRecipe!]
   recipe(id: String!): CustomRecipe
