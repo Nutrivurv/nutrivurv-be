@@ -11,14 +11,12 @@ type Query {
   me: User!
   myProfile: Profile
   myDailyRecords(
-    query: String
     first: Int
     skip: Int
     after: String
     orderBy: DailyRecordOrderByInput
   ): [DailyRecord!]
   todaysRecords(
-    query: String
     first: Int
     skip: Int
     after: String
@@ -26,7 +24,6 @@ type Query {
   ): [DailyRecord!]
   user(id: String!): User
   myRecipes(
-    query: String
     first: Int
     skip: Int
     after: String
@@ -35,14 +32,12 @@ type Query {
   recipe(id: String!): CustomRecipe
   ingredient(id: String!): CustomIngredient
   myIngredients(
-    query: String
     first: Int
     skip: Int
     after: String
     orderBy: CustomIngredientOrderByInput
   ): [CustomIngredient!]
   profiles(
-    query: String
     first: Int
     skip: Int
     after: String
@@ -50,14 +45,12 @@ type Query {
   ): [Profile!]
   myDailyRecordCount: Int!
   myFavoriteFoods(
-    query: String
     first: Int
     skip: Int
     after: String
     orderBy: FavoriteFoodOrderByInput
   ): [FavoriteFood!]
   myWeightLogs(
-    query: String
     first: Int
     skip: Int
     after: String
