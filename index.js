@@ -2,16 +2,18 @@ import server from "./server";
 
 const opts = {
   port: process.env.PORT || 4000,
-  cors: {
-    credentials: true,
+  cors = {
     origin: [
       "http://localhost:3000",
-      "https://nutrition-tracker-fe-pt7-dqdkuajes.now.sh",
+      "https://nutrivurv-staging.herokuapp.com",
       "http://nutrivurv.com",
       "https://nutrivurv.herokuapp.com",
       "nutrivurv.com"
-    ]
-  }
+    ],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS",
+    preflightContinue: true,
+    optionsSuccessStatus: 204,
+  };
 };
 
 server.start(opts, () => {
