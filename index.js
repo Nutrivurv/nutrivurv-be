@@ -2,7 +2,7 @@ import server from "./server";
 
 const opts = {
   port: process.env.PORT || 4000,
-  cors = {
+  cors: {
     origin: [
       "http://localhost:3000",
       "https://nutrivurv-staging.herokuapp.com",
@@ -10,7 +10,7 @@ const opts = {
       "https://nutrivurv.herokuapp.com",
       "nutrivurv.com"
     ],
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS",
+    methods: "POST,OPTIONS",
     preflightContinue: true,
     optionsSuccessStatus: 204,
   };
