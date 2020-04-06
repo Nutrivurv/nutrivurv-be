@@ -12,7 +12,7 @@ const opts = {
       "nutrivurv.com"
     ],
     methods: "POST,OPTIONS",
-    preflightContinue: true,
+    preflightContinue: false,
     optionsSuccessStatus: 204,
   };
 };
