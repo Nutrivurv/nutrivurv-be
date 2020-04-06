@@ -6,11 +6,14 @@ const opts = {
     credentials: true,
     origin: [
       "http://localhost:3000",
-      "https://nutrition-tracker-fe-pt7-dqdkuajes.now.sh",
+      "https://nutrivurv-staging.herokuapp.com",
       "http://nutrivurv.com",
       "https://nutrivurv.herokuapp.com",
       "nutrivurv.com"
-    ]
+    ],
+    methods: "POST,OPTIONS",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
   }
 };
 
