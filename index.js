@@ -11,7 +11,7 @@ const opts = {
       "https://nutrivurv.herokuapp.com",
       "nutrivurv.com"
     ],
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE, OPTIONS",
+    methods: "POST,OPTIONS",
     preflightContinue: true,
     optionsSuccessStatus: 204,
   };
