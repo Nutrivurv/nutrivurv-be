@@ -14,7 +14,7 @@ const opts = {
     methods: "POST,OPTIONS",
     preflightContinue: false,
     optionsSuccessStatus: 204,
-  };
+  }
 };
 
 server.start(opts, () => {
