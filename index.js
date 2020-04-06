@@ -2,7 +2,8 @@ import server from "./server";
 
 const opts = {
   port: process.env.PORT || 4000,
-  cors = {
+  cors: {
+    credentials: true,
     origin: [
       "http://localhost:3000",
       "https://nutrivurv-staging.herokuapp.com",
