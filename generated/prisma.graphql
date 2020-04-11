@@ -1,5 +1,9 @@
 # source: http://192.168.99.100:4466
-# timestamp: Mon Mar 30 2020 20:27:50 GMT-0700 (Mountain Standard Time)
+# timestamp: Sat Apr 11 2020 09:45:25 GMT-0700 (Mountain Standard Time)
+
+type AggregateComment {
+  count: Int!
+}
 
 type AggregateCustomIngredient {
   count: Int!
@@ -21,6 +25,10 @@ type AggregateIngredientList {
   count: Int!
 }
 
+type AggregatePost {
+  count: Int!
+}
+
 type AggregateProfile {
   count: Int!
 }
@@ -36,6 +44,617 @@ type AggregateWeightLog {
 type BatchPayload {
   """The number of nodes that have been affected by the Batch operation."""
   count: Long!
+}
+
+type Comment implements Node {
+  id: ID!
+  user: User!
+  user_id: String!
+  post: Post!
+  likeCount: Int!
+  body: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type CommentConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [CommentEdge]!
+  aggregate: AggregateComment!
+}
+
+input CommentCreateInput {
+  id: ID
+  user_id: String!
+  likeCount: Int!
+  body: String!
+  user: UserCreateOneWithoutCommentsInput!
+  post: PostCreateOneWithoutCommentsInput!
+}
+
+input CommentCreateManyWithoutPostInput {
+  create: [CommentCreateWithoutPostInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateManyWithoutUserInput {
+  create: [CommentCreateWithoutUserInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateWithoutPostInput {
+  id: ID
+  user_id: String!
+  likeCount: Int!
+  body: String!
+  user: UserCreateOneWithoutCommentsInput!
+}
+
+input CommentCreateWithoutUserInput {
+  id: ID
+  user_id: String!
+  likeCount: Int!
+  body: String!
+  post: PostCreateOneWithoutCommentsInput!
+}
+
+"""An edge in a connection."""
+type CommentEdge {
+  """The item at the end of the edge."""
+  node: Comment!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum CommentOrderByInput {
+  id_ASC
+  id_DESC
+  user_id_ASC
+  user_id_DESC
+  likeCount_ASC
+  likeCount_DESC
+  body_ASC
+  body_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CommentPreviousValues {
+  id: ID!
+  user_id: String!
+  likeCount: Int!
+  body: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input CommentScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CommentScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CommentScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CommentScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  user_id: String
+
+  """All values that are not equal to given value."""
+  user_id_not: String
+
+  """All values that are contained in given list."""
+  user_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  user_id_not_in: [String!]
+
+  """All values less than the given value."""
+  user_id_lt: String
+
+  """All values less than or equal the given value."""
+  user_id_lte: String
+
+  """All values greater than the given value."""
+  user_id_gt: String
+
+  """All values greater than or equal the given value."""
+  user_id_gte: String
+
+  """All values containing the given string."""
+  user_id_contains: String
+
+  """All values not containing the given string."""
+  user_id_not_contains: String
+
+  """All values starting with the given string."""
+  user_id_starts_with: String
+
+  """All values not starting with the given string."""
+  user_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  user_id_ends_with: String
+
+  """All values not ending with the given string."""
+  user_id_not_ends_with: String
+  likeCount: Int
+
+  """All values that are not equal to given value."""
+  likeCount_not: Int
+
+  """All values that are contained in given list."""
+  likeCount_in: [Int!]
+
+  """All values that are not contained in given list."""
+  likeCount_not_in: [Int!]
+
+  """All values less than the given value."""
+  likeCount_lt: Int
+
+  """All values less than or equal the given value."""
+  likeCount_lte: Int
+
+  """All values greater than the given value."""
+  likeCount_gt: Int
+
+  """All values greater than or equal the given value."""
+  likeCount_gte: Int
+  body: String
+
+  """All values that are not equal to given value."""
+  body_not: String
+
+  """All values that are contained in given list."""
+  body_in: [String!]
+
+  """All values that are not contained in given list."""
+  body_not_in: [String!]
+
+  """All values less than the given value."""
+  body_lt: String
+
+  """All values less than or equal the given value."""
+  body_lte: String
+
+  """All values greater than the given value."""
+  body_gt: String
+
+  """All values greater than or equal the given value."""
+  body_gte: String
+
+  """All values containing the given string."""
+  body_contains: String
+
+  """All values not containing the given string."""
+  body_not_contains: String
+
+  """All values starting with the given string."""
+  body_starts_with: String
+
+  """All values not starting with the given string."""
+  body_not_starts_with: String
+
+  """All values ending with the given string."""
+  body_ends_with: String
+
+  """All values not ending with the given string."""
+  body_not_ends_with: String
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+}
+
+type CommentSubscriptionPayload {
+  mutation: MutationType!
+  node: Comment
+  updatedFields: [String!]
+  previousValues: CommentPreviousValues
+}
+
+input CommentSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CommentSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CommentSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CommentSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: CommentWhereInput
+}
+
+input CommentUpdateInput {
+  user_id: String
+  likeCount: Int
+  body: String
+  user: UserUpdateOneRequiredWithoutCommentsInput
+  post: PostUpdateOneRequiredWithoutCommentsInput
+}
+
+input CommentUpdateManyDataInput {
+  user_id: String
+  likeCount: Int
+  body: String
+}
+
+input CommentUpdateManyMutationInput {
+  user_id: String
+  likeCount: Int
+  body: String
+}
+
+input CommentUpdateManyWithoutPostInput {
+  create: [CommentCreateWithoutPostInput!]
+  connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  delete: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutPostInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutPostInput!]
+}
+
+input CommentUpdateManyWithoutUserInput {
+  create: [CommentCreateWithoutUserInput!]
+  connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  delete: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input CommentUpdateManyWithWhereNestedInput {
+  where: CommentScalarWhereInput!
+  data: CommentUpdateManyDataInput!
+}
+
+input CommentUpdateWithoutPostDataInput {
+  user_id: String
+  likeCount: Int
+  body: String
+  user: UserUpdateOneRequiredWithoutCommentsInput
+}
+
+input CommentUpdateWithoutUserDataInput {
+  user_id: String
+  likeCount: Int
+  body: String
+  post: PostUpdateOneRequiredWithoutCommentsInput
+}
+
+input CommentUpdateWithWhereUniqueWithoutPostInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutPostDataInput!
+}
+
+input CommentUpdateWithWhereUniqueWithoutUserInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutUserDataInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutPostInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutPostDataInput!
+  create: CommentCreateWithoutPostInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutUserInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutUserDataInput!
+  create: CommentCreateWithoutUserInput!
+}
+
+input CommentWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CommentWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CommentWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CommentWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  user_id: String
+
+  """All values that are not equal to given value."""
+  user_id_not: String
+
+  """All values that are contained in given list."""
+  user_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  user_id_not_in: [String!]
+
+  """All values less than the given value."""
+  user_id_lt: String
+
+  """All values less than or equal the given value."""
+  user_id_lte: String
+
+  """All values greater than the given value."""
+  user_id_gt: String
+
+  """All values greater than or equal the given value."""
+  user_id_gte: String
+
+  """All values containing the given string."""
+  user_id_contains: String
+
+  """All values not containing the given string."""
+  user_id_not_contains: String
+
+  """All values starting with the given string."""
+  user_id_starts_with: String
+
+  """All values not starting with the given string."""
+  user_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  user_id_ends_with: String
+
+  """All values not ending with the given string."""
+  user_id_not_ends_with: String
+  likeCount: Int
+
+  """All values that are not equal to given value."""
+  likeCount_not: Int
+
+  """All values that are contained in given list."""
+  likeCount_in: [Int!]
+
+  """All values that are not contained in given list."""
+  likeCount_not_in: [Int!]
+
+  """All values less than the given value."""
+  likeCount_lt: Int
+
+  """All values less than or equal the given value."""
+  likeCount_lte: Int
+
+  """All values greater than the given value."""
+  likeCount_gt: Int
+
+  """All values greater than or equal the given value."""
+  likeCount_gte: Int
+  body: String
+
+  """All values that are not equal to given value."""
+  body_not: String
+
+  """All values that are contained in given list."""
+  body_in: [String!]
+
+  """All values that are not contained in given list."""
+  body_not_in: [String!]
+
+  """All values less than the given value."""
+  body_lt: String
+
+  """All values less than or equal the given value."""
+  body_lte: String
+
+  """All values greater than the given value."""
+  body_gt: String
+
+  """All values greater than or equal the given value."""
+  body_gte: String
+
+  """All values containing the given string."""
+  body_contains: String
+
+  """All values not containing the given string."""
+  body_not_contains: String
+
+  """All values starting with the given string."""
+  body_starts_with: String
+
+  """All values not starting with the given string."""
+  body_not_starts_with: String
+
+  """All values ending with the given string."""
+  body_ends_with: String
+
+  """All values not ending with the given string."""
+  body_not_ends_with: String
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  user: UserWhereInput
+  post: PostWhereInput
+}
+
+input CommentWhereUniqueInput {
+  id: ID
 }
 
 type CustomIngredient implements Node {
@@ -3827,6 +4446,8 @@ type Mutation {
   createIngredientList(data: IngredientListCreateInput!): IngredientList!
   createFavoriteFood(data: FavoriteFoodCreateInput!): FavoriteFood!
   createWeightLog(data: WeightLogCreateInput!): WeightLog!
+  createPost(data: PostCreateInput!): Post!
+  createComment(data: CommentCreateInput!): Comment!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
   updateDailyRecord(data: DailyRecordUpdateInput!, where: DailyRecordWhereUniqueInput!): DailyRecord
@@ -3835,6 +4456,8 @@ type Mutation {
   updateIngredientList(data: IngredientListUpdateInput!, where: IngredientListWhereUniqueInput!): IngredientList
   updateFavoriteFood(data: FavoriteFoodUpdateInput!, where: FavoriteFoodWhereUniqueInput!): FavoriteFood
   updateWeightLog(data: WeightLogUpdateInput!, where: WeightLogWhereUniqueInput!): WeightLog
+  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
+  updateComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
   deleteUser(where: UserWhereUniqueInput!): User
   deleteProfile(where: ProfileWhereUniqueInput!): Profile
   deleteDailyRecord(where: DailyRecordWhereUniqueInput!): DailyRecord
@@ -3843,6 +4466,8 @@ type Mutation {
   deleteIngredientList(where: IngredientListWhereUniqueInput!): IngredientList
   deleteFavoriteFood(where: FavoriteFoodWhereUniqueInput!): FavoriteFood
   deleteWeightLog(where: WeightLogWhereUniqueInput!): WeightLog
+  deletePost(where: PostWhereUniqueInput!): Post
+  deleteComment(where: CommentWhereUniqueInput!): Comment
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertProfile(where: ProfileWhereUniqueInput!, create: ProfileCreateInput!, update: ProfileUpdateInput!): Profile!
   upsertDailyRecord(where: DailyRecordWhereUniqueInput!, create: DailyRecordCreateInput!, update: DailyRecordUpdateInput!): DailyRecord!
@@ -3851,6 +4476,8 @@ type Mutation {
   upsertIngredientList(where: IngredientListWhereUniqueInput!, create: IngredientListCreateInput!, update: IngredientListUpdateInput!): IngredientList!
   upsertFavoriteFood(where: FavoriteFoodWhereUniqueInput!, create: FavoriteFoodCreateInput!, update: FavoriteFoodUpdateInput!): FavoriteFood!
   upsertWeightLog(where: WeightLogWhereUniqueInput!, create: WeightLogCreateInput!, update: WeightLogUpdateInput!): WeightLog!
+  upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
+  upsertComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyProfiles(data: ProfileUpdateManyMutationInput!, where: ProfileWhereInput): BatchPayload!
   updateManyDailyRecords(data: DailyRecordUpdateManyMutationInput!, where: DailyRecordWhereInput): BatchPayload!
@@ -3859,6 +4486,8 @@ type Mutation {
   updateManyIngredientLists(data: IngredientListUpdateManyMutationInput!, where: IngredientListWhereInput): BatchPayload!
   updateManyFavoriteFoods(data: FavoriteFoodUpdateManyMutationInput!, where: FavoriteFoodWhereInput): BatchPayload!
   updateManyWeightLogs(data: WeightLogUpdateManyMutationInput!, where: WeightLogWhereInput): BatchPayload!
+  updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
+  updateManyComments(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyProfiles(where: ProfileWhereInput): BatchPayload!
   deleteManyDailyRecords(where: DailyRecordWhereInput): BatchPayload!
@@ -3867,6 +4496,8 @@ type Mutation {
   deleteManyIngredientLists(where: IngredientListWhereInput): BatchPayload!
   deleteManyFavoriteFoods(where: FavoriteFoodWhereInput): BatchPayload!
   deleteManyWeightLogs(where: WeightLogWhereInput): BatchPayload!
+  deleteManyPosts(where: PostWhereInput): BatchPayload!
+  deleteManyComments(where: CommentWhereInput): BatchPayload!
   executeRaw(database: PrismaDatabase, query: String!): Json!
 }
 
@@ -3895,6 +4526,756 @@ type PageInfo {
 
   """When paginating forwards, the cursor to continue."""
   endCursor: String
+}
+
+type Post implements Node {
+  id: ID!
+  user: User!
+  user_id: String!
+  viewCount: Int!
+  likeCount: Int!
+  title: String!
+  body: String!
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type PostConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [PostEdge]!
+  aggregate: AggregatePost!
+}
+
+input PostCreateInput {
+  id: ID
+  user_id: String!
+  viewCount: Int!
+  likeCount: Int!
+  title: String!
+  body: String!
+  user: UserCreateOneWithoutPostsInput!
+  comments: CommentCreateManyWithoutPostInput
+}
+
+input PostCreateManyWithoutUserInput {
+  create: [PostCreateWithoutUserInput!]
+  connect: [PostWhereUniqueInput!]
+}
+
+input PostCreateOneWithoutCommentsInput {
+  create: PostCreateWithoutCommentsInput
+  connect: PostWhereUniqueInput
+}
+
+input PostCreateWithoutCommentsInput {
+  id: ID
+  user_id: String!
+  viewCount: Int!
+  likeCount: Int!
+  title: String!
+  body: String!
+  user: UserCreateOneWithoutPostsInput!
+}
+
+input PostCreateWithoutUserInput {
+  id: ID
+  user_id: String!
+  viewCount: Int!
+  likeCount: Int!
+  title: String!
+  body: String!
+  comments: CommentCreateManyWithoutPostInput
+}
+
+"""An edge in a connection."""
+type PostEdge {
+  """The item at the end of the edge."""
+  node: Post!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum PostOrderByInput {
+  id_ASC
+  id_DESC
+  user_id_ASC
+  user_id_DESC
+  viewCount_ASC
+  viewCount_DESC
+  likeCount_ASC
+  likeCount_DESC
+  title_ASC
+  title_DESC
+  body_ASC
+  body_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type PostPreviousValues {
+  id: ID!
+  user_id: String!
+  viewCount: Int!
+  likeCount: Int!
+  title: String!
+  body: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input PostScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PostScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PostScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PostScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  user_id: String
+
+  """All values that are not equal to given value."""
+  user_id_not: String
+
+  """All values that are contained in given list."""
+  user_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  user_id_not_in: [String!]
+
+  """All values less than the given value."""
+  user_id_lt: String
+
+  """All values less than or equal the given value."""
+  user_id_lte: String
+
+  """All values greater than the given value."""
+  user_id_gt: String
+
+  """All values greater than or equal the given value."""
+  user_id_gte: String
+
+  """All values containing the given string."""
+  user_id_contains: String
+
+  """All values not containing the given string."""
+  user_id_not_contains: String
+
+  """All values starting with the given string."""
+  user_id_starts_with: String
+
+  """All values not starting with the given string."""
+  user_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  user_id_ends_with: String
+
+  """All values not ending with the given string."""
+  user_id_not_ends_with: String
+  viewCount: Int
+
+  """All values that are not equal to given value."""
+  viewCount_not: Int
+
+  """All values that are contained in given list."""
+  viewCount_in: [Int!]
+
+  """All values that are not contained in given list."""
+  viewCount_not_in: [Int!]
+
+  """All values less than the given value."""
+  viewCount_lt: Int
+
+  """All values less than or equal the given value."""
+  viewCount_lte: Int
+
+  """All values greater than the given value."""
+  viewCount_gt: Int
+
+  """All values greater than or equal the given value."""
+  viewCount_gte: Int
+  likeCount: Int
+
+  """All values that are not equal to given value."""
+  likeCount_not: Int
+
+  """All values that are contained in given list."""
+  likeCount_in: [Int!]
+
+  """All values that are not contained in given list."""
+  likeCount_not_in: [Int!]
+
+  """All values less than the given value."""
+  likeCount_lt: Int
+
+  """All values less than or equal the given value."""
+  likeCount_lte: Int
+
+  """All values greater than the given value."""
+  likeCount_gt: Int
+
+  """All values greater than or equal the given value."""
+  likeCount_gte: Int
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  body: String
+
+  """All values that are not equal to given value."""
+  body_not: String
+
+  """All values that are contained in given list."""
+  body_in: [String!]
+
+  """All values that are not contained in given list."""
+  body_not_in: [String!]
+
+  """All values less than the given value."""
+  body_lt: String
+
+  """All values less than or equal the given value."""
+  body_lte: String
+
+  """All values greater than the given value."""
+  body_gt: String
+
+  """All values greater than or equal the given value."""
+  body_gte: String
+
+  """All values containing the given string."""
+  body_contains: String
+
+  """All values not containing the given string."""
+  body_not_contains: String
+
+  """All values starting with the given string."""
+  body_starts_with: String
+
+  """All values not starting with the given string."""
+  body_not_starts_with: String
+
+  """All values ending with the given string."""
+  body_ends_with: String
+
+  """All values not ending with the given string."""
+  body_not_ends_with: String
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+}
+
+type PostSubscriptionPayload {
+  mutation: MutationType!
+  node: Post
+  updatedFields: [String!]
+  previousValues: PostPreviousValues
+}
+
+input PostSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PostSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PostSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PostSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: PostWhereInput
+}
+
+input PostUpdateInput {
+  user_id: String
+  viewCount: Int
+  likeCount: Int
+  title: String
+  body: String
+  user: UserUpdateOneRequiredWithoutPostsInput
+  comments: CommentUpdateManyWithoutPostInput
+}
+
+input PostUpdateManyDataInput {
+  user_id: String
+  viewCount: Int
+  likeCount: Int
+  title: String
+  body: String
+}
+
+input PostUpdateManyMutationInput {
+  user_id: String
+  viewCount: Int
+  likeCount: Int
+  title: String
+  body: String
+}
+
+input PostUpdateManyWithoutUserInput {
+  create: [PostCreateWithoutUserInput!]
+  connect: [PostWhereUniqueInput!]
+  set: [PostWhereUniqueInput!]
+  disconnect: [PostWhereUniqueInput!]
+  delete: [PostWhereUniqueInput!]
+  update: [PostUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [PostUpdateManyWithWhereNestedInput!]
+  deleteMany: [PostScalarWhereInput!]
+  upsert: [PostUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input PostUpdateManyWithWhereNestedInput {
+  where: PostScalarWhereInput!
+  data: PostUpdateManyDataInput!
+}
+
+input PostUpdateOneRequiredWithoutCommentsInput {
+  create: PostCreateWithoutCommentsInput
+  connect: PostWhereUniqueInput
+  update: PostUpdateWithoutCommentsDataInput
+  upsert: PostUpsertWithoutCommentsInput
+}
+
+input PostUpdateWithoutCommentsDataInput {
+  user_id: String
+  viewCount: Int
+  likeCount: Int
+  title: String
+  body: String
+  user: UserUpdateOneRequiredWithoutPostsInput
+}
+
+input PostUpdateWithoutUserDataInput {
+  user_id: String
+  viewCount: Int
+  likeCount: Int
+  title: String
+  body: String
+  comments: CommentUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithWhereUniqueWithoutUserInput {
+  where: PostWhereUniqueInput!
+  data: PostUpdateWithoutUserDataInput!
+}
+
+input PostUpsertWithoutCommentsInput {
+  update: PostUpdateWithoutCommentsDataInput!
+  create: PostCreateWithoutCommentsInput!
+}
+
+input PostUpsertWithWhereUniqueWithoutUserInput {
+  where: PostWhereUniqueInput!
+  update: PostUpdateWithoutUserDataInput!
+  create: PostCreateWithoutUserInput!
+}
+
+input PostWhereInput {
+  """Logical AND on all given filters."""
+  AND: [PostWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [PostWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [PostWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  user_id: String
+
+  """All values that are not equal to given value."""
+  user_id_not: String
+
+  """All values that are contained in given list."""
+  user_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  user_id_not_in: [String!]
+
+  """All values less than the given value."""
+  user_id_lt: String
+
+  """All values less than or equal the given value."""
+  user_id_lte: String
+
+  """All values greater than the given value."""
+  user_id_gt: String
+
+  """All values greater than or equal the given value."""
+  user_id_gte: String
+
+  """All values containing the given string."""
+  user_id_contains: String
+
+  """All values not containing the given string."""
+  user_id_not_contains: String
+
+  """All values starting with the given string."""
+  user_id_starts_with: String
+
+  """All values not starting with the given string."""
+  user_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  user_id_ends_with: String
+
+  """All values not ending with the given string."""
+  user_id_not_ends_with: String
+  viewCount: Int
+
+  """All values that are not equal to given value."""
+  viewCount_not: Int
+
+  """All values that are contained in given list."""
+  viewCount_in: [Int!]
+
+  """All values that are not contained in given list."""
+  viewCount_not_in: [Int!]
+
+  """All values less than the given value."""
+  viewCount_lt: Int
+
+  """All values less than or equal the given value."""
+  viewCount_lte: Int
+
+  """All values greater than the given value."""
+  viewCount_gt: Int
+
+  """All values greater than or equal the given value."""
+  viewCount_gte: Int
+  likeCount: Int
+
+  """All values that are not equal to given value."""
+  likeCount_not: Int
+
+  """All values that are contained in given list."""
+  likeCount_in: [Int!]
+
+  """All values that are not contained in given list."""
+  likeCount_not_in: [Int!]
+
+  """All values less than the given value."""
+  likeCount_lt: Int
+
+  """All values less than or equal the given value."""
+  likeCount_lte: Int
+
+  """All values greater than the given value."""
+  likeCount_gt: Int
+
+  """All values greater than or equal the given value."""
+  likeCount_gte: Int
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  body: String
+
+  """All values that are not equal to given value."""
+  body_not: String
+
+  """All values that are contained in given list."""
+  body_in: [String!]
+
+  """All values that are not contained in given list."""
+  body_not_in: [String!]
+
+  """All values less than the given value."""
+  body_lt: String
+
+  """All values less than or equal the given value."""
+  body_lte: String
+
+  """All values greater than the given value."""
+  body_gt: String
+
+  """All values greater than or equal the given value."""
+  body_gte: String
+
+  """All values containing the given string."""
+  body_contains: String
+
+  """All values not containing the given string."""
+  body_not_contains: String
+
+  """All values starting with the given string."""
+  body_starts_with: String
+
+  """All values not starting with the given string."""
+  body_not_starts_with: String
+
+  """All values ending with the given string."""
+  body_ends_with: String
+
+  """All values not ending with the given string."""
+  body_not_ends_with: String
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  user: UserWhereInput
+  comments_every: CommentWhereInput
+  comments_some: CommentWhereInput
+  comments_none: CommentWhereInput
+}
+
+input PostWhereUniqueInput {
+  id: ID
 }
 
 enum PrismaDatabase {
@@ -4548,6 +5929,8 @@ type Query {
   ingredientLists(where: IngredientListWhereInput, orderBy: IngredientListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientList]!
   favoriteFoods(where: FavoriteFoodWhereInput, orderBy: FavoriteFoodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FavoriteFood]!
   weightLogs(where: WeightLogWhereInput, orderBy: WeightLogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WeightLog]!
+  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
   user(where: UserWhereUniqueInput!): User
   profile(where: ProfileWhereUniqueInput!): Profile
   dailyRecord(where: DailyRecordWhereUniqueInput!): DailyRecord
@@ -4556,6 +5939,8 @@ type Query {
   ingredientList(where: IngredientListWhereUniqueInput!): IngredientList
   favoriteFood(where: FavoriteFoodWhereUniqueInput!): FavoriteFood
   weightLog(where: WeightLogWhereUniqueInput!): WeightLog
+  post(where: PostWhereUniqueInput!): Post
+  comment(where: CommentWhereUniqueInput!): Comment
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   profilesConnection(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProfileConnection!
   dailyRecordsConnection(where: DailyRecordWhereInput, orderBy: DailyRecordOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DailyRecordConnection!
@@ -4564,6 +5949,8 @@ type Query {
   ingredientListsConnection(where: IngredientListWhereInput, orderBy: IngredientListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): IngredientListConnection!
   favoriteFoodsConnection(where: FavoriteFoodWhereInput, orderBy: FavoriteFoodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): FavoriteFoodConnection!
   weightLogsConnection(where: WeightLogWhereInput, orderBy: WeightLogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): WeightLogConnection!
+  postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
+  commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -4581,6 +5968,8 @@ type Subscription {
   ingredientList(where: IngredientListSubscriptionWhereInput): IngredientListSubscriptionPayload
   favoriteFood(where: FavoriteFoodSubscriptionWhereInput): FavoriteFoodSubscriptionPayload
   weightLog(where: WeightLogSubscriptionWhereInput): WeightLogSubscriptionPayload
+  post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
+  comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
 }
 
 type User implements Node {
@@ -4597,6 +5986,8 @@ type User implements Node {
   ingredient_list(where: IngredientListWhereInput, orderBy: IngredientListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientList!]
   favorites(where: FavoriteFoodWhereInput, orderBy: FavoriteFoodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FavoriteFood!]
   weight_logs(where: WeightLogWhereInput, orderBy: WeightLogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WeightLog!]
+  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
 }
 
 """A connection to a list of items."""
@@ -4621,6 +6012,13 @@ input UserCreateInput {
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
   weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+}
+
+input UserCreateOneWithoutCommentsInput {
+  create: UserCreateWithoutCommentsInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreateOneWithoutCustom_ingredientsInput {
@@ -4648,6 +6046,11 @@ input UserCreateOneWithoutIngredient_listInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutPostsInput {
+  create: UserCreateWithoutPostsInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutProfileInput {
   create: UserCreateWithoutProfileInput
   connect: UserWhereUniqueInput
@@ -4656,6 +6059,21 @@ input UserCreateOneWithoutProfileInput {
 input UserCreateOneWithoutWeight_logsInput {
   create: UserCreateWithoutWeight_logsInput
   connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutCommentsInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  profile: ProfileCreateOneWithoutUserInput
+  daily_records: DailyRecordCreateManyWithoutUserInput
+  custom_recipes: CustomRecipeCreateManyWithoutUserInput
+  custom_ingredients: CustomIngredientCreateManyWithoutUserInput
+  ingredient_list: IngredientListCreateManyWithoutUserInput
+  favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutCustom_ingredientsInput {
@@ -4669,6 +6087,8 @@ input UserCreateWithoutCustom_ingredientsInput {
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
   weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutCustom_recipesInput {
@@ -4682,6 +6102,8 @@ input UserCreateWithoutCustom_recipesInput {
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
   weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutDaily_recordsInput {
@@ -4695,6 +6117,8 @@ input UserCreateWithoutDaily_recordsInput {
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
   weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutFavoritesInput {
@@ -4708,6 +6132,8 @@ input UserCreateWithoutFavoritesInput {
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
   weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutIngredient_listInput {
@@ -4721,6 +6147,23 @@ input UserCreateWithoutIngredient_listInput {
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
   weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+}
+
+input UserCreateWithoutPostsInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  profile: ProfileCreateOneWithoutUserInput
+  daily_records: DailyRecordCreateManyWithoutUserInput
+  custom_recipes: CustomRecipeCreateManyWithoutUserInput
+  custom_ingredients: CustomIngredientCreateManyWithoutUserInput
+  ingredient_list: IngredientListCreateManyWithoutUserInput
+  favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutProfileInput {
@@ -4734,6 +6177,8 @@ input UserCreateWithoutProfileInput {
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
   weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutWeight_logsInput {
@@ -4747,6 +6192,8 @@ input UserCreateWithoutWeight_logsInput {
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
 }
 
 """An edge in a connection."""
@@ -4830,12 +6277,21 @@ input UserUpdateInput {
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
   weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
   name: String
   email: String
   password: String
+}
+
+input UserUpdateOneRequiredWithoutCommentsInput {
+  create: UserCreateWithoutCommentsInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutCommentsDataInput
+  upsert: UserUpsertWithoutCommentsInput
 }
 
 input UserUpdateOneRequiredWithoutCustom_ingredientsInput {
@@ -4873,6 +6329,13 @@ input UserUpdateOneRequiredWithoutIngredient_listInput {
   upsert: UserUpsertWithoutIngredient_listInput
 }
 
+input UserUpdateOneRequiredWithoutPostsInput {
+  create: UserCreateWithoutPostsInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutPostsDataInput
+  upsert: UserUpsertWithoutPostsInput
+}
+
 input UserUpdateOneRequiredWithoutProfileInput {
   create: UserCreateWithoutProfileInput
   connect: UserWhereUniqueInput
@@ -4887,6 +6350,20 @@ input UserUpdateOneRequiredWithoutWeight_logsInput {
   upsert: UserUpsertWithoutWeight_logsInput
 }
 
+input UserUpdateWithoutCommentsDataInput {
+  name: String
+  email: String
+  password: String
+  profile: ProfileUpdateOneWithoutUserInput
+  daily_records: DailyRecordUpdateManyWithoutUserInput
+  custom_recipes: CustomRecipeUpdateManyWithoutUserInput
+  custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
+  ingredient_list: IngredientListUpdateManyWithoutUserInput
+  favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+}
+
 input UserUpdateWithoutCustom_ingredientsDataInput {
   name: String
   email: String
@@ -4897,6 +6374,8 @@ input UserUpdateWithoutCustom_ingredientsDataInput {
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
   weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutCustom_recipesDataInput {
@@ -4909,6 +6388,8 @@ input UserUpdateWithoutCustom_recipesDataInput {
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
   weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutDaily_recordsDataInput {
@@ -4921,6 +6402,8 @@ input UserUpdateWithoutDaily_recordsDataInput {
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
   weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutFavoritesDataInput {
@@ -4933,6 +6416,8 @@ input UserUpdateWithoutFavoritesDataInput {
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutIngredient_listDataInput {
@@ -4945,6 +6430,22 @@ input UserUpdateWithoutIngredient_listDataInput {
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
   weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+}
+
+input UserUpdateWithoutPostsDataInput {
+  name: String
+  email: String
+  password: String
+  profile: ProfileUpdateOneWithoutUserInput
+  daily_records: DailyRecordUpdateManyWithoutUserInput
+  custom_recipes: CustomRecipeUpdateManyWithoutUserInput
+  custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
+  ingredient_list: IngredientListUpdateManyWithoutUserInput
+  favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutProfileDataInput {
@@ -4957,6 +6458,8 @@ input UserUpdateWithoutProfileDataInput {
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
   weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutWeight_logsDataInput {
@@ -4969,6 +6472,13 @@ input UserUpdateWithoutWeight_logsDataInput {
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+}
+
+input UserUpsertWithoutCommentsInput {
+  update: UserUpdateWithoutCommentsDataInput!
+  create: UserCreateWithoutCommentsInput!
 }
 
 input UserUpsertWithoutCustom_ingredientsInput {
@@ -4994,6 +6504,11 @@ input UserUpsertWithoutFavoritesInput {
 input UserUpsertWithoutIngredient_listInput {
   update: UserUpdateWithoutIngredient_listDataInput!
   create: UserCreateWithoutIngredient_listInput!
+}
+
+input UserUpsertWithoutPostsInput {
+  update: UserUpdateWithoutPostsDataInput!
+  create: UserCreateWithoutPostsInput!
 }
 
 input UserUpsertWithoutProfileInput {
@@ -5238,6 +6753,12 @@ input UserWhereInput {
   weight_logs_every: WeightLogWhereInput
   weight_logs_some: WeightLogWhereInput
   weight_logs_none: WeightLogWhereInput
+  posts_every: PostWhereInput
+  posts_some: PostWhereInput
+  posts_none: PostWhereInput
+  comments_every: CommentWhereInput
+  comments_some: CommentWhereInput
+  comments_none: CommentWhereInput
 }
 
 input UserWhereUniqueInput {

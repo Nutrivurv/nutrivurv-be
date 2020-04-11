@@ -57,6 +57,36 @@ type Query {
     orderBy: WeightLogOrderByInput
   ): [WeightLog!]
   weightLog(id: String!): WeightLog
+  myPosts(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: PostOrderByInput
+  ): [Post!]
+  posts(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: PostOrderByInput
+  ): [Post!]
+  myComments(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: CommentOrderByInput
+  ): [Comment!]
+  comments(
+    query: String
+    first: Int
+    skip: Int
+    after: String
+    orderBy: CommentOrderByInput
+  ): [Comment!]
+  comment(id: String!): Comment
+  post(id: String!): Post
 }
 
 type Mutation {
@@ -89,13 +119,55 @@ type Mutation {
   updateFavoriteFood(id: String!, data: UpdateFavoriteFoodInput!): FavoriteFood!
   deleteFavoriteFood(id: String!): FavoriteFood!
   createWeightLog(data: CreateWeightLogInput): WeightLog!
-  updateWeightLog(id: String! data: UpdateWeightLogInput): WeightLog!
+  updateWeightLog(id: String!, data: UpdateWeightLogInput): WeightLog!
   deleteWeightLog(id: String!): WeightLog!
+  createPost(data: CreatePostInput): Post!
+  updatePost(id: String!, data: UpdatePostInput): Post!
+  deletePost(id: String!): Post!
+  createComment(data: CreateCommentInput): Comment!
+  updateComment(id: String!, data: UpdateCommentInput): Comment!
+  deleteComment(id: String!): Comment!
 }
 
-# type Subscription {
+type Subscription {
+  posts: PostSubPayload!
+  comments(postId: String!): CommentSubPayload!
+  myPosts: PostSubPayload!
+}
 
-# }
+type PostSubPayload {
+  mutation: MutationType!
+  node: Post
+}
+
+type CommentSubPayload {
+  mutation: MutationType!
+  node: Comment
+}
+
+type Post {
+  id: ID!
+  user: User!
+  user_id: String!
+  viewCount: Int!
+  likeCount: Int!
+  title: String!
+  body: String!
+  comments: [Comment!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type Comment {
+  id: ID!
+  user: User!
+  user_id: String!
+  post: Post!
+  likeCount: Int!
+  body: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
 
 type AuthPayload {
   token: String!
@@ -495,6 +567,40 @@ enum WeightLogOrderByInput {
   user_id_DESC
   current_weight_ASC
   current_weight_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+enum PostOrderByInput {
+  id_ASC
+  id_DESC
+  user_id_ASC
+  user_id_DESC
+  viewCount_ASC
+  viewCount_DESC
+  likeCount_ASC
+  likeCount_DESC
+  title_ASC
+  title_DESC
+  body_ASC
+  body_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+enum CommentOrderByInput {
+  id_ASC
+  id_DESC
+  user_id_ASC
+  user_id_DESC
+  likeCount_ASC
+  likeCount_DESC
+  body_ASC
+  body_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC

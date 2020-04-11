@@ -3,7 +3,11 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateCustomIngredient {
+/* GraphQL */ `type AggregateComment {
+  count: Int!
+}
+
+type AggregateCustomIngredient {
   count: Int!
 }
 
@@ -23,6 +27,10 @@ type AggregateIngredientList {
   count: Int!
 }
 
+type AggregatePost {
+  count: Int!
+}
+
 type AggregateProfile {
   count: Int!
 }
@@ -37,6 +45,340 @@ type AggregateWeightLog {
 
 type BatchPayload {
   count: Long!
+}
+
+type Comment {
+  id: ID!
+  user: User!
+  user_id: String!
+  post: Post!
+  likeCount: Int!
+  body: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type CommentConnection {
+  pageInfo: PageInfo!
+  edges: [CommentEdge]!
+  aggregate: AggregateComment!
+}
+
+input CommentCreateInput {
+  id: ID
+  user: UserCreateOneWithoutCommentsInput!
+  user_id: String!
+  post: PostCreateOneWithoutCommentsInput!
+  likeCount: Int!
+  body: String!
+}
+
+input CommentCreateManyWithoutPostInput {
+  create: [CommentCreateWithoutPostInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateManyWithoutUserInput {
+  create: [CommentCreateWithoutUserInput!]
+  connect: [CommentWhereUniqueInput!]
+}
+
+input CommentCreateWithoutPostInput {
+  id: ID
+  user: UserCreateOneWithoutCommentsInput!
+  user_id: String!
+  likeCount: Int!
+  body: String!
+}
+
+input CommentCreateWithoutUserInput {
+  id: ID
+  user_id: String!
+  post: PostCreateOneWithoutCommentsInput!
+  likeCount: Int!
+  body: String!
+}
+
+type CommentEdge {
+  node: Comment!
+  cursor: String!
+}
+
+enum CommentOrderByInput {
+  id_ASC
+  id_DESC
+  user_id_ASC
+  user_id_DESC
+  likeCount_ASC
+  likeCount_DESC
+  body_ASC
+  body_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type CommentPreviousValues {
+  id: ID!
+  user_id: String!
+  likeCount: Int!
+  body: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input CommentScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  user_id: String
+  user_id_not: String
+  user_id_in: [String!]
+  user_id_not_in: [String!]
+  user_id_lt: String
+  user_id_lte: String
+  user_id_gt: String
+  user_id_gte: String
+  user_id_contains: String
+  user_id_not_contains: String
+  user_id_starts_with: String
+  user_id_not_starts_with: String
+  user_id_ends_with: String
+  user_id_not_ends_with: String
+  likeCount: Int
+  likeCount_not: Int
+  likeCount_in: [Int!]
+  likeCount_not_in: [Int!]
+  likeCount_lt: Int
+  likeCount_lte: Int
+  likeCount_gt: Int
+  likeCount_gte: Int
+  body: String
+  body_not: String
+  body_in: [String!]
+  body_not_in: [String!]
+  body_lt: String
+  body_lte: String
+  body_gt: String
+  body_gte: String
+  body_contains: String
+  body_not_contains: String
+  body_starts_with: String
+  body_not_starts_with: String
+  body_ends_with: String
+  body_not_ends_with: String
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [CommentScalarWhereInput!]
+  OR: [CommentScalarWhereInput!]
+  NOT: [CommentScalarWhereInput!]
+}
+
+type CommentSubscriptionPayload {
+  mutation: MutationType!
+  node: Comment
+  updatedFields: [String!]
+  previousValues: CommentPreviousValues
+}
+
+input CommentSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: CommentWhereInput
+  AND: [CommentSubscriptionWhereInput!]
+  OR: [CommentSubscriptionWhereInput!]
+  NOT: [CommentSubscriptionWhereInput!]
+}
+
+input CommentUpdateInput {
+  user: UserUpdateOneRequiredWithoutCommentsInput
+  user_id: String
+  post: PostUpdateOneRequiredWithoutCommentsInput
+  likeCount: Int
+  body: String
+}
+
+input CommentUpdateManyDataInput {
+  user_id: String
+  likeCount: Int
+  body: String
+}
+
+input CommentUpdateManyMutationInput {
+  user_id: String
+  likeCount: Int
+  body: String
+}
+
+input CommentUpdateManyWithoutPostInput {
+  create: [CommentCreateWithoutPostInput!]
+  delete: [CommentWhereUniqueInput!]
+  connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutPostInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutPostInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
+}
+
+input CommentUpdateManyWithoutUserInput {
+  create: [CommentCreateWithoutUserInput!]
+  delete: [CommentWhereUniqueInput!]
+  connect: [CommentWhereUniqueInput!]
+  set: [CommentWhereUniqueInput!]
+  disconnect: [CommentWhereUniqueInput!]
+  update: [CommentUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [CommentUpsertWithWhereUniqueWithoutUserInput!]
+  deleteMany: [CommentScalarWhereInput!]
+  updateMany: [CommentUpdateManyWithWhereNestedInput!]
+}
+
+input CommentUpdateManyWithWhereNestedInput {
+  where: CommentScalarWhereInput!
+  data: CommentUpdateManyDataInput!
+}
+
+input CommentUpdateWithoutPostDataInput {
+  user: UserUpdateOneRequiredWithoutCommentsInput
+  user_id: String
+  likeCount: Int
+  body: String
+}
+
+input CommentUpdateWithoutUserDataInput {
+  user_id: String
+  post: PostUpdateOneRequiredWithoutCommentsInput
+  likeCount: Int
+  body: String
+}
+
+input CommentUpdateWithWhereUniqueWithoutPostInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutPostDataInput!
+}
+
+input CommentUpdateWithWhereUniqueWithoutUserInput {
+  where: CommentWhereUniqueInput!
+  data: CommentUpdateWithoutUserDataInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutPostInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutPostDataInput!
+  create: CommentCreateWithoutPostInput!
+}
+
+input CommentUpsertWithWhereUniqueWithoutUserInput {
+  where: CommentWhereUniqueInput!
+  update: CommentUpdateWithoutUserDataInput!
+  create: CommentCreateWithoutUserInput!
+}
+
+input CommentWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  user: UserWhereInput
+  user_id: String
+  user_id_not: String
+  user_id_in: [String!]
+  user_id_not_in: [String!]
+  user_id_lt: String
+  user_id_lte: String
+  user_id_gt: String
+  user_id_gte: String
+  user_id_contains: String
+  user_id_not_contains: String
+  user_id_starts_with: String
+  user_id_not_starts_with: String
+  user_id_ends_with: String
+  user_id_not_ends_with: String
+  post: PostWhereInput
+  likeCount: Int
+  likeCount_not: Int
+  likeCount_in: [Int!]
+  likeCount_not_in: [Int!]
+  likeCount_lt: Int
+  likeCount_lte: Int
+  likeCount_gt: Int
+  likeCount_gte: Int
+  body: String
+  body_not: String
+  body_in: [String!]
+  body_not_in: [String!]
+  body_lt: String
+  body_lte: String
+  body_gt: String
+  body_gte: String
+  body_contains: String
+  body_not_contains: String
+  body_starts_with: String
+  body_not_starts_with: String
+  body_ends_with: String
+  body_not_ends_with: String
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [CommentWhereInput!]
+  OR: [CommentWhereInput!]
+  NOT: [CommentWhereInput!]
+}
+
+input CommentWhereUniqueInput {
+  id: ID
 }
 
 type CustomIngredient {
@@ -1964,6 +2306,12 @@ input IngredientListWhereUniqueInput {
 scalar Long
 
 type Mutation {
+  createComment(data: CommentCreateInput!): Comment!
+  updateComment(data: CommentUpdateInput!, where: CommentWhereUniqueInput!): Comment
+  updateManyComments(data: CommentUpdateManyMutationInput!, where: CommentWhereInput): BatchPayload!
+  upsertComment(where: CommentWhereUniqueInput!, create: CommentCreateInput!, update: CommentUpdateInput!): Comment!
+  deleteComment(where: CommentWhereUniqueInput!): Comment
+  deleteManyComments(where: CommentWhereInput): BatchPayload!
   createCustomIngredient(data: CustomIngredientCreateInput!): CustomIngredient!
   updateCustomIngredient(data: CustomIngredientUpdateInput!, where: CustomIngredientWhereUniqueInput!): CustomIngredient
   updateManyCustomIngredients(data: CustomIngredientUpdateManyMutationInput!, where: CustomIngredientWhereInput): BatchPayload!
@@ -1994,6 +2342,12 @@ type Mutation {
   upsertIngredientList(where: IngredientListWhereUniqueInput!, create: IngredientListCreateInput!, update: IngredientListUpdateInput!): IngredientList!
   deleteIngredientList(where: IngredientListWhereUniqueInput!): IngredientList
   deleteManyIngredientLists(where: IngredientListWhereInput): BatchPayload!
+  createPost(data: PostCreateInput!): Post!
+  updatePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
+  updateManyPosts(data: PostUpdateManyMutationInput!, where: PostWhereInput): BatchPayload!
+  upsertPost(where: PostWhereUniqueInput!, create: PostCreateInput!, update: PostUpdateInput!): Post!
+  deletePost(where: PostWhereUniqueInput!): Post
+  deleteManyPosts(where: PostWhereInput): BatchPayload!
   createProfile(data: ProfileCreateInput!): Profile!
   updateProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
   updateManyProfiles(data: ProfileUpdateManyMutationInput!, where: ProfileWhereInput): BatchPayload!
@@ -2029,6 +2383,399 @@ type PageInfo {
   hasPreviousPage: Boolean!
   startCursor: String
   endCursor: String
+}
+
+type Post {
+  id: ID!
+  user: User!
+  user_id: String!
+  viewCount: Int!
+  likeCount: Int!
+  title: String!
+  body: String!
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+type PostConnection {
+  pageInfo: PageInfo!
+  edges: [PostEdge]!
+  aggregate: AggregatePost!
+}
+
+input PostCreateInput {
+  id: ID
+  user: UserCreateOneWithoutPostsInput!
+  user_id: String!
+  viewCount: Int!
+  likeCount: Int!
+  title: String!
+  body: String!
+  comments: CommentCreateManyWithoutPostInput
+}
+
+input PostCreateManyWithoutUserInput {
+  create: [PostCreateWithoutUserInput!]
+  connect: [PostWhereUniqueInput!]
+}
+
+input PostCreateOneWithoutCommentsInput {
+  create: PostCreateWithoutCommentsInput
+  connect: PostWhereUniqueInput
+}
+
+input PostCreateWithoutCommentsInput {
+  id: ID
+  user: UserCreateOneWithoutPostsInput!
+  user_id: String!
+  viewCount: Int!
+  likeCount: Int!
+  title: String!
+  body: String!
+}
+
+input PostCreateWithoutUserInput {
+  id: ID
+  user_id: String!
+  viewCount: Int!
+  likeCount: Int!
+  title: String!
+  body: String!
+  comments: CommentCreateManyWithoutPostInput
+}
+
+type PostEdge {
+  node: Post!
+  cursor: String!
+}
+
+enum PostOrderByInput {
+  id_ASC
+  id_DESC
+  user_id_ASC
+  user_id_DESC
+  viewCount_ASC
+  viewCount_DESC
+  likeCount_ASC
+  likeCount_DESC
+  title_ASC
+  title_DESC
+  body_ASC
+  body_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type PostPreviousValues {
+  id: ID!
+  user_id: String!
+  viewCount: Int!
+  likeCount: Int!
+  title: String!
+  body: String!
+  updatedAt: DateTime!
+  createdAt: DateTime!
+}
+
+input PostScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  user_id: String
+  user_id_not: String
+  user_id_in: [String!]
+  user_id_not_in: [String!]
+  user_id_lt: String
+  user_id_lte: String
+  user_id_gt: String
+  user_id_gte: String
+  user_id_contains: String
+  user_id_not_contains: String
+  user_id_starts_with: String
+  user_id_not_starts_with: String
+  user_id_ends_with: String
+  user_id_not_ends_with: String
+  viewCount: Int
+  viewCount_not: Int
+  viewCount_in: [Int!]
+  viewCount_not_in: [Int!]
+  viewCount_lt: Int
+  viewCount_lte: Int
+  viewCount_gt: Int
+  viewCount_gte: Int
+  likeCount: Int
+  likeCount_not: Int
+  likeCount_in: [Int!]
+  likeCount_not_in: [Int!]
+  likeCount_lt: Int
+  likeCount_lte: Int
+  likeCount_gt: Int
+  likeCount_gte: Int
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  body: String
+  body_not: String
+  body_in: [String!]
+  body_not_in: [String!]
+  body_lt: String
+  body_lte: String
+  body_gt: String
+  body_gte: String
+  body_contains: String
+  body_not_contains: String
+  body_starts_with: String
+  body_not_starts_with: String
+  body_ends_with: String
+  body_not_ends_with: String
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [PostScalarWhereInput!]
+  OR: [PostScalarWhereInput!]
+  NOT: [PostScalarWhereInput!]
+}
+
+type PostSubscriptionPayload {
+  mutation: MutationType!
+  node: Post
+  updatedFields: [String!]
+  previousValues: PostPreviousValues
+}
+
+input PostSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: PostWhereInput
+  AND: [PostSubscriptionWhereInput!]
+  OR: [PostSubscriptionWhereInput!]
+  NOT: [PostSubscriptionWhereInput!]
+}
+
+input PostUpdateInput {
+  user: UserUpdateOneRequiredWithoutPostsInput
+  user_id: String
+  viewCount: Int
+  likeCount: Int
+  title: String
+  body: String
+  comments: CommentUpdateManyWithoutPostInput
+}
+
+input PostUpdateManyDataInput {
+  user_id: String
+  viewCount: Int
+  likeCount: Int
+  title: String
+  body: String
+}
+
+input PostUpdateManyMutationInput {
+  user_id: String
+  viewCount: Int
+  likeCount: Int
+  title: String
+  body: String
+}
+
+input PostUpdateManyWithoutUserInput {
+  create: [PostCreateWithoutUserInput!]
+  delete: [PostWhereUniqueInput!]
+  connect: [PostWhereUniqueInput!]
+  set: [PostWhereUniqueInput!]
+  disconnect: [PostWhereUniqueInput!]
+  update: [PostUpdateWithWhereUniqueWithoutUserInput!]
+  upsert: [PostUpsertWithWhereUniqueWithoutUserInput!]
+  deleteMany: [PostScalarWhereInput!]
+  updateMany: [PostUpdateManyWithWhereNestedInput!]
+}
+
+input PostUpdateManyWithWhereNestedInput {
+  where: PostScalarWhereInput!
+  data: PostUpdateManyDataInput!
+}
+
+input PostUpdateOneRequiredWithoutCommentsInput {
+  create: PostCreateWithoutCommentsInput
+  update: PostUpdateWithoutCommentsDataInput
+  upsert: PostUpsertWithoutCommentsInput
+  connect: PostWhereUniqueInput
+}
+
+input PostUpdateWithoutCommentsDataInput {
+  user: UserUpdateOneRequiredWithoutPostsInput
+  user_id: String
+  viewCount: Int
+  likeCount: Int
+  title: String
+  body: String
+}
+
+input PostUpdateWithoutUserDataInput {
+  user_id: String
+  viewCount: Int
+  likeCount: Int
+  title: String
+  body: String
+  comments: CommentUpdateManyWithoutPostInput
+}
+
+input PostUpdateWithWhereUniqueWithoutUserInput {
+  where: PostWhereUniqueInput!
+  data: PostUpdateWithoutUserDataInput!
+}
+
+input PostUpsertWithoutCommentsInput {
+  update: PostUpdateWithoutCommentsDataInput!
+  create: PostCreateWithoutCommentsInput!
+}
+
+input PostUpsertWithWhereUniqueWithoutUserInput {
+  where: PostWhereUniqueInput!
+  update: PostUpdateWithoutUserDataInput!
+  create: PostCreateWithoutUserInput!
+}
+
+input PostWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  user: UserWhereInput
+  user_id: String
+  user_id_not: String
+  user_id_in: [String!]
+  user_id_not_in: [String!]
+  user_id_lt: String
+  user_id_lte: String
+  user_id_gt: String
+  user_id_gte: String
+  user_id_contains: String
+  user_id_not_contains: String
+  user_id_starts_with: String
+  user_id_not_starts_with: String
+  user_id_ends_with: String
+  user_id_not_ends_with: String
+  viewCount: Int
+  viewCount_not: Int
+  viewCount_in: [Int!]
+  viewCount_not_in: [Int!]
+  viewCount_lt: Int
+  viewCount_lte: Int
+  viewCount_gt: Int
+  viewCount_gte: Int
+  likeCount: Int
+  likeCount_not: Int
+  likeCount_in: [Int!]
+  likeCount_not_in: [Int!]
+  likeCount_lt: Int
+  likeCount_lte: Int
+  likeCount_gt: Int
+  likeCount_gte: Int
+  title: String
+  title_not: String
+  title_in: [String!]
+  title_not_in: [String!]
+  title_lt: String
+  title_lte: String
+  title_gt: String
+  title_gte: String
+  title_contains: String
+  title_not_contains: String
+  title_starts_with: String
+  title_not_starts_with: String
+  title_ends_with: String
+  title_not_ends_with: String
+  body: String
+  body_not: String
+  body_in: [String!]
+  body_not_in: [String!]
+  body_lt: String
+  body_lte: String
+  body_gt: String
+  body_gte: String
+  body_contains: String
+  body_not_contains: String
+  body_starts_with: String
+  body_not_starts_with: String
+  body_ends_with: String
+  body_not_ends_with: String
+  comments_every: CommentWhereInput
+  comments_some: CommentWhereInput
+  comments_none: CommentWhereInput
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  AND: [PostWhereInput!]
+  OR: [PostWhereInput!]
+  NOT: [PostWhereInput!]
+}
+
+input PostWhereUniqueInput {
+  id: ID
 }
 
 type Profile {
@@ -2390,6 +3137,9 @@ input ProfileWhereUniqueInput {
 }
 
 type Query {
+  comment(where: CommentWhereUniqueInput!): Comment
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment]!
+  commentsConnection(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CommentConnection!
   customIngredient(where: CustomIngredientWhereUniqueInput!): CustomIngredient
   customIngredients(where: CustomIngredientWhereInput, orderBy: CustomIngredientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [CustomIngredient]!
   customIngredientsConnection(where: CustomIngredientWhereInput, orderBy: CustomIngredientOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CustomIngredientConnection!
@@ -2405,6 +3155,9 @@ type Query {
   ingredientList(where: IngredientListWhereUniqueInput!): IngredientList
   ingredientLists(where: IngredientListWhereInput, orderBy: IngredientListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientList]!
   ingredientListsConnection(where: IngredientListWhereInput, orderBy: IngredientListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): IngredientListConnection!
+  post(where: PostWhereUniqueInput!): Post
+  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]!
+  postsConnection(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): PostConnection!
   profile(where: ProfileWhereUniqueInput!): Profile
   profiles(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Profile]!
   profilesConnection(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProfileConnection!
@@ -2418,11 +3171,13 @@ type Query {
 }
 
 type Subscription {
+  comment(where: CommentSubscriptionWhereInput): CommentSubscriptionPayload
   customIngredient(where: CustomIngredientSubscriptionWhereInput): CustomIngredientSubscriptionPayload
   customRecipe(where: CustomRecipeSubscriptionWhereInput): CustomRecipeSubscriptionPayload
   dailyRecord(where: DailyRecordSubscriptionWhereInput): DailyRecordSubscriptionPayload
   favoriteFood(where: FavoriteFoodSubscriptionWhereInput): FavoriteFoodSubscriptionPayload
   ingredientList(where: IngredientListSubscriptionWhereInput): IngredientListSubscriptionPayload
+  post(where: PostSubscriptionWhereInput): PostSubscriptionPayload
   profile(where: ProfileSubscriptionWhereInput): ProfileSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   weightLog(where: WeightLogSubscriptionWhereInput): WeightLogSubscriptionPayload
@@ -2442,6 +3197,8 @@ type User {
   ingredient_list(where: IngredientListWhereInput, orderBy: IngredientListOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [IngredientList!]
   favorites(where: FavoriteFoodWhereInput, orderBy: FavoriteFoodOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [FavoriteFood!]
   weight_logs(where: WeightLogWhereInput, orderBy: WeightLogOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [WeightLog!]
+  posts(where: PostWhereInput, orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post!]
+  comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
 }
 
 type UserConnection {
@@ -2462,6 +3219,13 @@ input UserCreateInput {
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
   weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+}
+
+input UserCreateOneWithoutCommentsInput {
+  create: UserCreateWithoutCommentsInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreateOneWithoutCustom_ingredientsInput {
@@ -2489,6 +3253,11 @@ input UserCreateOneWithoutIngredient_listInput {
   connect: UserWhereUniqueInput
 }
 
+input UserCreateOneWithoutPostsInput {
+  create: UserCreateWithoutPostsInput
+  connect: UserWhereUniqueInput
+}
+
 input UserCreateOneWithoutProfileInput {
   create: UserCreateWithoutProfileInput
   connect: UserWhereUniqueInput
@@ -2497,6 +3266,21 @@ input UserCreateOneWithoutProfileInput {
 input UserCreateOneWithoutWeight_logsInput {
   create: UserCreateWithoutWeight_logsInput
   connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutCommentsInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  profile: ProfileCreateOneWithoutUserInput
+  daily_records: DailyRecordCreateManyWithoutUserInput
+  custom_recipes: CustomRecipeCreateManyWithoutUserInput
+  custom_ingredients: CustomIngredientCreateManyWithoutUserInput
+  ingredient_list: IngredientListCreateManyWithoutUserInput
+  favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutCustom_ingredientsInput {
@@ -2510,6 +3294,8 @@ input UserCreateWithoutCustom_ingredientsInput {
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
   weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutCustom_recipesInput {
@@ -2523,6 +3309,8 @@ input UserCreateWithoutCustom_recipesInput {
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
   weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutDaily_recordsInput {
@@ -2536,6 +3324,8 @@ input UserCreateWithoutDaily_recordsInput {
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
   weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutFavoritesInput {
@@ -2549,6 +3339,8 @@ input UserCreateWithoutFavoritesInput {
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
   weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutIngredient_listInput {
@@ -2562,6 +3354,23 @@ input UserCreateWithoutIngredient_listInput {
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
   weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
+}
+
+input UserCreateWithoutPostsInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  profile: ProfileCreateOneWithoutUserInput
+  daily_records: DailyRecordCreateManyWithoutUserInput
+  custom_recipes: CustomRecipeCreateManyWithoutUserInput
+  custom_ingredients: CustomIngredientCreateManyWithoutUserInput
+  ingredient_list: IngredientListCreateManyWithoutUserInput
+  favorites: FavoriteFoodCreateManyWithoutUserInput
+  weight_logs: WeightLogCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutProfileInput {
@@ -2575,6 +3384,8 @@ input UserCreateWithoutProfileInput {
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
   weight_logs: WeightLogCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutWeight_logsInput {
@@ -2588,6 +3399,8 @@ input UserCreateWithoutWeight_logsInput {
   custom_ingredients: CustomIngredientCreateManyWithoutUserInput
   ingredient_list: IngredientListCreateManyWithoutUserInput
   favorites: FavoriteFoodCreateManyWithoutUserInput
+  posts: PostCreateManyWithoutUserInput
+  comments: CommentCreateManyWithoutUserInput
 }
 
 type UserEdge {
@@ -2648,12 +3461,21 @@ input UserUpdateInput {
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
   weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
   name: String
   email: String
   password: String
+}
+
+input UserUpdateOneRequiredWithoutCommentsInput {
+  create: UserCreateWithoutCommentsInput
+  update: UserUpdateWithoutCommentsDataInput
+  upsert: UserUpsertWithoutCommentsInput
+  connect: UserWhereUniqueInput
 }
 
 input UserUpdateOneRequiredWithoutCustom_ingredientsInput {
@@ -2691,6 +3513,13 @@ input UserUpdateOneRequiredWithoutIngredient_listInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateOneRequiredWithoutPostsInput {
+  create: UserCreateWithoutPostsInput
+  update: UserUpdateWithoutPostsDataInput
+  upsert: UserUpsertWithoutPostsInput
+  connect: UserWhereUniqueInput
+}
+
 input UserUpdateOneRequiredWithoutProfileInput {
   create: UserCreateWithoutProfileInput
   update: UserUpdateWithoutProfileDataInput
@@ -2705,6 +3534,20 @@ input UserUpdateOneRequiredWithoutWeight_logsInput {
   connect: UserWhereUniqueInput
 }
 
+input UserUpdateWithoutCommentsDataInput {
+  name: String
+  email: String
+  password: String
+  profile: ProfileUpdateOneWithoutUserInput
+  daily_records: DailyRecordUpdateManyWithoutUserInput
+  custom_recipes: CustomRecipeUpdateManyWithoutUserInput
+  custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
+  ingredient_list: IngredientListUpdateManyWithoutUserInput
+  favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+}
+
 input UserUpdateWithoutCustom_ingredientsDataInput {
   name: String
   email: String
@@ -2715,6 +3558,8 @@ input UserUpdateWithoutCustom_ingredientsDataInput {
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
   weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutCustom_recipesDataInput {
@@ -2727,6 +3572,8 @@ input UserUpdateWithoutCustom_recipesDataInput {
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
   weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutDaily_recordsDataInput {
@@ -2739,6 +3586,8 @@ input UserUpdateWithoutDaily_recordsDataInput {
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
   weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutFavoritesDataInput {
@@ -2751,6 +3600,8 @@ input UserUpdateWithoutFavoritesDataInput {
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutIngredient_listDataInput {
@@ -2763,6 +3614,22 @@ input UserUpdateWithoutIngredient_listDataInput {
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
   weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+}
+
+input UserUpdateWithoutPostsDataInput {
+  name: String
+  email: String
+  password: String
+  profile: ProfileUpdateOneWithoutUserInput
+  daily_records: DailyRecordUpdateManyWithoutUserInput
+  custom_recipes: CustomRecipeUpdateManyWithoutUserInput
+  custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
+  ingredient_list: IngredientListUpdateManyWithoutUserInput
+  favorites: FavoriteFoodUpdateManyWithoutUserInput
+  weight_logs: WeightLogUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutProfileDataInput {
@@ -2775,6 +3642,8 @@ input UserUpdateWithoutProfileDataInput {
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
   weight_logs: WeightLogUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutWeight_logsDataInput {
@@ -2787,6 +3656,13 @@ input UserUpdateWithoutWeight_logsDataInput {
   custom_ingredients: CustomIngredientUpdateManyWithoutUserInput
   ingredient_list: IngredientListUpdateManyWithoutUserInput
   favorites: FavoriteFoodUpdateManyWithoutUserInput
+  posts: PostUpdateManyWithoutUserInput
+  comments: CommentUpdateManyWithoutUserInput
+}
+
+input UserUpsertWithoutCommentsInput {
+  update: UserUpdateWithoutCommentsDataInput!
+  create: UserCreateWithoutCommentsInput!
 }
 
 input UserUpsertWithoutCustom_ingredientsInput {
@@ -2812,6 +3688,11 @@ input UserUpsertWithoutFavoritesInput {
 input UserUpsertWithoutIngredient_listInput {
   update: UserUpdateWithoutIngredient_listDataInput!
   create: UserCreateWithoutIngredient_listInput!
+}
+
+input UserUpsertWithoutPostsInput {
+  update: UserUpdateWithoutPostsDataInput!
+  create: UserCreateWithoutPostsInput!
 }
 
 input UserUpsertWithoutProfileInput {
@@ -2916,6 +3797,12 @@ input UserWhereInput {
   weight_logs_every: WeightLogWhereInput
   weight_logs_some: WeightLogWhereInput
   weight_logs_none: WeightLogWhereInput
+  posts_every: PostWhereInput
+  posts_some: PostWhereInput
+  posts_none: PostWhereInput
+  comments_every: CommentWhereInput
+  comments_some: CommentWhereInput
+  comments_none: CommentWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
