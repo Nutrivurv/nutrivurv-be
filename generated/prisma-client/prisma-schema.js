@@ -52,6 +52,7 @@ type Comment {
   user: User!
   user_id: String!
   post: Post!
+  post_id: String!
   likeCount: Int
   body: String!
   updatedAt: DateTime!
@@ -69,6 +70,7 @@ input CommentCreateInput {
   user: UserCreateOneWithoutCommentsInput!
   user_id: String!
   post: PostCreateOneWithoutCommentsInput!
+  post_id: String!
   likeCount: Int
   body: String!
 }
@@ -87,6 +89,7 @@ input CommentCreateWithoutPostInput {
   id: ID
   user: UserCreateOneWithoutCommentsInput!
   user_id: String!
+  post_id: String!
   likeCount: Int
   body: String!
 }
@@ -95,6 +98,7 @@ input CommentCreateWithoutUserInput {
   id: ID
   user_id: String!
   post: PostCreateOneWithoutCommentsInput!
+  post_id: String!
   likeCount: Int
   body: String!
 }
@@ -109,6 +113,8 @@ enum CommentOrderByInput {
   id_DESC
   user_id_ASC
   user_id_DESC
+  post_id_ASC
+  post_id_DESC
   likeCount_ASC
   likeCount_DESC
   body_ASC
@@ -122,6 +128,7 @@ enum CommentOrderByInput {
 type CommentPreviousValues {
   id: ID!
   user_id: String!
+  post_id: String!
   likeCount: Int
   body: String!
   updatedAt: DateTime!
@@ -157,6 +164,20 @@ input CommentScalarWhereInput {
   user_id_not_starts_with: String
   user_id_ends_with: String
   user_id_not_ends_with: String
+  post_id: String
+  post_id_not: String
+  post_id_in: [String!]
+  post_id_not_in: [String!]
+  post_id_lt: String
+  post_id_lte: String
+  post_id_gt: String
+  post_id_gte: String
+  post_id_contains: String
+  post_id_not_contains: String
+  post_id_starts_with: String
+  post_id_not_starts_with: String
+  post_id_ends_with: String
+  post_id_not_ends_with: String
   likeCount: Int
   likeCount_not: Int
   likeCount_in: [Int!]
@@ -222,18 +243,21 @@ input CommentUpdateInput {
   user: UserUpdateOneRequiredWithoutCommentsInput
   user_id: String
   post: PostUpdateOneRequiredWithoutCommentsInput
+  post_id: String
   likeCount: Int
   body: String
 }
 
 input CommentUpdateManyDataInput {
   user_id: String
+  post_id: String
   likeCount: Int
   body: String
 }
 
 input CommentUpdateManyMutationInput {
   user_id: String
+  post_id: String
   likeCount: Int
   body: String
 }
@@ -270,6 +294,7 @@ input CommentUpdateManyWithWhereNestedInput {
 input CommentUpdateWithoutPostDataInput {
   user: UserUpdateOneRequiredWithoutCommentsInput
   user_id: String
+  post_id: String
   likeCount: Int
   body: String
 }
@@ -277,6 +302,7 @@ input CommentUpdateWithoutPostDataInput {
 input CommentUpdateWithoutUserDataInput {
   user_id: String
   post: PostUpdateOneRequiredWithoutCommentsInput
+  post_id: String
   likeCount: Int
   body: String
 }
@@ -334,6 +360,20 @@ input CommentWhereInput {
   user_id_ends_with: String
   user_id_not_ends_with: String
   post: PostWhereInput
+  post_id: String
+  post_id_not: String
+  post_id_in: [String!]
+  post_id_not_in: [String!]
+  post_id_lt: String
+  post_id_lte: String
+  post_id_gt: String
+  post_id_gte: String
+  post_id_contains: String
+  post_id_not_contains: String
+  post_id_starts_with: String
+  post_id_not_starts_with: String
+  post_id_ends_with: String
+  post_id_not_ends_with: String
   likeCount: Int
   likeCount_not: Int
   likeCount_in: [Int!]

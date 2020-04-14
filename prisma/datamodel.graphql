@@ -140,6 +140,7 @@ type Comment {
   user: User! @relation(link: INLINE, name: "CommentToUser", onDelete: SET_NULL)
   user_id: String!
   post: Post! @relation(link: INLINE, name: "CommentToPost", onDelete: SET_NULL)
+  post_id: String!
   likeCount: Int
   body: String!
   updatedAt: DateTime! @updatedAt

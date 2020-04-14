@@ -1,11 +1,12 @@
 const Comment = {
   post: {
-    fragment: "fragment userId on User { id }",
+    fragment: "fragment postId on Post { id }",
     resolve(parent, args, { prisma, request }, info) {
       if (request.user_id) {
+        const postid = parent.post ? parent.post.id : parent.post_id;
         return prisma.query.post({
           where: {
-            id: parent.post.id,
+            id: postid,
           },
         });
       } else {
@@ -17,11 +18,12 @@ const Comment = {
     fragment: "fragment userId on User { id }",
     resolve(parent, args, { prisma, request }, info) {
       if (request.user_id) {
+        const user = parent.user ? parent.user.id : parent.user_id;
         return prisma.query.user({
           where: {
-            id: parent.user.id,
+            id: user,
           },
-        })
+        });
       }
     },
   },

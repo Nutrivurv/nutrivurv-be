@@ -5,6 +5,7 @@ const Comment = {
         data: {
           ...args.data,
           user_id: request.user_id,
+          post_id: args.postId,
           user: {
             connect: {
               id: request.user_id,

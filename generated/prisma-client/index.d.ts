@@ -619,6 +619,8 @@ export type CommentOrderByInput =
   | "id_DESC"
   | "user_id_ASC"
   | "user_id_DESC"
+  | "post_id_ASC"
+  | "post_id_DESC"
   | "likeCount_ASC"
   | "likeCount_DESC"
   | "body_ASC"
@@ -1633,6 +1635,20 @@ export interface CommentWhereInput {
   user_id_ends_with?: Maybe<String>;
   user_id_not_ends_with?: Maybe<String>;
   post?: Maybe<PostWhereInput>;
+  post_id?: Maybe<String>;
+  post_id_not?: Maybe<String>;
+  post_id_in?: Maybe<String[] | String>;
+  post_id_not_in?: Maybe<String[] | String>;
+  post_id_lt?: Maybe<String>;
+  post_id_lte?: Maybe<String>;
+  post_id_gt?: Maybe<String>;
+  post_id_gte?: Maybe<String>;
+  post_id_contains?: Maybe<String>;
+  post_id_not_contains?: Maybe<String>;
+  post_id_starts_with?: Maybe<String>;
+  post_id_not_starts_with?: Maybe<String>;
+  post_id_ends_with?: Maybe<String>;
+  post_id_not_ends_with?: Maybe<String>;
   likeCount?: Maybe<Int>;
   likeCount_not?: Maybe<Int>;
   likeCount_in?: Maybe<Int[] | Int>;
@@ -1719,6 +1735,7 @@ export interface CommentCreateInput {
   user: UserCreateOneWithoutCommentsInput;
   user_id: String;
   post: PostCreateOneWithoutCommentsInput;
+  post_id: String;
   likeCount?: Maybe<Int>;
   body: String;
 }
@@ -1921,6 +1938,7 @@ export interface CommentCreateWithoutPostInput {
   id?: Maybe<ID_Input>;
   user: UserCreateOneWithoutCommentsInput;
   user_id: String;
+  post_id: String;
   likeCount?: Maybe<Int>;
   body: String;
 }
@@ -1936,6 +1954,7 @@ export interface CommentCreateWithoutUserInput {
   id?: Maybe<ID_Input>;
   user_id: String;
   post: PostCreateOneWithoutCommentsInput;
+  post_id: String;
   likeCount?: Maybe<Int>;
   body: String;
 }
@@ -2033,6 +2052,7 @@ export interface CommentUpdateInput {
   user?: Maybe<UserUpdateOneRequiredWithoutCommentsInput>;
   user_id?: Maybe<String>;
   post?: Maybe<PostUpdateOneRequiredWithoutCommentsInput>;
+  post_id?: Maybe<String>;
   likeCount?: Maybe<Int>;
   body?: Maybe<String>;
 }
@@ -2905,6 +2925,7 @@ export interface CommentUpdateWithWhereUniqueWithoutPostInput {
 export interface CommentUpdateWithoutPostDataInput {
   user?: Maybe<UserUpdateOneRequiredWithoutCommentsInput>;
   user_id?: Maybe<String>;
+  post_id?: Maybe<String>;
   likeCount?: Maybe<Int>;
   body?: Maybe<String>;
 }
@@ -2944,6 +2965,20 @@ export interface CommentScalarWhereInput {
   user_id_not_starts_with?: Maybe<String>;
   user_id_ends_with?: Maybe<String>;
   user_id_not_ends_with?: Maybe<String>;
+  post_id?: Maybe<String>;
+  post_id_not?: Maybe<String>;
+  post_id_in?: Maybe<String[] | String>;
+  post_id_not_in?: Maybe<String[] | String>;
+  post_id_lt?: Maybe<String>;
+  post_id_lte?: Maybe<String>;
+  post_id_gt?: Maybe<String>;
+  post_id_gte?: Maybe<String>;
+  post_id_contains?: Maybe<String>;
+  post_id_not_contains?: Maybe<String>;
+  post_id_starts_with?: Maybe<String>;
+  post_id_not_starts_with?: Maybe<String>;
+  post_id_ends_with?: Maybe<String>;
+  post_id_not_ends_with?: Maybe<String>;
   likeCount?: Maybe<Int>;
   likeCount_not?: Maybe<Int>;
   likeCount_in?: Maybe<Int[] | Int>;
@@ -2994,6 +3029,7 @@ export interface CommentUpdateManyWithWhereNestedInput {
 
 export interface CommentUpdateManyDataInput {
   user_id?: Maybe<String>;
+  post_id?: Maybe<String>;
   likeCount?: Maybe<Int>;
   body?: Maybe<String>;
 }
@@ -3142,6 +3178,7 @@ export interface CommentUpdateWithWhereUniqueWithoutUserInput {
 export interface CommentUpdateWithoutUserDataInput {
   user_id?: Maybe<String>;
   post?: Maybe<PostUpdateOneRequiredWithoutCommentsInput>;
+  post_id?: Maybe<String>;
   likeCount?: Maybe<Int>;
   body?: Maybe<String>;
 }
@@ -3526,6 +3563,7 @@ export interface UserUpsertWithoutCommentsInput {
 
 export interface CommentUpdateManyMutationInput {
   user_id?: Maybe<String>;
+  post_id?: Maybe<String>;
   likeCount?: Maybe<Int>;
   body?: Maybe<String>;
 }
@@ -4208,6 +4246,7 @@ export interface NodeNode {
 export interface Comment {
   id: ID_Output;
   user_id: String;
+  post_id: String;
   likeCount?: Int;
   body: String;
   updatedAt: DateTimeOutput;
@@ -4219,6 +4258,7 @@ export interface CommentPromise extends Promise<Comment>, Fragmentable {
   user: <T = UserPromise>() => T;
   user_id: () => Promise<String>;
   post: <T = PostPromise>() => T;
+  post_id: () => Promise<String>;
   likeCount: () => Promise<Int>;
   body: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -4232,6 +4272,7 @@ export interface CommentSubscription
   user: <T = UserSubscription>() => T;
   user_id: () => Promise<AsyncIterator<String>>;
   post: <T = PostSubscription>() => T;
+  post_id: () => Promise<AsyncIterator<String>>;
   likeCount: () => Promise<AsyncIterator<Int>>;
   body: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -4245,6 +4286,7 @@ export interface CommentNullablePromise
   user: <T = UserPromise>() => T;
   user_id: () => Promise<String>;
   post: <T = PostPromise>() => T;
+  post_id: () => Promise<String>;
   likeCount: () => Promise<Int>;
   body: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -5650,6 +5692,7 @@ export interface CommentSubscriptionPayloadSubscription
 export interface CommentPreviousValues {
   id: ID_Output;
   user_id: String;
+  post_id: String;
   likeCount?: Int;
   body: String;
   updatedAt: DateTimeOutput;
@@ -5661,6 +5704,7 @@ export interface CommentPreviousValuesPromise
     Fragmentable {
   id: () => Promise<ID_Output>;
   user_id: () => Promise<String>;
+  post_id: () => Promise<String>;
   likeCount: () => Promise<Int>;
   body: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -5672,6 +5716,7 @@ export interface CommentPreviousValuesSubscription
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
   user_id: () => Promise<AsyncIterator<String>>;
+  post_id: () => Promise<AsyncIterator<String>>;
   likeCount: () => Promise<AsyncIterator<Int>>;
   body: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;

@@ -1,5 +1,5 @@
 # source: http://192.168.99.100:4466
-# timestamp: Mon Apr 13 2020 19:26:42 GMT-0700 (Mountain Standard Time)
+# timestamp: Mon Apr 13 2020 21:05:23 GMT-0700 (Mountain Standard Time)
 
 type AggregateComment {
   count: Int!
@@ -51,6 +51,7 @@ type Comment implements Node {
   user: User!
   user_id: String!
   post: Post!
+  post_id: String!
   likeCount: Int
   body: String!
   updatedAt: DateTime!
@@ -70,6 +71,7 @@ type CommentConnection {
 input CommentCreateInput {
   id: ID
   user_id: String!
+  post_id: String!
   likeCount: Int
   body: String!
   user: UserCreateOneWithoutCommentsInput!
@@ -89,6 +91,7 @@ input CommentCreateManyWithoutUserInput {
 input CommentCreateWithoutPostInput {
   id: ID
   user_id: String!
+  post_id: String!
   likeCount: Int
   body: String!
   user: UserCreateOneWithoutCommentsInput!
@@ -97,6 +100,7 @@ input CommentCreateWithoutPostInput {
 input CommentCreateWithoutUserInput {
   id: ID
   user_id: String!
+  post_id: String!
   likeCount: Int
   body: String!
   post: PostCreateOneWithoutCommentsInput!
@@ -116,6 +120,8 @@ enum CommentOrderByInput {
   id_DESC
   user_id_ASC
   user_id_DESC
+  post_id_ASC
+  post_id_DESC
   likeCount_ASC
   likeCount_DESC
   body_ASC
@@ -129,6 +135,7 @@ enum CommentOrderByInput {
 type CommentPreviousValues {
   id: ID!
   user_id: String!
+  post_id: String!
   likeCount: Int
   body: String!
   updatedAt: DateTime!
@@ -224,6 +231,46 @@ input CommentScalarWhereInput {
 
   """All values not ending with the given string."""
   user_id_not_ends_with: String
+  post_id: String
+
+  """All values that are not equal to given value."""
+  post_id_not: String
+
+  """All values that are contained in given list."""
+  post_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  post_id_not_in: [String!]
+
+  """All values less than the given value."""
+  post_id_lt: String
+
+  """All values less than or equal the given value."""
+  post_id_lte: String
+
+  """All values greater than the given value."""
+  post_id_gt: String
+
+  """All values greater than or equal the given value."""
+  post_id_gte: String
+
+  """All values containing the given string."""
+  post_id_contains: String
+
+  """All values not containing the given string."""
+  post_id_not_contains: String
+
+  """All values starting with the given string."""
+  post_id_starts_with: String
+
+  """All values not starting with the given string."""
+  post_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  post_id_ends_with: String
+
+  """All values not ending with the given string."""
+  post_id_not_ends_with: String
   likeCount: Int
 
   """All values that are not equal to given value."""
@@ -371,6 +418,7 @@ input CommentSubscriptionWhereInput {
 
 input CommentUpdateInput {
   user_id: String
+  post_id: String
   likeCount: Int
   body: String
   user: UserUpdateOneRequiredWithoutCommentsInput
@@ -379,12 +427,14 @@ input CommentUpdateInput {
 
 input CommentUpdateManyDataInput {
   user_id: String
+  post_id: String
   likeCount: Int
   body: String
 }
 
 input CommentUpdateManyMutationInput {
   user_id: String
+  post_id: String
   likeCount: Int
   body: String
 }
@@ -420,6 +470,7 @@ input CommentUpdateManyWithWhereNestedInput {
 
 input CommentUpdateWithoutPostDataInput {
   user_id: String
+  post_id: String
   likeCount: Int
   body: String
   user: UserUpdateOneRequiredWithoutCommentsInput
@@ -427,6 +478,7 @@ input CommentUpdateWithoutPostDataInput {
 
 input CommentUpdateWithoutUserDataInput {
   user_id: String
+  post_id: String
   likeCount: Int
   body: String
   post: PostUpdateOneRequiredWithoutCommentsInput
@@ -543,6 +595,46 @@ input CommentWhereInput {
 
   """All values not ending with the given string."""
   user_id_not_ends_with: String
+  post_id: String
+
+  """All values that are not equal to given value."""
+  post_id_not: String
+
+  """All values that are contained in given list."""
+  post_id_in: [String!]
+
+  """All values that are not contained in given list."""
+  post_id_not_in: [String!]
+
+  """All values less than the given value."""
+  post_id_lt: String
+
+  """All values less than or equal the given value."""
+  post_id_lte: String
+
+  """All values greater than the given value."""
+  post_id_gt: String
+
+  """All values greater than or equal the given value."""
+  post_id_gte: String
+
+  """All values containing the given string."""
+  post_id_contains: String
+
+  """All values not containing the given string."""
+  post_id_not_contains: String
+
+  """All values starting with the given string."""
+  post_id_starts_with: String
+
+  """All values not starting with the given string."""
+  post_id_not_starts_with: String
+
+  """All values ending with the given string."""
+  post_id_ends_with: String
+
+  """All values not ending with the given string."""
+  post_id_not_ends_with: String
   likeCount: Int
 
   """All values that are not equal to given value."""
