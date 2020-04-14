@@ -124,7 +124,7 @@ type Mutation {
   createPost(data: CreatePostInput): Post!
   updatePost(id: String!, data: UpdatePostInput): Post!
   deletePost(id: String!): Post!
-  createComment(data: CreateCommentInput): Comment!
+  createComment(data: CreateCommentInput postId: String!): Comment!
   updateComment(id: String!, data: UpdateCommentInput): Comment!
   deleteComment(id: String!): Comment!
 }
@@ -149,8 +149,8 @@ type Post {
   id: ID!
   user: User!
   user_id: String!
-  viewCount: Int!
-  likeCount: Int!
+  viewCount: Int
+  likeCount: Int
   title: String!
   body: String!
   comments: [Comment!]
@@ -158,15 +158,36 @@ type Post {
   createdAt: DateTime!
 }
 
+input CreatePostInput {
+  title: String!
+  body: String!
+}
+
+input UpdatePostInput {
+  viewCount: Int
+  likeCount: Int
+  title: String
+  body: String
+}
+
 type Comment {
   id: ID!
   user: User!
   user_id: String!
   post: Post!
-  likeCount: Int!
+  likeCount: Int
   body: String!
   updatedAt: DateTime!
   createdAt: DateTime!
+}
+
+input CreateCommentInput {
+  body: String!
+}
+
+input UpdateCommentInput {
+  likeCount: Int
+  body: String
 }
 
 type AuthPayload {

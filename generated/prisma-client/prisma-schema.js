@@ -52,7 +52,7 @@ type Comment {
   user: User!
   user_id: String!
   post: Post!
-  likeCount: Int!
+  likeCount: Int
   body: String!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -69,7 +69,7 @@ input CommentCreateInput {
   user: UserCreateOneWithoutCommentsInput!
   user_id: String!
   post: PostCreateOneWithoutCommentsInput!
-  likeCount: Int!
+  likeCount: Int
   body: String!
 }
 
@@ -87,7 +87,7 @@ input CommentCreateWithoutPostInput {
   id: ID
   user: UserCreateOneWithoutCommentsInput!
   user_id: String!
-  likeCount: Int!
+  likeCount: Int
   body: String!
 }
 
@@ -95,7 +95,7 @@ input CommentCreateWithoutUserInput {
   id: ID
   user_id: String!
   post: PostCreateOneWithoutCommentsInput!
-  likeCount: Int!
+  likeCount: Int
   body: String!
 }
 
@@ -122,7 +122,7 @@ enum CommentOrderByInput {
 type CommentPreviousValues {
   id: ID!
   user_id: String!
-  likeCount: Int!
+  likeCount: Int
   body: String!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -2389,8 +2389,8 @@ type Post {
   id: ID!
   user: User!
   user_id: String!
-  viewCount: Int!
-  likeCount: Int!
+  viewCount: Int
+  likeCount: Int
   title: String!
   body: String!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
@@ -2408,8 +2408,8 @@ input PostCreateInput {
   id: ID
   user: UserCreateOneWithoutPostsInput!
   user_id: String!
-  viewCount: Int!
-  likeCount: Int!
+  viewCount: Int
+  likeCount: Int
   title: String!
   body: String!
   comments: CommentCreateManyWithoutPostInput
@@ -2429,8 +2429,8 @@ input PostCreateWithoutCommentsInput {
   id: ID
   user: UserCreateOneWithoutPostsInput!
   user_id: String!
-  viewCount: Int!
-  likeCount: Int!
+  viewCount: Int
+  likeCount: Int
   title: String!
   body: String!
 }
@@ -2438,8 +2438,8 @@ input PostCreateWithoutCommentsInput {
 input PostCreateWithoutUserInput {
   id: ID
   user_id: String!
-  viewCount: Int!
-  likeCount: Int!
+  viewCount: Int
+  likeCount: Int
   title: String!
   body: String!
   comments: CommentCreateManyWithoutPostInput
@@ -2472,8 +2472,8 @@ enum PostOrderByInput {
 type PostPreviousValues {
   id: ID!
   user_id: String!
-  viewCount: Int!
-  likeCount: Int!
+  viewCount: Int
+  likeCount: Int
   title: String!
   body: String!
   updatedAt: DateTime!

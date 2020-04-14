@@ -1719,7 +1719,7 @@ export interface CommentCreateInput {
   user: UserCreateOneWithoutCommentsInput;
   user_id: String;
   post: PostCreateOneWithoutCommentsInput;
-  likeCount: Int;
+  likeCount?: Maybe<Int>;
   body: String;
 }
 
@@ -1903,8 +1903,8 @@ export interface PostCreateManyWithoutUserInput {
 export interface PostCreateWithoutUserInput {
   id?: Maybe<ID_Input>;
   user_id: String;
-  viewCount: Int;
-  likeCount: Int;
+  viewCount?: Maybe<Int>;
+  likeCount?: Maybe<Int>;
   title: String;
   body: String;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
@@ -1921,7 +1921,7 @@ export interface CommentCreateWithoutPostInput {
   id?: Maybe<ID_Input>;
   user: UserCreateOneWithoutCommentsInput;
   user_id: String;
-  likeCount: Int;
+  likeCount?: Maybe<Int>;
   body: String;
 }
 
@@ -1936,7 +1936,7 @@ export interface CommentCreateWithoutUserInput {
   id?: Maybe<ID_Input>;
   user_id: String;
   post: PostCreateOneWithoutCommentsInput;
-  likeCount: Int;
+  likeCount?: Maybe<Int>;
   body: String;
 }
 
@@ -1949,8 +1949,8 @@ export interface PostCreateWithoutCommentsInput {
   id?: Maybe<ID_Input>;
   user: UserCreateOneWithoutPostsInput;
   user_id: String;
-  viewCount: Int;
-  likeCount: Int;
+  viewCount?: Maybe<Int>;
+  likeCount?: Maybe<Int>;
   title: String;
   body: String;
 }
@@ -3823,8 +3823,8 @@ export interface PostCreateInput {
   id?: Maybe<ID_Input>;
   user: UserCreateOneWithoutPostsInput;
   user_id: String;
-  viewCount: Int;
-  likeCount: Int;
+  viewCount?: Maybe<Int>;
+  likeCount?: Maybe<Int>;
   title: String;
   body: String;
   comments?: Maybe<CommentCreateManyWithoutPostInput>;
@@ -4208,7 +4208,7 @@ export interface NodeNode {
 export interface Comment {
   id: ID_Output;
   user_id: String;
-  likeCount: Int;
+  likeCount?: Int;
   body: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -4956,8 +4956,8 @@ export interface WeightLogNullablePromise
 export interface Post {
   id: ID_Output;
   user_id: String;
-  viewCount: Int;
-  likeCount: Int;
+  viewCount?: Int;
+  likeCount?: Int;
   title: String;
   body: String;
   updatedAt: DateTimeOutput;
@@ -5650,7 +5650,7 @@ export interface CommentSubscriptionPayloadSubscription
 export interface CommentPreviousValues {
   id: ID_Output;
   user_id: String;
-  likeCount: Int;
+  likeCount?: Int;
   body: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -6028,8 +6028,8 @@ export interface PostSubscriptionPayloadSubscription
 export interface PostPreviousValues {
   id: ID_Output;
   user_id: String;
-  viewCount: Int;
-  likeCount: Int;
+  viewCount?: Int;
+  likeCount?: Int;
   title: String;
   body: String;
   updatedAt: DateTimeOutput;

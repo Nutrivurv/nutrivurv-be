@@ -126,8 +126,8 @@ type Post {
   id: ID! @unique @id
   user: User! @relation(link: INLINE, name: "PostToUser", onDelete: SET_NULL)
   user_id: String!
-  viewCount: Int!
-  likeCount: Int!
+  viewCount: Int
+  likeCount: Int
   title: String!
   body: String!
   comments: [Comment!] @relation(name: "CommentToPost", onDelete: CASCADE)
@@ -140,7 +140,7 @@ type Comment {
   user: User! @relation(link: INLINE, name: "CommentToUser", onDelete: SET_NULL)
   user_id: String!
   post: Post! @relation(link: INLINE, name: "CommentToPost", onDelete: SET_NULL)
-  likeCount: Int!
+  likeCount: Int
   body: String!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt

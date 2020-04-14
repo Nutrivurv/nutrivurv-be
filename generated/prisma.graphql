@@ -1,5 +1,5 @@
 # source: http://192.168.99.100:4466
-# timestamp: Sat Apr 11 2020 09:45:25 GMT-0700 (Mountain Standard Time)
+# timestamp: Mon Apr 13 2020 19:26:42 GMT-0700 (Mountain Standard Time)
 
 type AggregateComment {
   count: Int!
@@ -51,7 +51,7 @@ type Comment implements Node {
   user: User!
   user_id: String!
   post: Post!
-  likeCount: Int!
+  likeCount: Int
   body: String!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -70,7 +70,7 @@ type CommentConnection {
 input CommentCreateInput {
   id: ID
   user_id: String!
-  likeCount: Int!
+  likeCount: Int
   body: String!
   user: UserCreateOneWithoutCommentsInput!
   post: PostCreateOneWithoutCommentsInput!
@@ -89,7 +89,7 @@ input CommentCreateManyWithoutUserInput {
 input CommentCreateWithoutPostInput {
   id: ID
   user_id: String!
-  likeCount: Int!
+  likeCount: Int
   body: String!
   user: UserCreateOneWithoutCommentsInput!
 }
@@ -97,7 +97,7 @@ input CommentCreateWithoutPostInput {
 input CommentCreateWithoutUserInput {
   id: ID
   user_id: String!
-  likeCount: Int!
+  likeCount: Int
   body: String!
   post: PostCreateOneWithoutCommentsInput!
 }
@@ -129,7 +129,7 @@ enum CommentOrderByInput {
 type CommentPreviousValues {
   id: ID!
   user_id: String!
-  likeCount: Int!
+  likeCount: Int
   body: String!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -4532,8 +4532,8 @@ type Post implements Node {
   id: ID!
   user: User!
   user_id: String!
-  viewCount: Int!
-  likeCount: Int!
+  viewCount: Int
+  likeCount: Int
   title: String!
   body: String!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
@@ -4554,8 +4554,8 @@ type PostConnection {
 input PostCreateInput {
   id: ID
   user_id: String!
-  viewCount: Int!
-  likeCount: Int!
+  viewCount: Int
+  likeCount: Int
   title: String!
   body: String!
   user: UserCreateOneWithoutPostsInput!
@@ -4575,8 +4575,8 @@ input PostCreateOneWithoutCommentsInput {
 input PostCreateWithoutCommentsInput {
   id: ID
   user_id: String!
-  viewCount: Int!
-  likeCount: Int!
+  viewCount: Int
+  likeCount: Int
   title: String!
   body: String!
   user: UserCreateOneWithoutPostsInput!
@@ -4585,8 +4585,8 @@ input PostCreateWithoutCommentsInput {
 input PostCreateWithoutUserInput {
   id: ID
   user_id: String!
-  viewCount: Int!
-  likeCount: Int!
+  viewCount: Int
+  likeCount: Int
   title: String!
   body: String!
   comments: CommentCreateManyWithoutPostInput
@@ -4623,8 +4623,8 @@ enum PostOrderByInput {
 type PostPreviousValues {
   id: ID!
   user_id: String!
-  viewCount: Int!
-  likeCount: Int!
+  viewCount: Int
+  likeCount: Int
   title: String!
   body: String!
   updatedAt: DateTime!
