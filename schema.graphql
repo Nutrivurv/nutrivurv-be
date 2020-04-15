@@ -130,9 +130,8 @@ type Mutation {
 }
 
 type Subscription {
-  posts: PostSubPayload!
-  comments(postId: String!): CommentSubPayload!
-  myPosts: PostSubPayload!
+  post: PostSubPayload!
+  comment(postId: String!): CommentSubPayload!
 }
 
 type PostSubPayload {

@@ -10,7 +10,7 @@ import Comment from "./Comment.js";
 const resolvers = {
   Query,
   Mutation,
-  // Subscription,
+  Subscription,
   User,
   CustomRecipe,
   Post,
