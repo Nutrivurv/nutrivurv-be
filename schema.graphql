@@ -137,11 +137,13 @@ type Subscription {
 type PostSubPayload {
   mutation: MutationType!
   node: Post
+  previousValues: Post
 }
 
 type CommentSubPayload {
   mutation: MutationType!
   node: Comment
+  previousValues: Comment
 }
 
 type Post {
