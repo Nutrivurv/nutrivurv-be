@@ -1,6 +1,22 @@
 const jwt = require("jsonwebtoken");
 
 const isLoggedIn = async (resolve, parent, args, ctx, info) => {
+  if (
+    ctx.request.request.headers.cookie &&
+    ctx.request.request.headers.cookie.includes("token=")
+  ) {
+    const cookiePermit = ctx.request.request.headers.cookie
+      .split("; ")
+      .filter((cv) => {
+        return cv.includes("token");
+      })[0]
+      .split("=")[1];
+    const cookieToken = cookiePermit.replace("Bearer ", "");
+    const decodedCookie = jwt.verify(cookieToken, process.env.JWT_SECRET);
+    ctx.request.user_id = decodedCookie.userId;
+    return resolve();
+  }
+
   const permit = ctx.request.request
     ? ctx.request.request.headers.authorization
     : ctx.request.connection.context.Authorization;
