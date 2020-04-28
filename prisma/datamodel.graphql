@@ -16,7 +16,9 @@ type User {
     @relation(name: "IngredientListToUser", onDelete: CASCADE)
   favorites: [FavoriteFood!]
     @relation(name: "FavoriteListToUser", onDelete: CASCADE)
-    weight_logs: [WeightLog!] @relation(name: "WeightToUser", onDelete: CASCADE)
+  weight_logs: [WeightLog!] @relation(name: "WeightToUser", onDelete: CASCADE)
+  posts: [Post!] @relation(name: "PostToUser", onDelete: CASCADE)
+  comments: [Comment!] @relation(name: "CommentToUser", onDelete: CASCADE)
 }
 
 type Profile {
@@ -116,6 +118,31 @@ type WeightLog {
   user_id: String!
   current_weight: Int!
   user: User! @relation(link: INLINE, name: "WeightToUser", onDelete: SET_NULL)
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+}
+
+type Post {
+  id: ID! @unique @id
+  user: User! @relation(link: INLINE, name: "PostToUser", onDelete: SET_NULL)
+  user_id: String!
+  viewCount: Int
+  likeCount: Int
+  title: String!
+  body: String!
+  comments: [Comment!] @relation(name: "CommentToPost", onDelete: CASCADE)
+  updatedAt: DateTime! @updatedAt
+  createdAt: DateTime! @createdAt
+}
+
+type Comment {
+  id: ID! @unique @id
+  user: User! @relation(link: INLINE, name: "CommentToUser", onDelete: SET_NULL)
+  user_id: String!
+  post: Post! @relation(link: INLINE, name: "CommentToPost", onDelete: SET_NULL)
+  post_id: String!
+  likeCount: Int
+  body: String!
   updatedAt: DateTime! @updatedAt
   createdAt: DateTime! @createdAt
 }

@@ -35,6 +35,14 @@ var models = [
   {
     name: "WeightLog",
     embedded: false
+  },
+  {
+    name: "Post",
+    embedded: false
+  },
+  {
+    name: "Comment",
+    embedded: false
   }
 ];
 exports.Prisma = prisma_lib_1.makePrismaClientClass({

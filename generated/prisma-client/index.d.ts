@@ -16,11 +16,13 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
+  comment: (where?: CommentWhereInput) => Promise<boolean>;
   customIngredient: (where?: CustomIngredientWhereInput) => Promise<boolean>;
   customRecipe: (where?: CustomRecipeWhereInput) => Promise<boolean>;
   dailyRecord: (where?: DailyRecordWhereInput) => Promise<boolean>;
   favoriteFood: (where?: FavoriteFoodWhereInput) => Promise<boolean>;
   ingredientList: (where?: IngredientListWhereInput) => Promise<boolean>;
+  post: (where?: PostWhereInput) => Promise<boolean>;
   profile: (where?: ProfileWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
   weightLog: (where?: WeightLogWhereInput) => Promise<boolean>;
@@ -45,6 +47,25 @@ export interface Prisma {
    * Queries
    */
 
+  comment: (where: CommentWhereUniqueInput) => CommentNullablePromise;
+  comments: (args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Comment>;
+  commentsConnection: (args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => CommentConnectionPromise;
   customIngredient: (
     where: CustomIngredientWhereUniqueInput
   ) => CustomIngredientNullablePromise;
@@ -150,6 +171,25 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => IngredientListConnectionPromise;
+  post: (where: PostWhereUniqueInput) => PostNullablePromise;
+  posts: (args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Post>;
+  postsConnection: (args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => PostConnectionPromise;
   profile: (where: ProfileWhereUniqueInput) => ProfileNullablePromise;
   profiles: (args?: {
     where?: ProfileWhereInput;
@@ -213,6 +253,22 @@ export interface Prisma {
    * Mutations
    */
 
+  createComment: (data: CommentCreateInput) => CommentPromise;
+  updateComment: (args: {
+    data: CommentUpdateInput;
+    where: CommentWhereUniqueInput;
+  }) => CommentPromise;
+  updateManyComments: (args: {
+    data: CommentUpdateManyMutationInput;
+    where?: CommentWhereInput;
+  }) => BatchPayloadPromise;
+  upsertComment: (args: {
+    where: CommentWhereUniqueInput;
+    create: CommentCreateInput;
+    update: CommentUpdateInput;
+  }) => CommentPromise;
+  deleteComment: (where: CommentWhereUniqueInput) => CommentPromise;
+  deleteManyComments: (where?: CommentWhereInput) => BatchPayloadPromise;
   createCustomIngredient: (
     data: CustomIngredientCreateInput
   ) => CustomIngredientPromise;
@@ -315,6 +371,22 @@ export interface Prisma {
   deleteManyIngredientLists: (
     where?: IngredientListWhereInput
   ) => BatchPayloadPromise;
+  createPost: (data: PostCreateInput) => PostPromise;
+  updatePost: (args: {
+    data: PostUpdateInput;
+    where: PostWhereUniqueInput;
+  }) => PostPromise;
+  updateManyPosts: (args: {
+    data: PostUpdateManyMutationInput;
+    where?: PostWhereInput;
+  }) => BatchPayloadPromise;
+  upsertPost: (args: {
+    where: PostWhereUniqueInput;
+    create: PostCreateInput;
+    update: PostUpdateInput;
+  }) => PostPromise;
+  deletePost: (where: PostWhereUniqueInput) => PostPromise;
+  deleteManyPosts: (where?: PostWhereInput) => BatchPayloadPromise;
   createProfile: (data: ProfileCreateInput) => ProfilePromise;
   updateProfile: (args: {
     data: ProfileUpdateInput;
@@ -372,6 +444,9 @@ export interface Prisma {
 }
 
 export interface Subscription {
+  comment: (
+    where?: CommentSubscriptionWhereInput
+  ) => CommentSubscriptionPayloadSubscription;
   customIngredient: (
     where?: CustomIngredientSubscriptionWhereInput
   ) => CustomIngredientSubscriptionPayloadSubscription;
@@ -387,6 +462,9 @@ export interface Subscription {
   ingredientList: (
     where?: IngredientListSubscriptionWhereInput
   ) => IngredientListSubscriptionPayloadSubscription;
+  post: (
+    where?: PostSubscriptionWhereInput
+  ) => PostSubscriptionPayloadSubscription;
   profile: (
     where?: ProfileSubscriptionWhereInput
   ) => ProfileSubscriptionPayloadSubscription;
@@ -518,6 +596,40 @@ export type WeightLogOrderByInput =
   | "createdAt_ASC"
   | "createdAt_DESC";
 
+export type PostOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "user_id_ASC"
+  | "user_id_DESC"
+  | "viewCount_ASC"
+  | "viewCount_DESC"
+  | "likeCount_ASC"
+  | "likeCount_DESC"
+  | "title_ASC"
+  | "title_DESC"
+  | "body_ASC"
+  | "body_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC";
+
+export type CommentOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "user_id_ASC"
+  | "user_id_DESC"
+  | "post_id_ASC"
+  | "post_id_DESC"
+  | "likeCount_ASC"
+  | "likeCount_DESC"
+  | "body_ASC"
+  | "body_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC";
+
 export type ProfileOrderByInput =
   | "id_ASC"
   | "id_DESC"
@@ -568,7 +680,7 @@ export type UserOrderByInput =
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export type CustomIngredientWhereUniqueInput = AtLeastOne<{
+export type CommentWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
@@ -797,6 +909,12 @@ export interface UserWhereInput {
   weight_logs_every?: Maybe<WeightLogWhereInput>;
   weight_logs_some?: Maybe<WeightLogWhereInput>;
   weight_logs_none?: Maybe<WeightLogWhereInput>;
+  posts_every?: Maybe<PostWhereInput>;
+  posts_some?: Maybe<PostWhereInput>;
+  posts_none?: Maybe<PostWhereInput>;
+  comments_every?: Maybe<CommentWhereInput>;
+  comments_some?: Maybe<CommentWhereInput>;
+  comments_none?: Maybe<CommentWhereInput>;
   AND?: Maybe<UserWhereInput[] | UserWhereInput>;
   OR?: Maybe<UserWhereInput[] | UserWhereInput>;
   NOT?: Maybe<UserWhereInput[] | UserWhereInput>;
@@ -1388,6 +1506,196 @@ export interface WeightLogWhereInput {
   NOT?: Maybe<WeightLogWhereInput[] | WeightLogWhereInput>;
 }
 
+export interface PostWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  user?: Maybe<UserWhereInput>;
+  user_id?: Maybe<String>;
+  user_id_not?: Maybe<String>;
+  user_id_in?: Maybe<String[] | String>;
+  user_id_not_in?: Maybe<String[] | String>;
+  user_id_lt?: Maybe<String>;
+  user_id_lte?: Maybe<String>;
+  user_id_gt?: Maybe<String>;
+  user_id_gte?: Maybe<String>;
+  user_id_contains?: Maybe<String>;
+  user_id_not_contains?: Maybe<String>;
+  user_id_starts_with?: Maybe<String>;
+  user_id_not_starts_with?: Maybe<String>;
+  user_id_ends_with?: Maybe<String>;
+  user_id_not_ends_with?: Maybe<String>;
+  viewCount?: Maybe<Int>;
+  viewCount_not?: Maybe<Int>;
+  viewCount_in?: Maybe<Int[] | Int>;
+  viewCount_not_in?: Maybe<Int[] | Int>;
+  viewCount_lt?: Maybe<Int>;
+  viewCount_lte?: Maybe<Int>;
+  viewCount_gt?: Maybe<Int>;
+  viewCount_gte?: Maybe<Int>;
+  likeCount?: Maybe<Int>;
+  likeCount_not?: Maybe<Int>;
+  likeCount_in?: Maybe<Int[] | Int>;
+  likeCount_not_in?: Maybe<Int[] | Int>;
+  likeCount_lt?: Maybe<Int>;
+  likeCount_lte?: Maybe<Int>;
+  likeCount_gt?: Maybe<Int>;
+  likeCount_gte?: Maybe<Int>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  body?: Maybe<String>;
+  body_not?: Maybe<String>;
+  body_in?: Maybe<String[] | String>;
+  body_not_in?: Maybe<String[] | String>;
+  body_lt?: Maybe<String>;
+  body_lte?: Maybe<String>;
+  body_gt?: Maybe<String>;
+  body_gte?: Maybe<String>;
+  body_contains?: Maybe<String>;
+  body_not_contains?: Maybe<String>;
+  body_starts_with?: Maybe<String>;
+  body_not_starts_with?: Maybe<String>;
+  body_ends_with?: Maybe<String>;
+  body_not_ends_with?: Maybe<String>;
+  comments_every?: Maybe<CommentWhereInput>;
+  comments_some?: Maybe<CommentWhereInput>;
+  comments_none?: Maybe<CommentWhereInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<PostWhereInput[] | PostWhereInput>;
+  OR?: Maybe<PostWhereInput[] | PostWhereInput>;
+  NOT?: Maybe<PostWhereInput[] | PostWhereInput>;
+}
+
+export interface CommentWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  user?: Maybe<UserWhereInput>;
+  user_id?: Maybe<String>;
+  user_id_not?: Maybe<String>;
+  user_id_in?: Maybe<String[] | String>;
+  user_id_not_in?: Maybe<String[] | String>;
+  user_id_lt?: Maybe<String>;
+  user_id_lte?: Maybe<String>;
+  user_id_gt?: Maybe<String>;
+  user_id_gte?: Maybe<String>;
+  user_id_contains?: Maybe<String>;
+  user_id_not_contains?: Maybe<String>;
+  user_id_starts_with?: Maybe<String>;
+  user_id_not_starts_with?: Maybe<String>;
+  user_id_ends_with?: Maybe<String>;
+  user_id_not_ends_with?: Maybe<String>;
+  post?: Maybe<PostWhereInput>;
+  post_id?: Maybe<String>;
+  post_id_not?: Maybe<String>;
+  post_id_in?: Maybe<String[] | String>;
+  post_id_not_in?: Maybe<String[] | String>;
+  post_id_lt?: Maybe<String>;
+  post_id_lte?: Maybe<String>;
+  post_id_gt?: Maybe<String>;
+  post_id_gte?: Maybe<String>;
+  post_id_contains?: Maybe<String>;
+  post_id_not_contains?: Maybe<String>;
+  post_id_starts_with?: Maybe<String>;
+  post_id_not_starts_with?: Maybe<String>;
+  post_id_ends_with?: Maybe<String>;
+  post_id_not_ends_with?: Maybe<String>;
+  likeCount?: Maybe<Int>;
+  likeCount_not?: Maybe<Int>;
+  likeCount_in?: Maybe<Int[] | Int>;
+  likeCount_not_in?: Maybe<Int[] | Int>;
+  likeCount_lt?: Maybe<Int>;
+  likeCount_lte?: Maybe<Int>;
+  likeCount_gt?: Maybe<Int>;
+  likeCount_gte?: Maybe<Int>;
+  body?: Maybe<String>;
+  body_not?: Maybe<String>;
+  body_in?: Maybe<String[] | String>;
+  body_not_in?: Maybe<String[] | String>;
+  body_lt?: Maybe<String>;
+  body_lte?: Maybe<String>;
+  body_gt?: Maybe<String>;
+  body_gte?: Maybe<String>;
+  body_contains?: Maybe<String>;
+  body_not_contains?: Maybe<String>;
+  body_starts_with?: Maybe<String>;
+  body_not_starts_with?: Maybe<String>;
+  body_ends_with?: Maybe<String>;
+  body_not_ends_with?: Maybe<String>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<CommentWhereInput[] | CommentWhereInput>;
+  OR?: Maybe<CommentWhereInput[] | CommentWhereInput>;
+  NOT?: Maybe<CommentWhereInput[] | CommentWhereInput>;
+}
+
+export type CustomIngredientWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
 export type CustomRecipeWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
@@ -1401,6 +1709,10 @@ export type FavoriteFoodWhereUniqueInput = AtLeastOne<{
 }>;
 
 export type IngredientListWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type PostWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
@@ -1418,25 +1730,22 @@ export type WeightLogWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
-export interface CustomIngredientCreateInput {
+export interface CommentCreateInput {
   id?: Maybe<ID_Input>;
+  user: UserCreateOneWithoutCommentsInput;
   user_id: String;
-  name: String;
-  description: String;
-  fat: Int;
-  carbs: Int;
-  protein: Int;
-  fiber: Int;
-  calories: Int;
-  user: UserCreateOneWithoutCustom_ingredientsInput;
+  post: PostCreateOneWithoutCommentsInput;
+  post_id: String;
+  likeCount?: Maybe<Int>;
+  body: String;
 }
 
-export interface UserCreateOneWithoutCustom_ingredientsInput {
-  create?: Maybe<UserCreateWithoutCustom_ingredientsInput>;
+export interface UserCreateOneWithoutCommentsInput {
+  create?: Maybe<UserCreateWithoutCommentsInput>;
   connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface UserCreateWithoutCustom_ingredientsInput {
+export interface UserCreateWithoutCommentsInput {
   id?: Maybe<ID_Input>;
   name: String;
   email: String;
@@ -1444,9 +1753,11 @@ export interface UserCreateWithoutCustom_ingredientsInput {
   profile?: Maybe<ProfileCreateOneWithoutUserInput>;
   daily_records?: Maybe<DailyRecordCreateManyWithoutUserInput>;
   custom_recipes?: Maybe<CustomRecipeCreateManyWithoutUserInput>;
+  custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
   weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
+  posts?: Maybe<PostCreateManyWithoutUserInput>;
 }
 
 export interface ProfileCreateOneWithoutUserInput {
@@ -1545,6 +1856,8 @@ export interface UserCreateWithoutIngredient_listInput {
   custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
   weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
+  posts?: Maybe<PostCreateManyWithoutUserInput>;
+  comments?: Maybe<CommentCreateManyWithoutUserInput>;
 }
 
 export interface CustomIngredientCreateManyWithoutUserInput {
@@ -1599,6 +1912,88 @@ export interface WeightLogCreateWithoutUserInput {
   current_weight: Int;
 }
 
+export interface PostCreateManyWithoutUserInput {
+  create?: Maybe<PostCreateWithoutUserInput[] | PostCreateWithoutUserInput>;
+  connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
+}
+
+export interface PostCreateWithoutUserInput {
+  id?: Maybe<ID_Input>;
+  user_id: String;
+  viewCount?: Maybe<Int>;
+  likeCount?: Maybe<Int>;
+  title: String;
+  body: String;
+  comments?: Maybe<CommentCreateManyWithoutPostInput>;
+}
+
+export interface CommentCreateManyWithoutPostInput {
+  create?: Maybe<
+    CommentCreateWithoutPostInput[] | CommentCreateWithoutPostInput
+  >;
+  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+}
+
+export interface CommentCreateWithoutPostInput {
+  id?: Maybe<ID_Input>;
+  user: UserCreateOneWithoutCommentsInput;
+  user_id: String;
+  post_id: String;
+  likeCount?: Maybe<Int>;
+  body: String;
+}
+
+export interface CommentCreateManyWithoutUserInput {
+  create?: Maybe<
+    CommentCreateWithoutUserInput[] | CommentCreateWithoutUserInput
+  >;
+  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+}
+
+export interface CommentCreateWithoutUserInput {
+  id?: Maybe<ID_Input>;
+  user_id: String;
+  post: PostCreateOneWithoutCommentsInput;
+  post_id: String;
+  likeCount?: Maybe<Int>;
+  body: String;
+}
+
+export interface PostCreateOneWithoutCommentsInput {
+  create?: Maybe<PostCreateWithoutCommentsInput>;
+  connect?: Maybe<PostWhereUniqueInput>;
+}
+
+export interface PostCreateWithoutCommentsInput {
+  id?: Maybe<ID_Input>;
+  user: UserCreateOneWithoutPostsInput;
+  user_id: String;
+  viewCount?: Maybe<Int>;
+  likeCount?: Maybe<Int>;
+  title: String;
+  body: String;
+}
+
+export interface UserCreateOneWithoutPostsInput {
+  create?: Maybe<UserCreateWithoutPostsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserCreateWithoutPostsInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  email: String;
+  password: String;
+  profile?: Maybe<ProfileCreateOneWithoutUserInput>;
+  daily_records?: Maybe<DailyRecordCreateManyWithoutUserInput>;
+  custom_recipes?: Maybe<CustomRecipeCreateManyWithoutUserInput>;
+  custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
+  ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
+  comments?: Maybe<CommentCreateManyWithoutUserInput>;
+}
+
 export interface IngredientListCreateManyWithoutUserInput {
   create?: Maybe<
     | IngredientListCreateWithoutUserInput[]
@@ -1649,37 +2044,38 @@ export interface UserCreateWithoutCustom_recipesInput {
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
   weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
+  posts?: Maybe<PostCreateManyWithoutUserInput>;
+  comments?: Maybe<CommentCreateManyWithoutUserInput>;
 }
 
-export interface CustomIngredientUpdateInput {
+export interface CommentUpdateInput {
+  user?: Maybe<UserUpdateOneRequiredWithoutCommentsInput>;
   user_id?: Maybe<String>;
-  name?: Maybe<String>;
-  description?: Maybe<String>;
-  fat?: Maybe<Int>;
-  carbs?: Maybe<Int>;
-  protein?: Maybe<Int>;
-  fiber?: Maybe<Int>;
-  calories?: Maybe<Int>;
-  user?: Maybe<UserUpdateOneRequiredWithoutCustom_ingredientsInput>;
+  post?: Maybe<PostUpdateOneRequiredWithoutCommentsInput>;
+  post_id?: Maybe<String>;
+  likeCount?: Maybe<Int>;
+  body?: Maybe<String>;
 }
 
-export interface UserUpdateOneRequiredWithoutCustom_ingredientsInput {
-  create?: Maybe<UserCreateWithoutCustom_ingredientsInput>;
-  update?: Maybe<UserUpdateWithoutCustom_ingredientsDataInput>;
-  upsert?: Maybe<UserUpsertWithoutCustom_ingredientsInput>;
+export interface UserUpdateOneRequiredWithoutCommentsInput {
+  create?: Maybe<UserCreateWithoutCommentsInput>;
+  update?: Maybe<UserUpdateWithoutCommentsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutCommentsInput>;
   connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface UserUpdateWithoutCustom_ingredientsDataInput {
+export interface UserUpdateWithoutCommentsDataInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
   profile?: Maybe<ProfileUpdateOneWithoutUserInput>;
   daily_records?: Maybe<DailyRecordUpdateManyWithoutUserInput>;
   custom_recipes?: Maybe<CustomRecipeUpdateManyWithoutUserInput>;
+  custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
   weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
+  posts?: Maybe<PostUpdateManyWithoutUserInput>;
 }
 
 export interface ProfileUpdateOneWithoutUserInput {
@@ -2018,6 +2414,8 @@ export interface UserUpdateWithoutIngredient_listDataInput {
   custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
   weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
+  posts?: Maybe<PostUpdateManyWithoutUserInput>;
+  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
 }
 
 export interface CustomIngredientUpdateManyWithoutUserInput {
@@ -2462,15 +2860,464 @@ export interface WeightLogUpdateManyDataInput {
   current_weight?: Maybe<Int>;
 }
 
-export interface UserUpsertWithoutIngredient_listInput {
-  update: UserUpdateWithoutIngredient_listDataInput;
-  create: UserCreateWithoutIngredient_listInput;
+export interface PostUpdateManyWithoutUserInput {
+  create?: Maybe<PostCreateWithoutUserInput[] | PostCreateWithoutUserInput>;
+  delete?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
+  connect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
+  set?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
+  disconnect?: Maybe<PostWhereUniqueInput[] | PostWhereUniqueInput>;
+  update?: Maybe<
+    | PostUpdateWithWhereUniqueWithoutUserInput[]
+    | PostUpdateWithWhereUniqueWithoutUserInput
+  >;
+  upsert?: Maybe<
+    | PostUpsertWithWhereUniqueWithoutUserInput[]
+    | PostUpsertWithWhereUniqueWithoutUserInput
+  >;
+  deleteMany?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
+  updateMany?: Maybe<
+    PostUpdateManyWithWhereNestedInput[] | PostUpdateManyWithWhereNestedInput
+  >;
 }
 
-export interface IngredientListUpsertWithWhereUniqueWithoutRecipeInput {
+export interface PostUpdateWithWhereUniqueWithoutUserInput {
+  where: PostWhereUniqueInput;
+  data: PostUpdateWithoutUserDataInput;
+}
+
+export interface PostUpdateWithoutUserDataInput {
+  user_id?: Maybe<String>;
+  viewCount?: Maybe<Int>;
+  likeCount?: Maybe<Int>;
+  title?: Maybe<String>;
+  body?: Maybe<String>;
+  comments?: Maybe<CommentUpdateManyWithoutPostInput>;
+}
+
+export interface CommentUpdateManyWithoutPostInput {
+  create?: Maybe<
+    CommentCreateWithoutPostInput[] | CommentCreateWithoutPostInput
+  >;
+  delete?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  set?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  disconnect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  update?: Maybe<
+    | CommentUpdateWithWhereUniqueWithoutPostInput[]
+    | CommentUpdateWithWhereUniqueWithoutPostInput
+  >;
+  upsert?: Maybe<
+    | CommentUpsertWithWhereUniqueWithoutPostInput[]
+    | CommentUpsertWithWhereUniqueWithoutPostInput
+  >;
+  deleteMany?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
+  updateMany?: Maybe<
+    | CommentUpdateManyWithWhereNestedInput[]
+    | CommentUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface CommentUpdateWithWhereUniqueWithoutPostInput {
+  where: CommentWhereUniqueInput;
+  data: CommentUpdateWithoutPostDataInput;
+}
+
+export interface CommentUpdateWithoutPostDataInput {
+  user?: Maybe<UserUpdateOneRequiredWithoutCommentsInput>;
+  user_id?: Maybe<String>;
+  post_id?: Maybe<String>;
+  likeCount?: Maybe<Int>;
+  body?: Maybe<String>;
+}
+
+export interface CommentUpsertWithWhereUniqueWithoutPostInput {
+  where: CommentWhereUniqueInput;
+  update: CommentUpdateWithoutPostDataInput;
+  create: CommentCreateWithoutPostInput;
+}
+
+export interface CommentScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  user_id?: Maybe<String>;
+  user_id_not?: Maybe<String>;
+  user_id_in?: Maybe<String[] | String>;
+  user_id_not_in?: Maybe<String[] | String>;
+  user_id_lt?: Maybe<String>;
+  user_id_lte?: Maybe<String>;
+  user_id_gt?: Maybe<String>;
+  user_id_gte?: Maybe<String>;
+  user_id_contains?: Maybe<String>;
+  user_id_not_contains?: Maybe<String>;
+  user_id_starts_with?: Maybe<String>;
+  user_id_not_starts_with?: Maybe<String>;
+  user_id_ends_with?: Maybe<String>;
+  user_id_not_ends_with?: Maybe<String>;
+  post_id?: Maybe<String>;
+  post_id_not?: Maybe<String>;
+  post_id_in?: Maybe<String[] | String>;
+  post_id_not_in?: Maybe<String[] | String>;
+  post_id_lt?: Maybe<String>;
+  post_id_lte?: Maybe<String>;
+  post_id_gt?: Maybe<String>;
+  post_id_gte?: Maybe<String>;
+  post_id_contains?: Maybe<String>;
+  post_id_not_contains?: Maybe<String>;
+  post_id_starts_with?: Maybe<String>;
+  post_id_not_starts_with?: Maybe<String>;
+  post_id_ends_with?: Maybe<String>;
+  post_id_not_ends_with?: Maybe<String>;
+  likeCount?: Maybe<Int>;
+  likeCount_not?: Maybe<Int>;
+  likeCount_in?: Maybe<Int[] | Int>;
+  likeCount_not_in?: Maybe<Int[] | Int>;
+  likeCount_lt?: Maybe<Int>;
+  likeCount_lte?: Maybe<Int>;
+  likeCount_gt?: Maybe<Int>;
+  likeCount_gte?: Maybe<Int>;
+  body?: Maybe<String>;
+  body_not?: Maybe<String>;
+  body_in?: Maybe<String[] | String>;
+  body_not_in?: Maybe<String[] | String>;
+  body_lt?: Maybe<String>;
+  body_lte?: Maybe<String>;
+  body_gt?: Maybe<String>;
+  body_gte?: Maybe<String>;
+  body_contains?: Maybe<String>;
+  body_not_contains?: Maybe<String>;
+  body_starts_with?: Maybe<String>;
+  body_not_starts_with?: Maybe<String>;
+  body_ends_with?: Maybe<String>;
+  body_not_ends_with?: Maybe<String>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
+  OR?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
+  NOT?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
+}
+
+export interface CommentUpdateManyWithWhereNestedInput {
+  where: CommentScalarWhereInput;
+  data: CommentUpdateManyDataInput;
+}
+
+export interface CommentUpdateManyDataInput {
+  user_id?: Maybe<String>;
+  post_id?: Maybe<String>;
+  likeCount?: Maybe<Int>;
+  body?: Maybe<String>;
+}
+
+export interface PostUpsertWithWhereUniqueWithoutUserInput {
+  where: PostWhereUniqueInput;
+  update: PostUpdateWithoutUserDataInput;
+  create: PostCreateWithoutUserInput;
+}
+
+export interface PostScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  user_id?: Maybe<String>;
+  user_id_not?: Maybe<String>;
+  user_id_in?: Maybe<String[] | String>;
+  user_id_not_in?: Maybe<String[] | String>;
+  user_id_lt?: Maybe<String>;
+  user_id_lte?: Maybe<String>;
+  user_id_gt?: Maybe<String>;
+  user_id_gte?: Maybe<String>;
+  user_id_contains?: Maybe<String>;
+  user_id_not_contains?: Maybe<String>;
+  user_id_starts_with?: Maybe<String>;
+  user_id_not_starts_with?: Maybe<String>;
+  user_id_ends_with?: Maybe<String>;
+  user_id_not_ends_with?: Maybe<String>;
+  viewCount?: Maybe<Int>;
+  viewCount_not?: Maybe<Int>;
+  viewCount_in?: Maybe<Int[] | Int>;
+  viewCount_not_in?: Maybe<Int[] | Int>;
+  viewCount_lt?: Maybe<Int>;
+  viewCount_lte?: Maybe<Int>;
+  viewCount_gt?: Maybe<Int>;
+  viewCount_gte?: Maybe<Int>;
+  likeCount?: Maybe<Int>;
+  likeCount_not?: Maybe<Int>;
+  likeCount_in?: Maybe<Int[] | Int>;
+  likeCount_not_in?: Maybe<Int[] | Int>;
+  likeCount_lt?: Maybe<Int>;
+  likeCount_lte?: Maybe<Int>;
+  likeCount_gt?: Maybe<Int>;
+  likeCount_gte?: Maybe<Int>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  body?: Maybe<String>;
+  body_not?: Maybe<String>;
+  body_in?: Maybe<String[] | String>;
+  body_not_in?: Maybe<String[] | String>;
+  body_lt?: Maybe<String>;
+  body_lte?: Maybe<String>;
+  body_gt?: Maybe<String>;
+  body_gte?: Maybe<String>;
+  body_contains?: Maybe<String>;
+  body_not_contains?: Maybe<String>;
+  body_starts_with?: Maybe<String>;
+  body_not_starts_with?: Maybe<String>;
+  body_ends_with?: Maybe<String>;
+  body_not_ends_with?: Maybe<String>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  AND?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
+  OR?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
+  NOT?: Maybe<PostScalarWhereInput[] | PostScalarWhereInput>;
+}
+
+export interface PostUpdateManyWithWhereNestedInput {
+  where: PostScalarWhereInput;
+  data: PostUpdateManyDataInput;
+}
+
+export interface PostUpdateManyDataInput {
+  user_id?: Maybe<String>;
+  viewCount?: Maybe<Int>;
+  likeCount?: Maybe<Int>;
+  title?: Maybe<String>;
+  body?: Maybe<String>;
+}
+
+export interface CommentUpdateManyWithoutUserInput {
+  create?: Maybe<
+    CommentCreateWithoutUserInput[] | CommentCreateWithoutUserInput
+  >;
+  delete?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  connect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  set?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  disconnect?: Maybe<CommentWhereUniqueInput[] | CommentWhereUniqueInput>;
+  update?: Maybe<
+    | CommentUpdateWithWhereUniqueWithoutUserInput[]
+    | CommentUpdateWithWhereUniqueWithoutUserInput
+  >;
+  upsert?: Maybe<
+    | CommentUpsertWithWhereUniqueWithoutUserInput[]
+    | CommentUpsertWithWhereUniqueWithoutUserInput
+  >;
+  deleteMany?: Maybe<CommentScalarWhereInput[] | CommentScalarWhereInput>;
+  updateMany?: Maybe<
+    | CommentUpdateManyWithWhereNestedInput[]
+    | CommentUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface CommentUpdateWithWhereUniqueWithoutUserInput {
+  where: CommentWhereUniqueInput;
+  data: CommentUpdateWithoutUserDataInput;
+}
+
+export interface CommentUpdateWithoutUserDataInput {
+  user_id?: Maybe<String>;
+  post?: Maybe<PostUpdateOneRequiredWithoutCommentsInput>;
+  post_id?: Maybe<String>;
+  likeCount?: Maybe<Int>;
+  body?: Maybe<String>;
+}
+
+export interface PostUpdateOneRequiredWithoutCommentsInput {
+  create?: Maybe<PostCreateWithoutCommentsInput>;
+  update?: Maybe<PostUpdateWithoutCommentsDataInput>;
+  upsert?: Maybe<PostUpsertWithoutCommentsInput>;
+  connect?: Maybe<PostWhereUniqueInput>;
+}
+
+export interface PostUpdateWithoutCommentsDataInput {
+  user?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
+  user_id?: Maybe<String>;
+  viewCount?: Maybe<Int>;
+  likeCount?: Maybe<Int>;
+  title?: Maybe<String>;
+  body?: Maybe<String>;
+}
+
+export interface UserUpdateOneRequiredWithoutPostsInput {
+  create?: Maybe<UserCreateWithoutPostsInput>;
+  update?: Maybe<UserUpdateWithoutPostsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutPostsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutPostsDataInput {
+  name?: Maybe<String>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  profile?: Maybe<ProfileUpdateOneWithoutUserInput>;
+  daily_records?: Maybe<DailyRecordUpdateManyWithoutUserInput>;
+  custom_recipes?: Maybe<CustomRecipeUpdateManyWithoutUserInput>;
+  custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
+  ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
+  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
+}
+
+export interface IngredientListUpdateManyWithoutUserInput {
+  create?: Maybe<
+    | IngredientListCreateWithoutUserInput[]
+    | IngredientListCreateWithoutUserInput
+  >;
+  delete?: Maybe<
+    IngredientListWhereUniqueInput[] | IngredientListWhereUniqueInput
+  >;
+  connect?: Maybe<
+    IngredientListWhereUniqueInput[] | IngredientListWhereUniqueInput
+  >;
+  set?: Maybe<
+    IngredientListWhereUniqueInput[] | IngredientListWhereUniqueInput
+  >;
+  disconnect?: Maybe<
+    IngredientListWhereUniqueInput[] | IngredientListWhereUniqueInput
+  >;
+  update?: Maybe<
+    | IngredientListUpdateWithWhereUniqueWithoutUserInput[]
+    | IngredientListUpdateWithWhereUniqueWithoutUserInput
+  >;
+  upsert?: Maybe<
+    | IngredientListUpsertWithWhereUniqueWithoutUserInput[]
+    | IngredientListUpsertWithWhereUniqueWithoutUserInput
+  >;
+  deleteMany?: Maybe<
+    IngredientListScalarWhereInput[] | IngredientListScalarWhereInput
+  >;
+  updateMany?: Maybe<
+    | IngredientListUpdateManyWithWhereNestedInput[]
+    | IngredientListUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface IngredientListUpdateWithWhereUniqueWithoutUserInput {
   where: IngredientListWhereUniqueInput;
-  update: IngredientListUpdateWithoutRecipeDataInput;
-  create: IngredientListCreateWithoutRecipeInput;
+  data: IngredientListUpdateWithoutUserDataInput;
+}
+
+export interface IngredientListUpdateWithoutUserDataInput {
+  user_id?: Maybe<String>;
+  recipe_id?: Maybe<String>;
+  ingredient_id?: Maybe<String>;
+  custom?: Maybe<Boolean>;
+  amount?: Maybe<Float>;
+  unit?: Maybe<String>;
+  recipe?: Maybe<CustomRecipeUpdateOneRequiredWithoutIngredient_listInput>;
+}
+
+export interface CustomRecipeUpdateOneRequiredWithoutIngredient_listInput {
+  create?: Maybe<CustomRecipeCreateWithoutIngredient_listInput>;
+  update?: Maybe<CustomRecipeUpdateWithoutIngredient_listDataInput>;
+  upsert?: Maybe<CustomRecipeUpsertWithoutIngredient_listInput>;
+  connect?: Maybe<CustomRecipeWhereUniqueInput>;
+}
+
+export interface CustomRecipeUpdateWithoutIngredient_listDataInput {
+  name?: Maybe<String>;
+  user_id?: Maybe<String>;
+  portions?: Maybe<Int>;
+  user?: Maybe<UserUpdateOneRequiredWithoutCustom_recipesInput>;
+}
+
+export interface UserUpdateOneRequiredWithoutCustom_recipesInput {
+  create?: Maybe<UserCreateWithoutCustom_recipesInput>;
+  update?: Maybe<UserUpdateWithoutCustom_recipesDataInput>;
+  upsert?: Maybe<UserUpsertWithoutCustom_recipesInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutCustom_recipesDataInput {
+  name?: Maybe<String>;
+  email?: Maybe<String>;
+  password?: Maybe<String>;
+  profile?: Maybe<ProfileUpdateOneWithoutUserInput>;
+  daily_records?: Maybe<DailyRecordUpdateManyWithoutUserInput>;
+  custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
+  ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
+  posts?: Maybe<PostUpdateManyWithoutUserInput>;
+  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
+}
+
+export interface UserUpsertWithoutCustom_recipesInput {
+  update: UserUpdateWithoutCustom_recipesDataInput;
+  create: UserCreateWithoutCustom_recipesInput;
+}
+
+export interface CustomRecipeUpsertWithoutIngredient_listInput {
+  update: CustomRecipeUpdateWithoutIngredient_listDataInput;
+  create: CustomRecipeCreateWithoutIngredient_listInput;
+}
+
+export interface IngredientListUpsertWithWhereUniqueWithoutUserInput {
+  where: IngredientListWhereUniqueInput;
+  update: IngredientListUpdateWithoutUserDataInput;
+  create: IngredientListCreateWithoutUserInput;
 }
 
 export interface IngredientListScalarWhereInput {
@@ -2593,6 +3440,33 @@ export interface IngredientListUpdateManyDataInput {
   unit?: Maybe<String>;
 }
 
+export interface UserUpsertWithoutPostsInput {
+  update: UserUpdateWithoutPostsDataInput;
+  create: UserCreateWithoutPostsInput;
+}
+
+export interface PostUpsertWithoutCommentsInput {
+  update: PostUpdateWithoutCommentsDataInput;
+  create: PostCreateWithoutCommentsInput;
+}
+
+export interface CommentUpsertWithWhereUniqueWithoutUserInput {
+  where: CommentWhereUniqueInput;
+  update: CommentUpdateWithoutUserDataInput;
+  create: CommentCreateWithoutUserInput;
+}
+
+export interface UserUpsertWithoutIngredient_listInput {
+  update: UserUpdateWithoutIngredient_listDataInput;
+  create: UserCreateWithoutIngredient_listInput;
+}
+
+export interface IngredientListUpsertWithWhereUniqueWithoutRecipeInput {
+  where: IngredientListWhereUniqueInput;
+  update: IngredientListUpdateWithoutRecipeDataInput;
+  create: IngredientListCreateWithoutRecipeInput;
+}
+
 export interface CustomRecipeUpsertWithWhereUniqueWithoutUserInput {
   where: CustomRecipeWhereUniqueInput;
   update: CustomRecipeUpdateWithoutUserDataInput;
@@ -2682,102 +3556,82 @@ export interface CustomRecipeUpdateManyDataInput {
   portions?: Maybe<Int>;
 }
 
-export interface IngredientListUpdateManyWithoutUserInput {
-  create?: Maybe<
-    | IngredientListCreateWithoutUserInput[]
-    | IngredientListCreateWithoutUserInput
-  >;
-  delete?: Maybe<
-    IngredientListWhereUniqueInput[] | IngredientListWhereUniqueInput
-  >;
-  connect?: Maybe<
-    IngredientListWhereUniqueInput[] | IngredientListWhereUniqueInput
-  >;
-  set?: Maybe<
-    IngredientListWhereUniqueInput[] | IngredientListWhereUniqueInput
-  >;
-  disconnect?: Maybe<
-    IngredientListWhereUniqueInput[] | IngredientListWhereUniqueInput
-  >;
-  update?: Maybe<
-    | IngredientListUpdateWithWhereUniqueWithoutUserInput[]
-    | IngredientListUpdateWithWhereUniqueWithoutUserInput
-  >;
-  upsert?: Maybe<
-    | IngredientListUpsertWithWhereUniqueWithoutUserInput[]
-    | IngredientListUpsertWithWhereUniqueWithoutUserInput
-  >;
-  deleteMany?: Maybe<
-    IngredientListScalarWhereInput[] | IngredientListScalarWhereInput
-  >;
-  updateMany?: Maybe<
-    | IngredientListUpdateManyWithWhereNestedInput[]
-    | IngredientListUpdateManyWithWhereNestedInput
-  >;
+export interface UserUpsertWithoutCommentsInput {
+  update: UserUpdateWithoutCommentsDataInput;
+  create: UserCreateWithoutCommentsInput;
 }
 
-export interface IngredientListUpdateWithWhereUniqueWithoutUserInput {
-  where: IngredientListWhereUniqueInput;
-  data: IngredientListUpdateWithoutUserDataInput;
-}
-
-export interface IngredientListUpdateWithoutUserDataInput {
+export interface CommentUpdateManyMutationInput {
   user_id?: Maybe<String>;
-  recipe_id?: Maybe<String>;
-  ingredient_id?: Maybe<String>;
-  custom?: Maybe<Boolean>;
-  amount?: Maybe<Float>;
-  unit?: Maybe<String>;
-  recipe?: Maybe<CustomRecipeUpdateOneRequiredWithoutIngredient_listInput>;
+  post_id?: Maybe<String>;
+  likeCount?: Maybe<Int>;
+  body?: Maybe<String>;
 }
 
-export interface CustomRecipeUpdateOneRequiredWithoutIngredient_listInput {
-  create?: Maybe<CustomRecipeCreateWithoutIngredient_listInput>;
-  update?: Maybe<CustomRecipeUpdateWithoutIngredient_listDataInput>;
-  upsert?: Maybe<CustomRecipeUpsertWithoutIngredient_listInput>;
-  connect?: Maybe<CustomRecipeWhereUniqueInput>;
+export interface CustomIngredientCreateInput {
+  id?: Maybe<ID_Input>;
+  user_id: String;
+  name: String;
+  description: String;
+  fat: Int;
+  carbs: Int;
+  protein: Int;
+  fiber: Int;
+  calories: Int;
+  user: UserCreateOneWithoutCustom_ingredientsInput;
 }
 
-export interface CustomRecipeUpdateWithoutIngredient_listDataInput {
-  name?: Maybe<String>;
-  user_id?: Maybe<String>;
-  portions?: Maybe<Int>;
-  user?: Maybe<UserUpdateOneRequiredWithoutCustom_recipesInput>;
-}
-
-export interface UserUpdateOneRequiredWithoutCustom_recipesInput {
-  create?: Maybe<UserCreateWithoutCustom_recipesInput>;
-  update?: Maybe<UserUpdateWithoutCustom_recipesDataInput>;
-  upsert?: Maybe<UserUpsertWithoutCustom_recipesInput>;
+export interface UserCreateOneWithoutCustom_ingredientsInput {
+  create?: Maybe<UserCreateWithoutCustom_ingredientsInput>;
   connect?: Maybe<UserWhereUniqueInput>;
 }
 
-export interface UserUpdateWithoutCustom_recipesDataInput {
+export interface UserCreateWithoutCustom_ingredientsInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  email: String;
+  password: String;
+  profile?: Maybe<ProfileCreateOneWithoutUserInput>;
+  daily_records?: Maybe<DailyRecordCreateManyWithoutUserInput>;
+  custom_recipes?: Maybe<CustomRecipeCreateManyWithoutUserInput>;
+  ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
+  favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
+  weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
+  posts?: Maybe<PostCreateManyWithoutUserInput>;
+  comments?: Maybe<CommentCreateManyWithoutUserInput>;
+}
+
+export interface CustomIngredientUpdateInput {
+  user_id?: Maybe<String>;
+  name?: Maybe<String>;
+  description?: Maybe<String>;
+  fat?: Maybe<Int>;
+  carbs?: Maybe<Int>;
+  protein?: Maybe<Int>;
+  fiber?: Maybe<Int>;
+  calories?: Maybe<Int>;
+  user?: Maybe<UserUpdateOneRequiredWithoutCustom_ingredientsInput>;
+}
+
+export interface UserUpdateOneRequiredWithoutCustom_ingredientsInput {
+  create?: Maybe<UserCreateWithoutCustom_ingredientsInput>;
+  update?: Maybe<UserUpdateWithoutCustom_ingredientsDataInput>;
+  upsert?: Maybe<UserUpsertWithoutCustom_ingredientsInput>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface UserUpdateWithoutCustom_ingredientsDataInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
   password?: Maybe<String>;
   profile?: Maybe<ProfileUpdateOneWithoutUserInput>;
   daily_records?: Maybe<DailyRecordUpdateManyWithoutUserInput>;
-  custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
+  custom_recipes?: Maybe<CustomRecipeUpdateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
   weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
-}
-
-export interface UserUpsertWithoutCustom_recipesInput {
-  update: UserUpdateWithoutCustom_recipesDataInput;
-  create: UserCreateWithoutCustom_recipesInput;
-}
-
-export interface CustomRecipeUpsertWithoutIngredient_listInput {
-  update: CustomRecipeUpdateWithoutIngredient_listDataInput;
-  create: CustomRecipeCreateWithoutIngredient_listInput;
-}
-
-export interface IngredientListUpsertWithWhereUniqueWithoutUserInput {
-  where: IngredientListWhereUniqueInput;
-  update: IngredientListUpdateWithoutUserDataInput;
-  create: IngredientListCreateWithoutUserInput;
+  posts?: Maybe<PostUpdateManyWithoutUserInput>;
+  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpsertWithoutCustom_ingredientsInput {
@@ -2849,6 +3703,8 @@ export interface UserCreateWithoutDaily_recordsInput {
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
   weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
+  posts?: Maybe<PostCreateManyWithoutUserInput>;
+  comments?: Maybe<CommentCreateManyWithoutUserInput>;
 }
 
 export interface DailyRecordUpdateInput {
@@ -2881,6 +3737,8 @@ export interface UserUpdateWithoutDaily_recordsDataInput {
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
   weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
+  posts?: Maybe<PostUpdateManyWithoutUserInput>;
+  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpsertWithoutDaily_recordsInput {
@@ -2924,6 +3782,8 @@ export interface UserCreateWithoutFavoritesInput {
   custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
   weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
+  posts?: Maybe<PostCreateManyWithoutUserInput>;
+  comments?: Maybe<CommentCreateManyWithoutUserInput>;
 }
 
 export interface FavoriteFoodUpdateInput {
@@ -2950,6 +3810,8 @@ export interface UserUpdateWithoutFavoritesDataInput {
   custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
   weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
+  posts?: Maybe<PostUpdateManyWithoutUserInput>;
+  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpsertWithoutFavoritesInput {
@@ -2995,6 +3857,35 @@ export interface IngredientListUpdateManyMutationInput {
   unit?: Maybe<String>;
 }
 
+export interface PostCreateInput {
+  id?: Maybe<ID_Input>;
+  user: UserCreateOneWithoutPostsInput;
+  user_id: String;
+  viewCount?: Maybe<Int>;
+  likeCount?: Maybe<Int>;
+  title: String;
+  body: String;
+  comments?: Maybe<CommentCreateManyWithoutPostInput>;
+}
+
+export interface PostUpdateInput {
+  user?: Maybe<UserUpdateOneRequiredWithoutPostsInput>;
+  user_id?: Maybe<String>;
+  viewCount?: Maybe<Int>;
+  likeCount?: Maybe<Int>;
+  title?: Maybe<String>;
+  body?: Maybe<String>;
+  comments?: Maybe<CommentUpdateManyWithoutPostInput>;
+}
+
+export interface PostUpdateManyMutationInput {
+  user_id?: Maybe<String>;
+  viewCount?: Maybe<Int>;
+  likeCount?: Maybe<Int>;
+  title?: Maybe<String>;
+  body?: Maybe<String>;
+}
+
 export interface ProfileCreateInput {
   id?: Maybe<ID_Input>;
   user_id: String;
@@ -3029,6 +3920,8 @@ export interface UserCreateWithoutProfileInput {
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
   weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
+  posts?: Maybe<PostCreateManyWithoutUserInput>;
+  comments?: Maybe<CommentCreateManyWithoutUserInput>;
 }
 
 export interface ProfileUpdateInput {
@@ -3065,6 +3958,8 @@ export interface UserUpdateWithoutProfileDataInput {
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
   weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
+  posts?: Maybe<PostUpdateManyWithoutUserInput>;
+  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpsertWithoutProfileInput {
@@ -3100,6 +3995,8 @@ export interface UserCreateInput {
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
   weight_logs?: Maybe<WeightLogCreateManyWithoutUserInput>;
+  posts?: Maybe<PostCreateManyWithoutUserInput>;
+  comments?: Maybe<CommentCreateManyWithoutUserInput>;
 }
 
 export interface UserUpdateInput {
@@ -3113,6 +4010,8 @@ export interface UserUpdateInput {
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
   weight_logs?: Maybe<WeightLogUpdateManyWithoutUserInput>;
+  posts?: Maybe<PostUpdateManyWithoutUserInput>;
+  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpdateManyMutationInput {
@@ -3145,6 +4044,8 @@ export interface UserCreateWithoutWeight_logsInput {
   custom_ingredients?: Maybe<CustomIngredientCreateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListCreateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodCreateManyWithoutUserInput>;
+  posts?: Maybe<PostCreateManyWithoutUserInput>;
+  comments?: Maybe<CommentCreateManyWithoutUserInput>;
 }
 
 export interface WeightLogUpdateInput {
@@ -3171,6 +4072,8 @@ export interface UserUpdateWithoutWeight_logsDataInput {
   custom_ingredients?: Maybe<CustomIngredientUpdateManyWithoutUserInput>;
   ingredient_list?: Maybe<IngredientListUpdateManyWithoutUserInput>;
   favorites?: Maybe<FavoriteFoodUpdateManyWithoutUserInput>;
+  posts?: Maybe<PostUpdateManyWithoutUserInput>;
+  comments?: Maybe<CommentUpdateManyWithoutUserInput>;
 }
 
 export interface UserUpsertWithoutWeight_logsInput {
@@ -3182,6 +4085,17 @@ export interface WeightLogUpdateManyMutationInput {
   date?: Maybe<String>;
   user_id?: Maybe<String>;
   current_weight?: Maybe<Int>;
+}
+
+export interface CommentSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<CommentWhereInput>;
+  AND?: Maybe<CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput>;
+  OR?: Maybe<CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput>;
+  NOT?: Maybe<CommentSubscriptionWhereInput[] | CommentSubscriptionWhereInput>;
 }
 
 export interface CustomIngredientSubscriptionWhereInput {
@@ -3275,6 +4189,17 @@ export interface IngredientListSubscriptionWhereInput {
   >;
 }
 
+export interface PostSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<PostWhereInput>;
+  AND?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
+  OR?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
+  NOT?: Maybe<PostSubscriptionWhereInput[] | PostSubscriptionWhereInput>;
+}
+
 export interface ProfileSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
@@ -3318,67 +4243,52 @@ export interface NodeNode {
   id: ID_Output;
 }
 
-export interface CustomIngredient {
+export interface Comment {
   id: ID_Output;
   user_id: String;
-  name: String;
-  description: String;
-  fat: Int;
-  carbs: Int;
-  protein: Int;
-  fiber: Int;
-  calories: Int;
+  post_id: String;
+  likeCount?: Int;
+  body: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
 }
 
-export interface CustomIngredientPromise
-  extends Promise<CustomIngredient>,
-    Fragmentable {
+export interface CommentPromise extends Promise<Comment>, Fragmentable {
   id: () => Promise<ID_Output>;
-  user_id: () => Promise<String>;
-  name: () => Promise<String>;
-  description: () => Promise<String>;
-  fat: () => Promise<Int>;
-  carbs: () => Promise<Int>;
-  protein: () => Promise<Int>;
-  fiber: () => Promise<Int>;
-  calories: () => Promise<Int>;
   user: <T = UserPromise>() => T;
+  user_id: () => Promise<String>;
+  post: <T = PostPromise>() => T;
+  post_id: () => Promise<String>;
+  likeCount: () => Promise<Int>;
+  body: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
 }
 
-export interface CustomIngredientSubscription
-  extends Promise<AsyncIterator<CustomIngredient>>,
+export interface CommentSubscription
+  extends Promise<AsyncIterator<Comment>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<ID_Output>>;
-  user_id: () => Promise<AsyncIterator<String>>;
-  name: () => Promise<AsyncIterator<String>>;
-  description: () => Promise<AsyncIterator<String>>;
-  fat: () => Promise<AsyncIterator<Int>>;
-  carbs: () => Promise<AsyncIterator<Int>>;
-  protein: () => Promise<AsyncIterator<Int>>;
-  fiber: () => Promise<AsyncIterator<Int>>;
-  calories: () => Promise<AsyncIterator<Int>>;
   user: <T = UserSubscription>() => T;
+  user_id: () => Promise<AsyncIterator<String>>;
+  post: <T = PostSubscription>() => T;
+  post_id: () => Promise<AsyncIterator<String>>;
+  likeCount: () => Promise<AsyncIterator<Int>>;
+  body: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
-export interface CustomIngredientNullablePromise
-  extends Promise<CustomIngredient | null>,
+export interface CommentNullablePromise
+  extends Promise<Comment | null>,
     Fragmentable {
   id: () => Promise<ID_Output>;
-  user_id: () => Promise<String>;
-  name: () => Promise<String>;
-  description: () => Promise<String>;
-  fat: () => Promise<Int>;
-  carbs: () => Promise<Int>;
-  protein: () => Promise<Int>;
-  fiber: () => Promise<Int>;
-  calories: () => Promise<Int>;
   user: <T = UserPromise>() => T;
+  user_id: () => Promise<String>;
+  post: <T = PostPromise>() => T;
+  post_id: () => Promise<String>;
+  likeCount: () => Promise<Int>;
+  body: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
 }
@@ -3448,6 +4358,24 @@ export interface UserPromise extends Promise<User>, Fragmentable {
   weight_logs: <T = FragmentableArray<WeightLog>>(args?: {
     where?: WeightLogWhereInput;
     orderBy?: WeightLogOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  posts: <T = FragmentableArray<Post>>(args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  comments: <T = FragmentableArray<Comment>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -3526,6 +4454,24 @@ export interface UserSubscription
     first?: Int;
     last?: Int;
   }) => T;
+  posts: <T = Promise<AsyncIterator<PostSubscription>>>(args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
 }
 
 export interface UserNullablePromise
@@ -3586,6 +4532,24 @@ export interface UserNullablePromise
   weight_logs: <T = FragmentableArray<WeightLog>>(args?: {
     where?: WeightLogWhereInput;
     orderBy?: WeightLogOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  posts: <T = FragmentableArray<Post>>(args?: {
+    where?: PostWhereInput;
+    orderBy?: PostOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  comments: <T = FragmentableArray<Comment>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
@@ -3878,6 +4842,71 @@ export interface IngredientListNullablePromise
   createdAt: () => Promise<DateTimeOutput>;
 }
 
+export interface CustomIngredient {
+  id: ID_Output;
+  user_id: String;
+  name: String;
+  description: String;
+  fat: Int;
+  carbs: Int;
+  protein: Int;
+  fiber: Int;
+  calories: Int;
+  updatedAt: DateTimeOutput;
+  createdAt: DateTimeOutput;
+}
+
+export interface CustomIngredientPromise
+  extends Promise<CustomIngredient>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  user_id: () => Promise<String>;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+  fat: () => Promise<Int>;
+  carbs: () => Promise<Int>;
+  protein: () => Promise<Int>;
+  fiber: () => Promise<Int>;
+  calories: () => Promise<Int>;
+  user: <T = UserPromise>() => T;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface CustomIngredientSubscription
+  extends Promise<AsyncIterator<CustomIngredient>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  user_id: () => Promise<AsyncIterator<String>>;
+  name: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  fat: () => Promise<AsyncIterator<Int>>;
+  carbs: () => Promise<AsyncIterator<Int>>;
+  protein: () => Promise<AsyncIterator<Int>>;
+  fiber: () => Promise<AsyncIterator<Int>>;
+  calories: () => Promise<AsyncIterator<Int>>;
+  user: <T = UserSubscription>() => T;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface CustomIngredientNullablePromise
+  extends Promise<CustomIngredient | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  user_id: () => Promise<String>;
+  name: () => Promise<String>;
+  description: () => Promise<String>;
+  fat: () => Promise<Int>;
+  carbs: () => Promise<Int>;
+  protein: () => Promise<Int>;
+  fiber: () => Promise<Int>;
+  calories: () => Promise<Int>;
+  user: <T = UserPromise>() => T;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
 export interface FavoriteFood {
   id: ID_Output;
   food_id: String;
@@ -3966,25 +4995,103 @@ export interface WeightLogNullablePromise
   createdAt: () => Promise<DateTimeOutput>;
 }
 
-export interface CustomIngredientConnection {
-  pageInfo: PageInfo;
-  edges: CustomIngredientEdge[];
+export interface Post {
+  id: ID_Output;
+  user_id: String;
+  viewCount?: Int;
+  likeCount?: Int;
+  title: String;
+  body: String;
+  updatedAt: DateTimeOutput;
+  createdAt: DateTimeOutput;
 }
 
-export interface CustomIngredientConnectionPromise
-  extends Promise<CustomIngredientConnection>,
+export interface PostPromise extends Promise<Post>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  user: <T = UserPromise>() => T;
+  user_id: () => Promise<String>;
+  viewCount: () => Promise<Int>;
+  likeCount: () => Promise<Int>;
+  title: () => Promise<String>;
+  body: () => Promise<String>;
+  comments: <T = FragmentableArray<Comment>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface PostSubscription
+  extends Promise<AsyncIterator<Post>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  user: <T = UserSubscription>() => T;
+  user_id: () => Promise<AsyncIterator<String>>;
+  viewCount: () => Promise<AsyncIterator<Int>>;
+  likeCount: () => Promise<AsyncIterator<Int>>;
+  title: () => Promise<AsyncIterator<String>>;
+  body: () => Promise<AsyncIterator<String>>;
+  comments: <T = Promise<AsyncIterator<CommentSubscription>>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
+export interface PostNullablePromise
+  extends Promise<Post | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  user: <T = UserPromise>() => T;
+  user_id: () => Promise<String>;
+  viewCount: () => Promise<Int>;
+  likeCount: () => Promise<Int>;
+  title: () => Promise<String>;
+  body: () => Promise<String>;
+  comments: <T = FragmentableArray<Comment>>(args?: {
+    where?: CommentWhereInput;
+    orderBy?: CommentOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface CommentConnection {
+  pageInfo: PageInfo;
+  edges: CommentEdge[];
+}
+
+export interface CommentConnectionPromise
+  extends Promise<CommentConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<CustomIngredientEdge>>() => T;
-  aggregate: <T = AggregateCustomIngredientPromise>() => T;
+  edges: <T = FragmentableArray<CommentEdge>>() => T;
+  aggregate: <T = AggregateCommentPromise>() => T;
 }
 
-export interface CustomIngredientConnectionSubscription
-  extends Promise<AsyncIterator<CustomIngredientConnection>>,
+export interface CommentConnectionSubscription
+  extends Promise<AsyncIterator<CommentConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<CustomIngredientEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateCustomIngredientSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<CommentEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateCommentSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -4008,6 +5115,60 @@ export interface PageInfoSubscription
   hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
   startCursor: () => Promise<AsyncIterator<String>>;
   endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface CommentEdge {
+  node: Comment;
+  cursor: String;
+}
+
+export interface CommentEdgePromise extends Promise<CommentEdge>, Fragmentable {
+  node: <T = CommentPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface CommentEdgeSubscription
+  extends Promise<AsyncIterator<CommentEdge>>,
+    Fragmentable {
+  node: <T = CommentSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateComment {
+  count: Int;
+}
+
+export interface AggregateCommentPromise
+  extends Promise<AggregateComment>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateCommentSubscription
+  extends Promise<AsyncIterator<AggregateComment>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface CustomIngredientConnection {
+  pageInfo: PageInfo;
+  edges: CustomIngredientEdge[];
+}
+
+export interface CustomIngredientConnectionPromise
+  extends Promise<CustomIngredientConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<CustomIngredientEdge>>() => T;
+  aggregate: <T = AggregateCustomIngredientPromise>() => T;
+}
+
+export interface CustomIngredientConnectionSubscription
+  extends Promise<AsyncIterator<CustomIngredientConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<CustomIngredientEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateCustomIngredientSubscription>() => T;
 }
 
 export interface CustomIngredientEdge {
@@ -4269,6 +5430,60 @@ export interface AggregateIngredientListSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+export interface PostConnection {
+  pageInfo: PageInfo;
+  edges: PostEdge[];
+}
+
+export interface PostConnectionPromise
+  extends Promise<PostConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<PostEdge>>() => T;
+  aggregate: <T = AggregatePostPromise>() => T;
+}
+
+export interface PostConnectionSubscription
+  extends Promise<AsyncIterator<PostConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<PostEdgeSubscription>>>() => T;
+  aggregate: <T = AggregatePostSubscription>() => T;
+}
+
+export interface PostEdge {
+  node: Post;
+  cursor: String;
+}
+
+export interface PostEdgePromise extends Promise<PostEdge>, Fragmentable {
+  node: <T = PostPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface PostEdgeSubscription
+  extends Promise<AsyncIterator<PostEdge>>,
+    Fragmentable {
+  node: <T = PostSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregatePost {
+  count: Int;
+}
+
+export interface AggregatePostPromise
+  extends Promise<AggregatePost>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregatePostSubscription
+  extends Promise<AsyncIterator<AggregatePost>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface ProfileConnection {
   pageInfo: PageInfo;
   edges: ProfileEdge[];
@@ -4447,6 +5662,65 @@ export interface BatchPayloadSubscription
   extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface CommentSubscriptionPayload {
+  mutation: MutationType;
+  node: Comment;
+  updatedFields: String[];
+  previousValues: CommentPreviousValues;
+}
+
+export interface CommentSubscriptionPayloadPromise
+  extends Promise<CommentSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = CommentPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = CommentPreviousValuesPromise>() => T;
+}
+
+export interface CommentSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<CommentSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = CommentSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = CommentPreviousValuesSubscription>() => T;
+}
+
+export interface CommentPreviousValues {
+  id: ID_Output;
+  user_id: String;
+  post_id: String;
+  likeCount?: Int;
+  body: String;
+  updatedAt: DateTimeOutput;
+  createdAt: DateTimeOutput;
+}
+
+export interface CommentPreviousValuesPromise
+  extends Promise<CommentPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  user_id: () => Promise<String>;
+  post_id: () => Promise<String>;
+  likeCount: () => Promise<Int>;
+  body: () => Promise<String>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface CommentPreviousValuesSubscription
+  extends Promise<AsyncIterator<CommentPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  user_id: () => Promise<AsyncIterator<String>>;
+  post_id: () => Promise<AsyncIterator<String>>;
+  likeCount: () => Promise<AsyncIterator<Int>>;
+  body: () => Promise<AsyncIterator<String>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface CustomIngredientSubscriptionPayload {
@@ -4771,6 +6045,68 @@ export interface IngredientListPreviousValuesSubscription
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
+export interface PostSubscriptionPayload {
+  mutation: MutationType;
+  node: Post;
+  updatedFields: String[];
+  previousValues: PostPreviousValues;
+}
+
+export interface PostSubscriptionPayloadPromise
+  extends Promise<PostSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = PostPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = PostPreviousValuesPromise>() => T;
+}
+
+export interface PostSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<PostSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = PostSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = PostPreviousValuesSubscription>() => T;
+}
+
+export interface PostPreviousValues {
+  id: ID_Output;
+  user_id: String;
+  viewCount?: Int;
+  likeCount?: Int;
+  title: String;
+  body: String;
+  updatedAt: DateTimeOutput;
+  createdAt: DateTimeOutput;
+}
+
+export interface PostPreviousValuesPromise
+  extends Promise<PostPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  user_id: () => Promise<String>;
+  viewCount: () => Promise<Int>;
+  likeCount: () => Promise<Int>;
+  title: () => Promise<String>;
+  body: () => Promise<String>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  createdAt: () => Promise<DateTimeOutput>;
+}
+
+export interface PostPreviousValuesSubscription
+  extends Promise<AsyncIterator<PostPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  user_id: () => Promise<AsyncIterator<String>>;
+  viewCount: () => Promise<AsyncIterator<Int>>;
+  likeCount: () => Promise<AsyncIterator<Int>>;
+  title: () => Promise<AsyncIterator<String>>;
+  body: () => Promise<AsyncIterator<String>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+}
+
 export interface ProfileSubscriptionPayload {
   mutation: MutationType;
   node: Profile;
@@ -4981,11 +6317,6 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 export type String = string;
 
 /*
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
-*/
-export type Int = number;
-
-/*
 DateTime scalar input type, allowing Date
 */
 export type DateTimeInput = Date | string;
@@ -4994,6 +6325,11 @@ export type DateTimeInput = Date | string;
 DateTime scalar output type, which is always a string
 */
 export type DateTimeOutput = string;
+
+/*
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+*/
+export type Int = number;
 
 /*
 The `Boolean` scalar type represents `true` or `false`.
@@ -5042,6 +6378,14 @@ export const models: Model[] = [
   },
   {
     name: "WeightLog",
+    embedded: false
+  },
+  {
+    name: "Post",
+    embedded: false
+  },
+  {
+    name: "Comment",
     embedded: false
   }
 ];

@@ -6,6 +6,8 @@ import CustomRecipe from "./mutations/CustomRecipe.js";
 import CustomIngredient from "./mutations/CustomIngredient.js";
 import FavoriteFood from "./mutations/FavoriteFoods.js";
 import WeightLogs from "./mutations/WeightLogs.js";
+import Post from "./mutations/Post.js";
+import Comment from "./mutations/Comment.js";
 
 export default {
   ...User,
@@ -15,5 +17,7 @@ export default {
   ...CustomIngredient,
   ...CustomRecipe,
   ...FavoriteFood,
-  ...WeightLogs
+  ...WeightLogs,
+  ...Post,
+  ...Comment,
 };

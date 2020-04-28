@@ -9,12 +9,13 @@ const opts = {
       "https://nutrivurv-staging.herokuapp.com",
       "http://nutrivurv.com",
       "https://nutrivurv.herokuapp.com",
-      "nutrivurv.com"
+      "nutrivurv.com",
     ],
     methods: "POST,OPTIONS",
     preflightContinue: false,
     optionsSuccessStatus: 204,
-  }
+    subscriptions: "/subscriptions",
+  },
 };
 
 server.start(opts, () => {
