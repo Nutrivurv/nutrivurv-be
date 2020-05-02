@@ -1,5 +1,5 @@
 # source: http://192.168.99.100:4466
-# timestamp: Mon Apr 13 2020 21:05:23 GMT-0700 (Mountain Standard Time)
+# timestamp: Sat May 02 2020 08:10:38 GMT-0700 (Mountain Standard Time)
 
 type AggregateComment {
   count: Int!
@@ -2229,6 +2229,7 @@ type DailyRecord implements Node {
   fiber: Int!
   protein: Int!
   food_string: String!
+  quantity: Int!
   meal_type: String!
   user: User!
   updatedAt: DateTime!
@@ -2255,6 +2256,7 @@ input DailyRecordCreateInput {
   fiber: Int!
   protein: Int!
   food_string: String!
+  quantity: Int!
   meal_type: String!
   user: UserCreateOneWithoutDaily_recordsInput!
 }
@@ -2274,6 +2276,7 @@ input DailyRecordCreateWithoutUserInput {
   fiber: Int!
   protein: Int!
   food_string: String!
+  quantity: Int!
   meal_type: String!
 }
 
@@ -2305,6 +2308,8 @@ enum DailyRecordOrderByInput {
   protein_DESC
   food_string_ASC
   food_string_DESC
+  quantity_ASC
+  quantity_DESC
   meal_type_ASC
   meal_type_DESC
   updatedAt_ASC
@@ -2323,6 +2328,7 @@ type DailyRecordPreviousValues {
   fiber: Int!
   protein: Int!
   food_string: String!
+  quantity: Int!
   meal_type: String!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -2607,6 +2613,28 @@ input DailyRecordScalarWhereInput {
 
   """All values not ending with the given string."""
   food_string_not_ends_with: String
+  quantity: Int
+
+  """All values that are not equal to given value."""
+  quantity_not: Int
+
+  """All values that are contained in given list."""
+  quantity_in: [Int!]
+
+  """All values that are not contained in given list."""
+  quantity_not_in: [Int!]
+
+  """All values less than the given value."""
+  quantity_lt: Int
+
+  """All values less than or equal the given value."""
+  quantity_lte: Int
+
+  """All values greater than the given value."""
+  quantity_gt: Int
+
+  """All values greater than or equal the given value."""
+  quantity_gte: Int
   meal_type: String
 
   """All values that are not equal to given value."""
@@ -2739,6 +2767,7 @@ input DailyRecordUpdateInput {
   fiber: Int
   protein: Int
   food_string: String
+  quantity: Int
   meal_type: String
   user: UserUpdateOneRequiredWithoutDaily_recordsInput
 }
@@ -2752,6 +2781,7 @@ input DailyRecordUpdateManyDataInput {
   fiber: Int
   protein: Int
   food_string: String
+  quantity: Int
   meal_type: String
 }
 
@@ -2764,6 +2794,7 @@ input DailyRecordUpdateManyMutationInput {
   fiber: Int
   protein: Int
   food_string: String
+  quantity: Int
   meal_type: String
 }
 
@@ -2793,6 +2824,7 @@ input DailyRecordUpdateWithoutUserDataInput {
   fiber: Int
   protein: Int
   food_string: String
+  quantity: Int
   meal_type: String
 }
 
@@ -3086,6 +3118,28 @@ input DailyRecordWhereInput {
 
   """All values not ending with the given string."""
   food_string_not_ends_with: String
+  quantity: Int
+
+  """All values that are not equal to given value."""
+  quantity_not: Int
+
+  """All values that are contained in given list."""
+  quantity_in: [Int!]
+
+  """All values that are not contained in given list."""
+  quantity_not_in: [Int!]
+
+  """All values less than the given value."""
+  quantity_lt: Int
+
+  """All values less than or equal the given value."""
+  quantity_lte: Int
+
+  """All values greater than the given value."""
+  quantity_gt: Int
+
+  """All values greater than or equal the given value."""
+  quantity_gte: Int
   meal_type: String
 
   """All values that are not equal to given value."""

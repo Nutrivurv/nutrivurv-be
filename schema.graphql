@@ -44,6 +44,7 @@ type Query {
     orderBy: ProfileOrderByInput
   ): [Profile!]
   myDailyRecordCount: Int!
+  myWeightLogCount: Int!
   myFavoriteFoods(
     first: Int
     skip: Int
