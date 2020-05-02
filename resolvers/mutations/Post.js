@@ -38,6 +38,28 @@ const Post = {
       throw new Error("Can't find post with that ID");
     }
   },
+  async addLikeToPost(parent, args, { prisma, request }, info) {
+    if (request.user_id) {
+      const postExists = await prisma.query.posts({ where: { id: args.id } });
+      if (postExists[0]) {
+        return prisma.mutation.updatePost(
+          {
+            where: {
+              id: args.id,
+            },
+            data: {
+              likeCount: postExists[0].likeCount + 1,
+            },
+          },
+          info
+        );
+      } else {
+        throw new Error("Can't find post with that ID");
+      }
+    } else {
+      throw new Error("Can't find post with that ID");
+    }
+  },
   async updatePost(parent, args, { prisma, request }, info) {
     if (request.user_id) {
       const postExists = await prisma.query.posts({

@@ -124,9 +124,11 @@ type Mutation {
   createPost(data: CreatePostInput): Post!
   updatePost(id: String!, data: UpdatePostInput): Post!
   deletePost(id: String!): Post!
-  createComment(data: CreateCommentInput postId: String!): Comment!
+  createComment(data: CreateCommentInput, postId: String!): Comment!
   updateComment(id: String!, data: UpdateCommentInput): Comment!
   deleteComment(id: String!): Comment!
+  addLikeToPost(id: String!): Post!
+  addLikeToComment(id: String!): Comment!
 }
 
 type Subscription {
@@ -204,6 +206,7 @@ input UpdateDailyRecordInput {
   fiber: Int
   protein: Int
   food_string: String
+  quantity: Int
   meal_type: String
 }
 
@@ -230,6 +233,7 @@ input CreateDailyRecordInput {
   fiber: Int!
   protein: Int!
   food_string: String!
+  quantity: Int!
   meal_type: String!
 }
 
@@ -327,6 +331,7 @@ type DailyRecord {
   fiber: Int!
   protein: Int!
   food_string: String!
+  quantity: Int!
   meal_type: String!
   updatedAt: String!
   createdAt: String!
