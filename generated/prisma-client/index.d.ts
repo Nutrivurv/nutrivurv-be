@@ -503,6 +503,8 @@ export type DailyRecordOrderByInput =
   | "protein_DESC"
   | "food_string_ASC"
   | "food_string_DESC"
+  | "quantity_ASC"
+  | "quantity_DESC"
   | "meal_type_ASC"
   | "meal_type_DESC"
   | "updatedAt_ASC"
@@ -781,6 +783,14 @@ export interface DailyRecordWhereInput {
   food_string_not_starts_with?: Maybe<String>;
   food_string_ends_with?: Maybe<String>;
   food_string_not_ends_with?: Maybe<String>;
+  quantity?: Maybe<Int>;
+  quantity_not?: Maybe<Int>;
+  quantity_in?: Maybe<Int[] | Int>;
+  quantity_not_in?: Maybe<Int[] | Int>;
+  quantity_lt?: Maybe<Int>;
+  quantity_lte?: Maybe<Int>;
+  quantity_gt?: Maybe<Int>;
+  quantity_gte?: Maybe<Int>;
   meal_type?: Maybe<String>;
   meal_type_not?: Maybe<String>;
   meal_type_in?: Maybe<String[] | String>;
@@ -1799,6 +1809,7 @@ export interface DailyRecordCreateWithoutUserInput {
   fiber: Int;
   protein: Int;
   food_string: String;
+  quantity: Int;
   meal_type: String;
 }
 
@@ -2149,6 +2160,7 @@ export interface DailyRecordUpdateWithoutUserDataInput {
   fiber?: Maybe<Int>;
   protein?: Maybe<Int>;
   food_string?: Maybe<String>;
+  quantity?: Maybe<Int>;
   meal_type?: Maybe<String>;
 }
 
@@ -2255,6 +2267,14 @@ export interface DailyRecordScalarWhereInput {
   food_string_not_starts_with?: Maybe<String>;
   food_string_ends_with?: Maybe<String>;
   food_string_not_ends_with?: Maybe<String>;
+  quantity?: Maybe<Int>;
+  quantity_not?: Maybe<Int>;
+  quantity_in?: Maybe<Int[] | Int>;
+  quantity_not_in?: Maybe<Int[] | Int>;
+  quantity_lt?: Maybe<Int>;
+  quantity_lte?: Maybe<Int>;
+  quantity_gt?: Maybe<Int>;
+  quantity_gte?: Maybe<Int>;
   meal_type?: Maybe<String>;
   meal_type_not?: Maybe<String>;
   meal_type_in?: Maybe<String[] | String>;
@@ -2304,6 +2324,7 @@ export interface DailyRecordUpdateManyDataInput {
   fiber?: Maybe<Int>;
   protein?: Maybe<Int>;
   food_string?: Maybe<String>;
+  quantity?: Maybe<Int>;
   meal_type?: Maybe<String>;
 }
 
@@ -3683,6 +3704,7 @@ export interface DailyRecordCreateInput {
   fiber: Int;
   protein: Int;
   food_string: String;
+  quantity: Int;
   meal_type: String;
   user: UserCreateOneWithoutDaily_recordsInput;
 }
@@ -3716,6 +3738,7 @@ export interface DailyRecordUpdateInput {
   fiber?: Maybe<Int>;
   protein?: Maybe<Int>;
   food_string?: Maybe<String>;
+  quantity?: Maybe<Int>;
   meal_type?: Maybe<String>;
   user?: Maybe<UserUpdateOneRequiredWithoutDaily_recordsInput>;
 }
@@ -3755,6 +3778,7 @@ export interface DailyRecordUpdateManyMutationInput {
   fiber?: Maybe<Int>;
   protein?: Maybe<Int>;
   food_string?: Maybe<String>;
+  quantity?: Maybe<Int>;
   meal_type?: Maybe<String>;
 }
 
@@ -4651,6 +4675,7 @@ export interface DailyRecord {
   fiber: Int;
   protein: Int;
   food_string: String;
+  quantity: Int;
   meal_type: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -4666,6 +4691,7 @@ export interface DailyRecordPromise extends Promise<DailyRecord>, Fragmentable {
   fiber: () => Promise<Int>;
   protein: () => Promise<Int>;
   food_string: () => Promise<String>;
+  quantity: () => Promise<Int>;
   meal_type: () => Promise<String>;
   user: <T = UserPromise>() => T;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -4684,6 +4710,7 @@ export interface DailyRecordSubscription
   fiber: () => Promise<AsyncIterator<Int>>;
   protein: () => Promise<AsyncIterator<Int>>;
   food_string: () => Promise<AsyncIterator<String>>;
+  quantity: () => Promise<AsyncIterator<Int>>;
   meal_type: () => Promise<AsyncIterator<String>>;
   user: <T = UserSubscription>() => T;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
@@ -4702,6 +4729,7 @@ export interface DailyRecordNullablePromise
   fiber: () => Promise<Int>;
   protein: () => Promise<Int>;
   food_string: () => Promise<String>;
+  quantity: () => Promise<Int>;
   meal_type: () => Promise<String>;
   user: <T = UserPromise>() => T;
   updatedAt: () => Promise<DateTimeOutput>;
@@ -5885,6 +5913,7 @@ export interface DailyRecordPreviousValues {
   fiber: Int;
   protein: Int;
   food_string: String;
+  quantity: Int;
   meal_type: String;
   updatedAt: DateTimeOutput;
   createdAt: DateTimeOutput;
@@ -5902,6 +5931,7 @@ export interface DailyRecordPreviousValuesPromise
   fiber: () => Promise<Int>;
   protein: () => Promise<Int>;
   food_string: () => Promise<String>;
+  quantity: () => Promise<Int>;
   meal_type: () => Promise<String>;
   updatedAt: () => Promise<DateTimeOutput>;
   createdAt: () => Promise<DateTimeOutput>;
@@ -5919,6 +5949,7 @@ export interface DailyRecordPreviousValuesSubscription
   fiber: () => Promise<AsyncIterator<Int>>;
   protein: () => Promise<AsyncIterator<Int>>;
   food_string: () => Promise<AsyncIterator<String>>;
+  quantity: () => Promise<AsyncIterator<Int>>;
   meal_type: () => Promise<AsyncIterator<String>>;
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
   createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;

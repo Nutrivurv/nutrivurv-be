@@ -44,6 +44,30 @@ const Comment = {
       throw new Error("Can't find comment with that ID");
     }
   },
+  async addLikeToComment(parent, args, { prisma, request }, info) {
+    if (request.user_id) {
+      const commentExists = await prisma.query.comments({
+        where: { id: args.id },
+      });
+      if (commentExists[0]) {
+        return prisma.mutation.updateComment(
+          {
+            where: {
+              id: args.id,
+            },
+            data: {
+              likeCount: commentExists[0].likeCount + 1,
+            },
+          },
+          info
+        );
+      } else {
+        throw new Error("Can't find comment with that ID");
+      }
+    } else {
+      throw new Error("Can't find comment with that ID");
+    }
+  },
   async updateComment(parent, args, { prisma, request }, info) {
     if (request.user_id) {
       const commentExists = await prisma.query.comments({

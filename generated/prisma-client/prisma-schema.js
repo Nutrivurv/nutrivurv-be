@@ -1183,6 +1183,7 @@ type DailyRecord {
   fiber: Int!
   protein: Int!
   food_string: String!
+  quantity: Int!
   meal_type: String!
   user: User!
   updatedAt: DateTime!
@@ -1205,6 +1206,7 @@ input DailyRecordCreateInput {
   fiber: Int!
   protein: Int!
   food_string: String!
+  quantity: Int!
   meal_type: String!
   user: UserCreateOneWithoutDaily_recordsInput!
 }
@@ -1224,6 +1226,7 @@ input DailyRecordCreateWithoutUserInput {
   fiber: Int!
   protein: Int!
   food_string: String!
+  quantity: Int!
   meal_type: String!
 }
 
@@ -1251,6 +1254,8 @@ enum DailyRecordOrderByInput {
   protein_DESC
   food_string_ASC
   food_string_DESC
+  quantity_ASC
+  quantity_DESC
   meal_type_ASC
   meal_type_DESC
   updatedAt_ASC
@@ -1269,6 +1274,7 @@ type DailyRecordPreviousValues {
   fiber: Int!
   protein: Int!
   food_string: String!
+  quantity: Int!
   meal_type: String!
   updatedAt: DateTime!
   createdAt: DateTime!
@@ -1371,6 +1377,14 @@ input DailyRecordScalarWhereInput {
   food_string_not_starts_with: String
   food_string_ends_with: String
   food_string_not_ends_with: String
+  quantity: Int
+  quantity_not: Int
+  quantity_in: [Int!]
+  quantity_not_in: [Int!]
+  quantity_lt: Int
+  quantity_lte: Int
+  quantity_gt: Int
+  quantity_gte: Int
   meal_type: String
   meal_type_not: String
   meal_type_in: [String!]
@@ -1433,6 +1447,7 @@ input DailyRecordUpdateInput {
   fiber: Int
   protein: Int
   food_string: String
+  quantity: Int
   meal_type: String
   user: UserUpdateOneRequiredWithoutDaily_recordsInput
 }
@@ -1446,6 +1461,7 @@ input DailyRecordUpdateManyDataInput {
   fiber: Int
   protein: Int
   food_string: String
+  quantity: Int
   meal_type: String
 }
 
@@ -1458,6 +1474,7 @@ input DailyRecordUpdateManyMutationInput {
   fiber: Int
   protein: Int
   food_string: String
+  quantity: Int
   meal_type: String
 }
 
@@ -1487,6 +1504,7 @@ input DailyRecordUpdateWithoutUserDataInput {
   fiber: Int
   protein: Int
   food_string: String
+  quantity: Int
   meal_type: String
 }
 
@@ -1598,6 +1616,14 @@ input DailyRecordWhereInput {
   food_string_not_starts_with: String
   food_string_ends_with: String
   food_string_not_ends_with: String
+  quantity: Int
+  quantity_not: Int
+  quantity_in: [Int!]
+  quantity_not_in: [Int!]
+  quantity_lt: Int
+  quantity_lte: Int
+  quantity_gt: Int
+  quantity_gte: Int
   meal_type: String
   meal_type_not: String
   meal_type_in: [String!]
