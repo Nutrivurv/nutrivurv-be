@@ -21,7 +21,7 @@ const WeightLogs = {
       },
     });
     if (count && count.length > 0) {
-      return count;
+      return count.length;
     } else {
       return 0;
     }

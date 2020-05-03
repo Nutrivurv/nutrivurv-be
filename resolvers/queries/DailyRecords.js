@@ -18,8 +18,9 @@ const DailyRecords = {
         user_id: request.user_id,
       },
     });
+
     if (count && count.length > 0) {
-      return count;
+      return count.length;
     } else {
       return 0;
     }
