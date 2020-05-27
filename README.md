@@ -39,7 +39,11 @@ To get the server running locally:
 
 - **yarn test** to start server using testing environment
 
-  
+- `yarn lint` to run linter
+
+- `yarn lint:fix` to run linter and fix linting errors
+
+- `yarn format` to run prettier and format code
 
 ### Backend framework goes here
 
@@ -170,6 +174,9 @@ Remember that this project is licensed under the MIT license, and by submitting 
 - Update the README.md with details of changes to the interface, including new plist variables, exposed ports, useful file locations and container parameters.
 
 - Ensure that your code conforms to our existing code conventions and test coverage.
+
+- Ensure that your code coforms to code style guide lines by linting your code.
+
 
 - Include the relevant issue number, if applicable.
 
