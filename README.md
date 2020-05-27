@@ -21,13 +21,13 @@ To get the server running locally:
 
 2. `yarn install` to install all required dependencies
 
-3. Create .env file with environment variables.
+3. Create .env file with environment variables. Make sure to set the PRISMA_ENDPOINT to http:localhost:4466. This will be where the Docker Containers will be running locally.
 
 4. Create Docker Containers using `docker-compose -f prisma/docker-compose.yml up -d` (To spin down the Docker containers run command docker-compose stop)
 
 5. Deploy Prisma to your local Docker image using the command `prisma deploy`
 
-6. Get the current schema from [Prisma](http://localhost:4466/_admin)
+- Get the current schema from [Prisma Admin Panel](http://localhost:4466/_admin)
 
 - `yarn dev` to start the local server
 
