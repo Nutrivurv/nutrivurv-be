@@ -1,24 +1,24 @@
 module.exports = {
-    env: {
-      node: true,
-      commonjs: true,
-      es6: true,
-    },
-    extends: ["eslint:recommended", "plugin:prettier/recommended"],
-    parserOptions: {
-      ecmaFeatures: {
+  env: {
+    node: true,
+    commonjs: true,
+    es6: true,
+  },
+  extends: ['eslint:recommended', 'plugin:prettier/recommended'],
+  parserOptions: {
+    ecmaFeatures: {
       ecmaVersion: 2018,
-      sourceType: "module",
+      sourceType: 'module',
     },
-    plugins: ["prettier"],
+    plugins: ['prettier'],
     rules: {},
     overrides: [
       {
-        files: ["**/*.test.js"],
+        files: ['**/*.test.js'],
         env: {
           jest: true,
         },
       },
     ],
-  }
-}
+  },
+};
