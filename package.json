@@ -8,7 +8,10 @@
     "dev": "nodemon -r esm index.js --ext js,graphql",
     "test": "jest --watchAll --runInBand",
     "get-schema": "graphql get-schema -p prisma --dotenv .env",
-    "coverage": "jest --coverage --detectOpenHandles --forceExit || true"
+    "coverage": "jest --coverage --detectOpenHandles --forceExit || true",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
+    "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md)\""
   },
   "jest": {
     "testEnvironment": "node",
