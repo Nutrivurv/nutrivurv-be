@@ -10,23 +10,28 @@
 
 To get the server running locally:
 
-- Clone this repo.
+ -Prerequisites:
+  Install [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/) if you are running Windows 10 Home Edition pre-2004 upate.
 
-- Install [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/).
+  Install Docker For Desktop if you are running [Windows 10 Home post-2004 update](https://docs.docker.com/docker-for-windows/install-windows-home/), [Pro, Enterprise or Education](https://docs.docker.com/docker-for-windows/install/), or [macOS](https://docs.docker.com/docker-for-mac/install/)
 
-- Install [Prisma](https://www.npmjs.com/package/prisma) globally. `yarn global add @prisma/cli)
+  Install [Prisma](https://www.npmjs.com/package/prisma) globally.
 
-- Spin up a local virtual machine using Docker Toolbox.
+1. Clone this repo.
 
-- Deploy Prisma to your local Docker image.
+2. `yarn install` to install all required dependencies
 
-- Get the current schema from Prisma.
+3. Create .env file with environment variables.
 
-- **yarn install** to install all required dependencies
+4. Create Docker Containers using `docker-compose -f prisma/docker-compose.yml up -d` (To spin down the Docker containers run command docker-compose stop)
 
-- **yarn dev** to start the local server
+5. Deploy Prisma to your local Docker image using the command `prisma deploy`
 
-- **yarn test** to start server using testing environment
+6. Get the current schema from [Prisma](http://localhost:4466/_admin)
+
+- `yarn dev` to start the local server
+
+- `yarn test` to start server using testing environment
 
 ### Backend framework goes here
 
