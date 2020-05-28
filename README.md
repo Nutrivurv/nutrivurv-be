@@ -1,8 +1,8 @@
+# Nutrivurv API Documentation
+
 ![Code Maintainability](https://api.codeclimate.com/v1/badges/9ac982aab59ee2c30f71/maintainability)
 
 ![Test Coverage](https://api.codeclimate.com/v1/badges/9ac982aab59ee2c30f71/test_coverage)
-
-# API Documentation
 
 ## Backend deployed at [Heroku](https://labspt7-nutrition-tracker-be.herokuapp.com/)
 
@@ -10,31 +10,30 @@
 
 To get the server running locally:
 
-- Clone this repo.
+ -Prerequisites:
+  Install [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/) if you are running Windows 10 Home Edition pre-2004 upate.
 
-- Install [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/).
+  Install Docker For Desktop if you are running [Windows 10 Home post-2004 update](https://docs.docker.com/docker-for-windows/install-windows-home/), [Pro, Enterprise or Education](https://docs.docker.com/docker-for-windows/install/), or [macOS](https://docs.docker.com/docker-for-mac/install/)
 
-- Install [Prisma](https://www.npmjs.com/package/prisma) globally.
+  Install [Prisma](https://www.npmjs.com/package/prisma) globally.
 
-- Spin up a local virtual machine using Docker Toolbox.
+1. Clone this repo.
 
-- Deploy Prisma to your local Docker image.
+2. `yarn install` to install all required dependencies
 
-- Get the current schema from Prisma.
+3. Create .env file with environment variables. Make sure to set the PRISMA_ENDPOINT to http:localhost:4466. This will be where the Docker Containers will be running locally.
 
-- **yarn install** to install all required dependencies
+4. Create Docker Containers using `docker-compose -f prisma/docker-compose.yml up -d` (To spin down the Docker containers run command docker-compose stop)
 
-- **yarn dev** to start the local server
+5. Deploy Prisma to your local Docker image using the command `prisma deploy`
 
-- **yarn test** to start server using testing environment
+- Get the current schema from [Prisma Admin Panel](http://localhost:4466/_admin)
 
-- `yarn lint` to run linter
+- `yarn dev` to start the local server
+
+- `yarn test` to start server using testing environment
 
 - `yarn lint:fix` to run linter and fix linting errors
-
-- `yarn format` to run prettier and format code
-
-### Backend framework goes here
 
 - We are using PostgreSQL as our database to comply with engineering standards documentation and because it is one of the most full featured open source DB platforms.
 
@@ -118,9 +117,7 @@ Remember that this project is licensed under the MIT license, and by submitting 
 
 - Ensure that your code coforms to code style guide lines by linting your code.
 
-* Include the relevant issue number, if applicable.
-
-* You may merge the Pull Request in once you have the sign-off of two other developers, or if you do not have permission to do that, you may request the second reviewer to merge it for you.
+- Include the relevant issue number, if applicable.
 
 ### Attribution
 
@@ -132,12 +129,18 @@ See [Frontend Documentation](https://github.com/Lambda-School-Labs/nutrition-tra
 
 See [iOS Documentation](https://github.com/Lambda-School-Labs/nutrition-tracker-ios-pt7/blob/master/README.md) for details on the iOS implementation of our project.
 
-### How to add new content:
+### How to add new content
 
 - Add the model to /prisma/datamodel.graphql
 - run `prisma deploy` and `yarn get-schema`
-- Add the new type and inputs for create and delete to /schema.graphql - follow the naming conventions used by prisma in order to keep all things aligned
+- Add the new type and inputs for create and delete to /schema.graphql
+  - follow the naming conventions used by prisma in order to keep all things aligned
 - Add the names of the queries and mutations to the queries / mutations part at the top of the page, and what they return
-- Create a new file in /resolvers/queries named after your model. - All queries relating to this model should go in this file - Repeat the same for /resolvers/mutations
-- Import your file into /resolvers/Queries.js or Mutations.js and spread it into the exported object - If you have any fields on your datamodel returning a custom scalar field, you will also need custom resolvers for that field. - Create a file named after the model in /resolvers and write resolvers for the field - Import your file into /resolvers/index.js and add it to the `resolvers` object
+- Create a new file in /resolvers/queries named after your model.
+  - All queries relating to this model should go in this file
+    - Repeat the same for /resolvers/mutations
+- Import your file into /resolvers/Queries.js or Mutations.js and spread it into the exported object
+  - If you have any fields on your datamodel returning a custom scalar field, you will also need custom resolvers for that field.
+    - Create a file named after the model in /resolvers and write resolvers for the field
+    - Import your file into /resolvers/index.js and add it to the `resolvers` object
 - Abstract all business logic from your resolvers into external functions located in the /utils folder. Make sure you write unit tests for your business logic functions
