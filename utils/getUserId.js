@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const isLoggedIn = async (resolve, parent, args, ctx, info) => {
-  const { request } = ctx.request;
+  const { request, connection } = ctx.request;
   const permit = () => {
     if (request) {
       if (request.headers) {
@@ -19,10 +19,10 @@ const isLoggedIn = async (resolve, parent, args, ctx, info) => {
             .split('=')[1];
         }
       }
-    } else if (ctx.request.connection) {
-      if (ctx.request.connection.context) {
-        if (ctx.request.connection.context.Authorization) {
-          return ctx.request.connection.context.Authorization;
+    } else if (connection) {
+      if (connection.context) {
+        if (connection.context.Authorization) {
+          return connection.context.Authorization;
         }
       }
     }
