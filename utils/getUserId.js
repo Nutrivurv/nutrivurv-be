@@ -1,16 +1,17 @@
 const jwt = require('jsonwebtoken');
 
 const isLoggedIn = async (resolve, parent, args, ctx, info) => {
+  const { request } = ctx.request;
   const permit = () => {
-    if (ctx.request.request) {
-      if (ctx.request.request.headers) {
-        if (ctx.request.request.headers.authorization) {
-          return ctx.request.request.headers.authorization;
+    if (request) {
+      if (request.headers) {
+        if (request.headers.authorization) {
+          return request.headers.authorization;
         } else if (
-          ctx.request.request.headers.cookie &&
-          ctx.request.request.headers.cookie.includes('token=')
+          request.headers.cookie &&
+          request.headers.cookie.includes('token=')
         ) {
-          return ctx.request.request.headers.cookie
+          return request.headers.cookie
             .split('; ')
             .filter((cv) => {
               return cv.includes('token');
@@ -27,10 +28,10 @@ const isLoggedIn = async (resolve, parent, args, ctx, info) => {
     }
   };
 
-  if (ctx.request.request) {
+  if (request) {
     if (
-      ctx.request.request.body.query.includes('login') ||
-      ctx.request.request.body.query.includes('createUser')
+      request.body.query.includes('login') ||
+      request.body.query.includes('createUser')
     ) {
       return resolve();
     }
