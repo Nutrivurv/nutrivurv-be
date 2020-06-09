@@ -1,19 +1,20 @@
 const jwt = require('jsonwebtoken');
 
-const isLoggedIn = async (resolve, parent, args, ctx, info) => {
+const isLoggedIn = (resolve, parent, args, ctx) => {
   const { request, connection } = ctx.request;
   const permit = () => {
     if (request.headers.authorization) {
-          return request.headers.authorization;
-    } else if (request.headers.cookie 
-        && request.headers.cookie.includes('token=')
-      ) {
-          return request.headers.cookie
-            .split('; ')
-            .filter((cv) => {
-              return cv.includes('token');
-            })[0]
-            .split('=')[1];
+      return request.headers.authorization;
+    } else if (
+      request.headers.cookie &&
+      request.headers.cookie.includes('token=')
+    ) {
+      return request.headers.cookie
+        .split('; ')
+        .filter((cv) => {
+          return cv.includes('token');
+        })[0]
+        .split('=')[1];
     } else if (connection) {
       if (connection.context.Authorization) {
         return connection.context.Authorization;
