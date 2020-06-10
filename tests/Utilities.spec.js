@@ -1,6 +1,6 @@
 const hashPassword = require('../utils/hashPassword.js');
 const validateLogin = require('../utils/validateLogin.js');
-const getUserId = require('../utils/getUserId.js');
+const authorization = require('../utils/authorization');
 const jwt = require('jsonwebtoken');
 
 describe('utility test cases', () => {
@@ -56,7 +56,7 @@ describe('utility test cases', () => {
     }
   });
 
-  test('getuserid allows login route', async () => {
+  test('authorization allows login route', async () => {
     const login = {
       request: {
         request: {
@@ -70,7 +70,7 @@ describe('utility test cases', () => {
       },
     };
 
-    const loggedIn = await getUserId(
+    const loggedIn = await authorization(
       () => {
         return 'yay';
       },
@@ -82,7 +82,7 @@ describe('utility test cases', () => {
     expect(loggedIn).toBe('yay');
   });
 
-  test('getuserid allows createuser route', async () => {
+  test('authorization allows createuser route', async () => {
     const login = {
       request: {
         request: {
@@ -96,7 +96,7 @@ describe('utility test cases', () => {
       },
     };
 
-    const loggedIn = await getUserId(
+    const loggedIn = await authorization(
       () => {
         return 'yay';
       },
