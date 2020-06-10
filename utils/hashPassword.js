@@ -5,7 +5,7 @@ const hashPassword = (password) => {
   const maxCharLength = 16;
   if (password.length < minCharLength && password.length > maxCharLength) {
     throw new Error(
-      'Password must be greater than 8 characters and less than 16 characters'
+      `Password must be between ${minCharLength} and ${maxCharLength} characters`
     );
   }
   return bcrypt.hash(password, 10);
