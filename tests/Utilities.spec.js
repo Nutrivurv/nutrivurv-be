@@ -1,7 +1,8 @@
 const hashPassword = require('../utils/hashPassword.js');
 const validateLogin = require('../utils/validateLogin.js');
-const authorization = require('../utils/authorization');
-const formatDate = require('../utils/formatDate');
+const authorization = require('../utils/authorization.js');
+const formatDate = require('../utils/formatDate.js');
+const generateToken = require('../utils/generateToken.js')
 const jwt = require('jsonwebtoken');
 
 describe('utility test cases', () => {
@@ -133,6 +134,15 @@ describe('utility test cases', () => {
       const date = 'June 09, 2020';
       
       expect(formatDate(date)).toBe(expected);
+    });
+  });
+  describe('generateToken()', () => {
+    test('should create a token with the provided userId', async () => {
+      const userId = 1;
+      const testSecret = 'This should be a secret';
+      const token = await generateToken(userId);
+      const decoded = jwt.verify(token, testSecret);
+      expect(decoded.userId).toBe(1);
     });
   });
 });
