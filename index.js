@@ -1,23 +1,7 @@
-import server from './server';
+const server = require('./api/server');
 
-const opts = {
-  port: process.env.PORT || 4000,
-  cors: {
-    credentials: true,
-    origin: [
-      'http://localhost:3000',
-      'https://nutrivurv-staging.herokuapp.com',
-      'http://nutrivurv.com',
-      'https://nutrivurv.herokuapp.com',
-      'nutrivurv.com',
-    ],
-    methods: 'POST,OPTIONS',
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-    subscriptions: '/subscriptions',
-  },
-};
+const PORT = process.env.PORT || 4000;
 
-server.start(opts, () => {
-  console.log('The server is up!');
+server.listen(PORT, () => {
+  console.log(`🚀 server running on localhost:${PORT} 🚀`);
 });
