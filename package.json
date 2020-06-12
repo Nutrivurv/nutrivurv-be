@@ -37,14 +37,7 @@
     "axios": "^0.19.2",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
-    "esm": "^3.2.25",
-    "fs": "^0.0.1-security",
-    "graphql": "^14.6.0",
-    "graphql-cli": "^3.0.14",
-    "graphql-tools": "^4.0.7",
-    "graphql-yoga": "^1.18.3",
-    "jsonwebtoken": "^8.5.1",
-    "prisma-binding": "^2.3.16"
+    "jsonwebtoken": "^8.5.1"
   },
   "resolutions": {
     "open": "^6.0.0",
