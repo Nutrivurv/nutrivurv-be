@@ -9,4 +9,9 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
+// API status
+server.get('/api', (req, res) => {
+  res.send({ status: 'up' });
+});
+
 module.exports = server;
