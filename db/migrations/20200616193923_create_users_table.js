@@ -1,16 +1,18 @@
 exports.up = function (knex) {
-  return knex.createTable('users', (table) => {
+  return knex.schema.createTable('users', (table) => {
     // userID
     table.increments('userID');
     // name
     table.string('name', 64);
     // email
-    table.string('name', 254);
+    table.string('email', 254);
     // password
     table.string('password', 16);
+    // create_at & update_at timestamps
+    table.timestamps();
   });
 };
 
 exports.down = function (knex) {
-  return knex.dropTableIfExists('users');
+  return knex.schema.dropTableIfExists('users');
 };
