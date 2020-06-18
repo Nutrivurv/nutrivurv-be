@@ -3,7 +3,7 @@ exports.up = function (knex) {
     // userID
     table.increments('userID');
     // name
-    table.string('name', 64);
+    table.string('username', 64);
     // email
     table.string('email', 254);
     // password
