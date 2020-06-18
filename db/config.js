@@ -3,4 +3,6 @@ const config = require('../knexfile.js');
 
 const ENVIRONMENT = process.env.ENVIRONMENT || 'development';
 
-return knex(config[ENVIRONMENT]);
+const db = knex(config[ENVIRONMENT]);
+
+module.exports = db;
