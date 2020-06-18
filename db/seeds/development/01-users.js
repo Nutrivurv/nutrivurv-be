@@ -6,7 +6,7 @@ exports.seed = function (knex) {
       // Inserts seed entries
       return knex('users').insert([
         {
-          userID: 1,
+          id: 1,
           username: 'Lou',
           email: 'lou@news.com',
           password: 'Abadpassword',
@@ -14,7 +14,7 @@ exports.seed = function (knex) {
           updated_at: '2020-06-17 07:56:00',
         },
         {
-          userID: 2,
+          id: 2,
           username: 'stu',
           email: 'stu@news.com',
           password: 'AB3TT3rassword',
@@ -22,7 +22,7 @@ exports.seed = function (knex) {
           updated_at: '2020-06-17 07:57:00',
         },
         {
-          userID: 3,
+          id: 3,
           username: 'Hugh',
           email: 'hugh@news.com',
           password: 'anotherpass',
