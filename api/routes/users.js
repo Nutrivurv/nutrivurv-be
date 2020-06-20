@@ -5,24 +5,10 @@ router.get('/', async (req, res) => {
   try {
     const users = await Users.getAllUsers();
     res.status(200).json({ users })
-} catch (error) {
+}  catch (error) {
     res.send(500).json({ error: error.message });
   }
 })
-
-router.get('/:userid', async (req, res) => {
-  const { userid } = req.params;
-
-  try {
-    const user = await Users.getUserBy({ id: userid });
-    user
-    ? res.status(200).json(user)
-    : res.status(404).json({error: 'no user found by the provided userID'});
-  } catch (error) {
-    res.send(500).json({ error: error.message });
-  }
-
-});
 
 router.get('/:username', async (req, res) => {
   const { username } = req.params;
@@ -31,11 +17,10 @@ router.get('/:username', async (req, res) => {
     const user = await Users.getUserBy({ username });
     user
     ? res.status(200).json(user)
-    : res.status(404).json({error: 'no user found by the provided userID'});
+    : res.status(404).json({error: 'no user found by the provided username'});
   } catch (error) {
-    res.send(500).json({ error: error.message });
+    res.send(500).json({ error });
   }
-
 });
 
 module.exports = router;
