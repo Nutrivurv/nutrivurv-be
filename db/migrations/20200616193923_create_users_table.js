@@ -3,9 +3,9 @@ exports.up = function (knex) {
     // id
     table.increments();
     // name
-    table.string('username').notNullable();
+    table.string('username').notNullable().unique();
     // email
-    table.string('email').notNullable();
+    table.string('email').notNullable().unique();
     // password
     table.string('password').notNullable();
     // date of birth
