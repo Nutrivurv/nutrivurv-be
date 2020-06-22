@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Users } = require('../controllers');
 const hashPassword = require('../../utils/hashPassword');
+const generateToken = require('../../utils/generateToken');
 
 router.post('/register',async (req, res) => {
   const registrationDetails = req.body;
@@ -8,9 +9,10 @@ router.post('/register',async (req, res) => {
   const newUser = { ...registrationDetails,  password: hash }
   try {
     const registeredUser = await Users.addUser(newUser);
+    const token = generateToken(registeredUser.id);
     return registeredUser.name === 'error'
       ? res.status(401).json({ message: 'missing details' })
-      : res.status(201).json(registeredUser)
+      : res.status(201).json({ user: registeredUser, token })
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
