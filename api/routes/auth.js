@@ -2,6 +2,8 @@ const router = require('express').Router();
 const { Users } = require('../controllers');
 const hashPassword = require('../../utils/hashPassword');
 const generateToken = require('../../utils/generateToken');
+const validateLogin = require('../../utils/validateLogin');
+const { check } = require('prettier');
 
 router.post('/register',async (req, res) => {
   const registrationDetails = req.body;
@@ -16,6 +18,22 @@ router.post('/register',async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+
+router.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const logginIn = await Users.getUserBy({ username });
+    const checkUser = { username: logginIn.username, password: logginIn.password }
+    if (checkUser){
+      const { user, token } = await validateLogin(password, checkUser)
+      res.status(200).json({ message: `Welcome ${user.username}`, token })
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+
 });
 
 module.exports = router;
