@@ -14,7 +14,7 @@ router.post('/register',async (req, res) => {
     const token = generateToken(registeredUser.id);
     return registeredUser.name === 'error'
       ? res.status(401).json({ message: 'missing details' })
-      : res.status(201).json({ user: registeredUser, token })
+      : res.status(201).json({ message: `${registeredUser.username} registered!`, token })
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -26,7 +26,7 @@ router.post('/login', async (req, res) => {
   try {
     const logginIn = await Users.getUserBy({ username });
     const checkUser = { username: logginIn.username, password: logginIn.password }
-    if (checkUser){
+    if (check){
       const { user, token } = await validateLogin(password, checkUser)
       res.status(200).json({ message: `Welcome ${user.username}`, token })
     }
