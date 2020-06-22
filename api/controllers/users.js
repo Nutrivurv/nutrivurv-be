@@ -11,6 +11,7 @@ const getAllUsers = async () => {
 }
 
 const getUserBy = async (filter) => {
+  console.log(filter);
   try {
     const user = await db(table).where(filter).first();
     return user
@@ -19,17 +20,16 @@ const getUserBy = async (filter) => {
   }
 }
 
-const addUser = async ({ username, email, password}) => {
-  const user = { 
-    username,
-    email,
-    password,
-    created_at: Date.now(),
-    updated_at: Date.now()
+const addUser = async (user) => {
+  const today = new Date(Date.now())
+  const newUser = { 
+    ...user,
+    created_at: today,
+    updated_at: today,
   }
   try {
-    const inserted = await db(table).insert(user, {userID, username, email});
-    return inserted;
+    const [id] = await db(table).insert(newUser, 'id');
+    return getUserBy({ id });
   } catch (error) {
     return error
   }
