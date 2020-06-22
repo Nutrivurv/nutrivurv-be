@@ -3,7 +3,6 @@ const { Users } = require('../controllers');
 const hashPassword = require('../../utils/hashPassword');
 const generateToken = require('../../utils/generateToken');
 const validateLogin = require('../../utils/validateLogin');
-const { check } = require('prettier');
 
 router.post('/register',async (req, res) => {
   const registrationDetails = req.body;
@@ -26,7 +25,7 @@ router.post('/login', async (req, res) => {
   try {
     const logginIn = await Users.getUserBy({ username });
     const checkUser = { username: logginIn.username, password: logginIn.password }
-    if (check){
+    if (checkUser){
       const { user, token } = await validateLogin(password, checkUser)
       res.status(200).json({ message: `Welcome ${user.username}`, token })
     }
