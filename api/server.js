@@ -1,6 +1,7 @@
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
+const router = require('./routes');
 
 const server = express();
 
@@ -9,9 +10,7 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
-// API status
-server.get('/api', (req, res) => {
-  res.send({ status: 'up' });
-});
+// Routes
+server.use('/api/', router);
 
 module.exports = server;

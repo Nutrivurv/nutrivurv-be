@@ -11,10 +11,19 @@
 To get the server running locally:
 
 1. Clone this repo.
-
 2. `npm install` or `yarn install` to install all required dependencies
+3. Set up PostgreSQL database [locally](https://www.postgresqltutorial.com/install-postgresql/) or set one up on [Heroku](https://dev.to/prisma/how-to-setup-a-free-postgresql-database-on-heroku-1dc1).
 
-3. Create .env file with environment variables.
+4. Create .env file with environment variables.
+
+  DEV_DATABASE_URL =  The address of your PostgreSQL database for your development
+
+  TEST_DATABASE_URL = The address of your PostgreSQL database to run tests against.
+  JWT_SECRET = Secret for creating jsonwebtokens
+5. Run `npx knex migrate:latest` to create the database tables
+6. Run `npx seed:run` to seed data into the database.
+
+### Commands
 
 - `npm start` to start the server with node.
 
@@ -33,6 +42,12 @@ To get the server running locally:
 ## Endpoints
 
 - GET /api - returns api status
+
+- POST /api/auth/register - Registration Endpoint - name, email, and password to required
+  returns username, and JWT token
+
+- POST /api/auth/login - Login Endpoint - email and password required
+  returns username and JWT token
 
 ## Documentation
 
