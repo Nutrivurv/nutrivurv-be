@@ -2,57 +2,39 @@ const db = require('../../db/config');
 const table = 'users';
 
 const getAllUsers = async () => {
-  try {
-    const users = await db(table);
-    return users
-  } catch (error) {
-    return error    
-  }
-}
+  const users = await db(table);
+  return users;
+};
 
 const getUserBy = async (filter) => {
-  console.log(filter);
-  try {
-    const user = await db(table).where(filter).first();
-    return user
-  } catch (error) {
-    return error 
-  }
-}
+  const user = await db(table).where(filter).first();
 
-const addUser = async (user) => {
-  const today = new Date(Date.now())
-  const newUser = { 
-    ...user,
-    created_at: today,
-    updated_at: today,
-  }
-  try {
-    const [id] = await db(table).insert(newUser, 'id');
-    return getUserBy({ id });
-  } catch (error) {
-    return error
-  }
-}
+  return user;
+};
+
+const addUser = async ({ name, email, password }) => {
+  const user = {
+    name,
+    email,
+    password,
+  };
+
+  const [id] = await db(table).insert(user).returning('id');
+  const registeredUser = await getUserBy({ id });
+
+  return registeredUser;
+};
 
 const updateUser = async (userID, changes) => {
-  const userChanges = {...changes, updated_at: Date.now()}
-  try {
-    const updated = await db(table).where(userID).update(userChanges)
-    return updated;
-  } catch (error) {
-    return error
-  }
-}
+  const userChanges = { ...changes, updated_at: Date.now() };
+  const updated = await db(table).where(userID).update(userChanges);
 
-const  deleteUser = async (userID) => {
-  try {
-    const deleted = await db(table).where({ userID }).del()
-    return deleted;
-  } catch (error) {
-    return error
-  }
-}
+  return updated;
+};
+
+const deleteUser = async (userID) => {
+  const deleted = await db(table).where({ userID }).del();
+};
 
 module.exports = {
   getAllUsers,
