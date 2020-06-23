@@ -8,7 +8,7 @@ describe('server', () => {
   });
   test('GET /api should return JSON data type', async () => {
     const response = await request(server).get('/api/status');
-    expect(response.type).toMatch(/json/i)
+    expect(response.type).toMatch(/json/i);
   });
   test('GET /api should return json with body of { status: "up" }', async () => {
     const response = await request(server).get('/api/status');
