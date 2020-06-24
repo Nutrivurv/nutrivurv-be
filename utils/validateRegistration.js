@@ -7,8 +7,8 @@ const validateRegistration = async (req, res, next) => {
     try {
       const user = await getUserBy({ email });
       if (user) {
-        res.status(400).json({
-          message: `An account with email ${user.email} is already exists.`,
+        res.status(409).json({
+          message: `Account with email ${user.email} is already exists`,
         });
       } else {
         next();
