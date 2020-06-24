@@ -1,12 +1,10 @@
-#Nutrivurv API Documentation
+# Nutrivurv API Documentation
 
 ----
 
-##Auth
+## Auth
 
-**URI**
-
-  `/api/auth`
+**URI** `/api/auth`
 
 
 | Method | URI         | Description         |
@@ -39,8 +37,8 @@
 * **Success Response:**
   
   * **Code:** 200 - OK<br />
-    * **Examples**
-    * ```
+    * **Example**
+      ```
       {
           message: "User Authenticated",
           token: "[json web token]",
@@ -54,26 +52,26 @@
 * **Error Response:**
   * **Code:** 401 - UNAUTHORIZED<br />
     * **Examples**
-    * ```
+      ```
       {
         message: "Invalid password provided"
       }
       ```
-    * ```
+      ```
       {
         message: "No account associated with john.smith@gmail.com"
       }
       ```
   * **Code:** 400 - BAD REQUEST<br />
-    * **Examples**
-    * ```
+    * **Example**
+      ```
       {
-        "message": "Missing credential."
+        "message": "Missing credentials"
       }
       ```
   * **Code:** 500 - INTERNAL SERVER ERROR<br />
-    * **Examples**
-    * ```
+    * **Example**
+      ```
       {
         "message": "Internal Server Error"
       }
@@ -83,7 +81,6 @@
 ### `POST` - `/api/auth/register`
 
 - **Data Constraints**
-
   ```
   {
     name: "[user's name]"
@@ -93,7 +90,6 @@
   ```
 
 * **Data Example**
-
   ```
   {
     name: "John Smith"
@@ -102,12 +98,11 @@
   }
   ```
 
-
 * **Success Response:**
 
   * **Code:** 201 - CREATED<br />
-    * **Examples**
-    * ```
+    * **Example**
+      ```
       {
         "message": "john.smith@gmail.com has been registered.",
         "token": "[json web token]",
@@ -120,21 +115,21 @@
       ```
 * **Error Response:**
   * **Code:** 409 - CONFLICT<br />
-    * **Example**
+      **Example**
       ```
       {
           message: "Account with email john.smith@gmail.com is already exists"
       }
       ```
   * **Code:** 400 BAD REQUEST<br />
-    * **Example**
+      **Example**
       ```
       {
         "message": "Missing credentials"
       }
       ```
-  * **Code:** 500 Internal Server Error<br />
-    * **Example**
+  * **Code:** 500 INTERNAL SERVER ERROR<br />
+      **Example**
       ```
       {
         "message": "Internal Server Error"
