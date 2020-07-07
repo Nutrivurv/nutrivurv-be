@@ -13,6 +13,7 @@ server.use(
     origin: [
       'http://localhost:3000',
       'http://www.nutrivurv.com',
+      'http://nutrivurv.com'
       'https://nutrivurv.herokuapp.com',
     ],
     credentials: true,
