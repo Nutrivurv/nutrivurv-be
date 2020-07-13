@@ -9,26 +9,18 @@ const getUserBy = async (filter) => {
   return await db(table).where(filter).first();
 };
 
-const addUser = async ({ name, email, password }) => {
-  const user = {
-    name,
-    email,
-    password,
-  };
-
+const addUser = async (user) => {
   const [id] = await db(table).insert(user).returning('id');
 
   return await getUserBy({ id });
 };
 
-const updateUser = async (userID, changes) => {
-  const userChanges = { ...changes, updated_at: Date.now() };
-
-  return await db(table).where(userID).update(userChanges);
+const updateUser = async (id, updates) => {
+  return await db(table).where({ id }).update(updates);
 };
 
-const deleteUser = async (userID) => {
-  return await db(table).where({ userID }).del();
+const deleteUser = async (id) => {
+  return await db(table).where({ id }).del();
 };
 
 module.exports = {

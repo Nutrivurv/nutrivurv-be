@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const authorization = (resolve, parent, args, ctx) => {
+const authenticate = (resolve, parent, args, ctx) => {
   const { request } = ctx.request;
   if (request) {
     if (
@@ -19,4 +19,4 @@ const authorization = (resolve, parent, args, ctx) => {
   return resolve();
 };
 
-module.exports = authorization;
+module.exports = authenticate;
