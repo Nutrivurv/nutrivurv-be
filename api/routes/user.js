@@ -1,5 +1,7 @@
 const router = require('express').Router();
+const bcrypt = require('bcryptjs');
 const { Users } = require('../controllers');
+const calculateBudgets = require('../helper/calculateBudgets');
 
 /********************************************************
  *                     UPDATE USER                      *
@@ -9,7 +11,11 @@ router.put('/:user_id', async (req, res) => {
   const updates = req.body;
 
   try {
-    const user = await Users.updateUser(user_id, updates);
+    if (updates.password) {
+      updates.password = await bcrypt.hash(updates.password, 10);
+    }
+
+    const [user] = await Users.updateUser(user_id, updates);
 
     delete user.password;
 
@@ -22,7 +28,6 @@ router.put('/:user_id', async (req, res) => {
 
     res.status(200).json({
       message: 'Account updated',
-      token: generateToken(user.id),
       user: {
         ...user,
         fat_budget_g,
