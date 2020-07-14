@@ -28,7 +28,7 @@ server.get('/status', (req, res) => {
   res.send({ status: 'up' });
 });
 
-server.use('/auth', authRouter);
-server.use('/user', authenticate, userRouter);
+server.use('/api/auth', authRouter);
+server.use('/api/user', authenticate, userRouter);
 
 module.exports = server;
