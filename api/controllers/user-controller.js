@@ -1,26 +1,24 @@
 const db = require('../../db/config');
 const table = 'users';
 
-const getAllUsers = async () => {
-  return await db(table);
+const getAllUsers = () => {
+  return db(table);
 };
 
-const getUserBy = async (filter) => {
-  return await db(table).where(filter).first();
+const getUserBy = (filter) => {
+  return db(table).where(filter);
 };
 
-const addUser = async (user) => {
-  const [id] = await db(table).insert(user).returning('id');
-
-  return await getUserBy({ id });
+const addUser = (user) => {
+  return db(table).insert(user).returning('*');
 };
 
-const updateUser = async (id, updates) => {
-  return await db(table).where({ id }).update(updates);
+const updateUser = (id, updates) => {
+  return db(table).where({ id }).update(updates).returning('*');
 };
 
-const deleteUser = async (id) => {
-  return await db(table).where({ id }).del();
+const deleteUser = (id) => {
+  return db(table).where({ id }).del();
 };
 
 module.exports = {
