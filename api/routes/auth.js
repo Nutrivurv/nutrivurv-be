@@ -6,6 +6,7 @@ const validateRegistration = require('../middleware/validateRegistration');
 const validateLogin = require('../middleware/validateLogin');
 const calculateBudgets = require('../helper/calculateBudgets');
 const validateIosRegistration = require('../middleware/ios/validateIosRegistration');
+
 /********************************************************
  *                    REGISTER USER                      *
  ********************************************************/
