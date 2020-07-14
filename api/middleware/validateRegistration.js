@@ -17,7 +17,7 @@ const validateRegistration = async (req, res, next) => {
     user.date_of_birth
   ) {
     try {
-      user = await getUserBy({ email: user.email });
+      [user] = await getUserBy({ email: user.email });
       if (user) {
         res.status(409).json({
           message: `Account with email ${user.email} is already exists`,
