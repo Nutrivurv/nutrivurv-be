@@ -4,7 +4,7 @@ const validateIosRegistration = async (req, res, next) => {
   let user = req.body;
   if (user && user.email && user.password) {
     try {
-      user = await getUserBy({ email: user.email });
+      [user] = await getUserBy({ email: user.email });
       if (user) {
         res.status(409).json({
           message: `Account with email ${user.email} is already exists`,
