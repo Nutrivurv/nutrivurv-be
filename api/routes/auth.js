@@ -8,14 +8,16 @@ const calculateBudgets = require('../helper/calculateBudgets');
 const validateIosRegistration = require('../middleware/ios/validateIosRegistration');
 
 /********************************************************
- *                    REGISTER USER                      *
+ *                    REGISTER USER                     *
  ********************************************************/
 router.post('/register', validateRegistration, async (req, res) => {
   let user = req.body;
-  user.password = await bcrypt.hash(req.body.password, 10);
+
+  user.password = await bcrypt.hash(user.password, 10);
 
   try {
-    user = await Users.addUser(user);
+    [user] = await Users.addUser(user);
+
     delete user.password;
 
     const {
@@ -51,9 +53,10 @@ router.post('/login', validateLogin, async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await Users.getUserBy({ email });
+    const [user] = await Users.getUserBy({ email });
 
-    if (!user || !(await bcrypt.compare(password, user.password))) {
+    // if the user is not found or the password is invalid
+    if (!user || !(await bcrypt.compareSync(password, user.password))) {
       res.status(401).json({
         message: 'The email or password provided is invalid',
       });
@@ -95,7 +98,7 @@ router.post('/ios/register', validateIosRegistration, async (req, res) => {
   newUser.password = await bcrypt.hash(req.body.password, 10);
 
   try {
-    const user = await Users.addUser(newUser);
+    const [user] = await Users.addUser(newUser);
 
     delete user.password;
 
