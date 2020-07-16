@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
-const Users = require('../controllers');
-const calculateBudgets = require('../helper/calculateBudgets');
+const Users = require('../controllers/user-controller');
+const calculateBudgets = require('../helpers/calculateBudgets');
 
 /********************************************************
  *                     UPDATE USER                      *

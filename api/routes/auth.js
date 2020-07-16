@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const Users = require('../controllers');
+const Users = require('../controllers/user-controller');
 const generateToken = require('../middleware/generateToken');
 const bcrypt = require('bcryptjs');
 const validateRegistration = require('../middleware/validateRegistration');
 const validateLogin = require('../middleware/validateLogin');
-const calculateBudgets = require('../helper/calculateBudgets');
+const calculateBudgets = require('../helpers/calculateBudgets');
 const validateIosRegistration = require('../middleware/ios/validateIosRegistration');
 
 /********************************************************
