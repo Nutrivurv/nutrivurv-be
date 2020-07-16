@@ -4,7 +4,9 @@ const cors = require('cors');
 
 const server = express();
 
-// MIDDLEWARE
+/********************************************************
+ *                       MIDDLEWARE                     *
+ ********************************************************/
 server.use(helmet());
 server.use(express.json());
 server.use(
@@ -19,7 +21,9 @@ server.use(
   })
 );
 
-// ROUTES
+/********************************************************
+ *                         ROUTERS                      *
+ ********************************************************/
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
 const authenticate = require('./middleware/authenticate');
@@ -30,5 +34,17 @@ server.get('/status', (req, res) => {
 
 server.use('/api/auth', authRouter);
 server.use('/api/user', authenticate, userRouter);
+
+/********************************************************
+ *                      ERROR HANDLER                   *
+ ********************************************************/
+const environment = process.env.ENVIRONMENT;
+
+server.use((error, req, res) => {
+  res.status(500).json({
+    message: 'Internal Server Error',
+    error: environment === 'development' ? error.message : '',
+  });
+});
 
 module.exports = server;
