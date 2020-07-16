@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Users } = require('../controllers');
+const { Users } = require('../controllers/user-controller');
 const generateToken = require('../middleware/generateToken');
 const bcrypt = require('bcryptjs');
 const validateRegistration = require('../middleware/validateRegistration');
