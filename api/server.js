@@ -35,16 +35,9 @@ server.get('/status', (req, res) => {
 server.use('/api/auth', authRouter);
 server.use('/api/user', authenticate, userRouter);
 
-/********************************************************
- *                      ERROR HANDLER                   *
- ********************************************************/
-const environment = process.env.ENVIRONMENT;
-
-server.use((error, req, res) => {
-  res.status(500).json({
-    message: 'Internal Server Error',
-    error: environment === 'development' ? error.message : '',
-  });
+// ROOT
+server.use('/', (req, res) => {
+  res.send('Nutrivurv Back-End');
 });
 
 module.exports = server;
