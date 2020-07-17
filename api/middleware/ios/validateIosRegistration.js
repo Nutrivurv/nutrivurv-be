@@ -1,11 +1,10 @@
-const { getUserBy } = require('../api/controllers/users');
+const { getUserBy } = require('../../controllers/user-controller');
 
-const validateRegistration = async (req, res, next) => {
-  const { name, email, password } = req.body;
-
-  if (name && email && password) {
+const validateIosRegistration = async (req, res, next) => {
+  let user = req.body;
+  if (user && user.email && user.password) {
     try {
-      const user = await getUserBy({ email });
+      [user] = await getUserBy({ email: user.email });
       if (user) {
         res.status(409).json({
           message: `Account with email ${user.email} is already exists`,
@@ -26,4 +25,4 @@ const validateRegistration = async (req, res, next) => {
   }
 };
 
-module.exports = validateRegistration;
+module.exports = validateIosRegistration;
