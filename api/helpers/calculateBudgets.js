@@ -26,12 +26,19 @@ module.exports = (user) => {
 // https://www.calculator.net/bmr-calculator.html
 function calculateCaloricBudget(user) {
   return Math.round(
-    (10 * user.weight_kg +
-      6.25 * user.height_cm -
+    (4.536 * user.weight_lbs +
+      15.88 * calculateTotalInches(user.height_ft, user.height_in) -
       5 * calculateAge(user.date_of_birth) +
       (user.gender === 'male' ? 5 : -161)) *
       user.activity_level
   );
+}
+
+/********************************************************
+ *               CALCULATE TOTAL INCHES                *
+ ********************************************************/
+function calculateTotalInches(height_ft, height_in) {
+  return height_ft * 12 + height_in;
 }
 
 /********************************************************

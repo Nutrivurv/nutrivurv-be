@@ -3,6 +3,8 @@ const { getUserBy } = require('../controllers/user-controller');
 const validateRegistration = async (req, res, next) => {
   let user = req.body;
 
+  console.log('user', user);
+
   if (
     user &&
     user.email &&
@@ -11,9 +13,10 @@ const validateRegistration = async (req, res, next) => {
     user.gender &&
     user.target_weight_lbs &&
     user.activity_level &&
-    user.height_cm &&
-    user.weight_kg &&
-    user.net_weekly_weight_change_kg &&
+    user.height_ft &&
+    user.height_in &&
+    user.weight_lbs &&
+    user.net_weekly_weight_change_lbs &&
     user.date_of_birth
   ) {
     try {
