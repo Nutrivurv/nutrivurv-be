@@ -10,29 +10,29 @@ const getUserBy = (filter) => {
 };
 
 function getById(id) {
-  return db('users')
-    .where({ id })
-    .first();
+  return db('users').where({ id }).first();
 }
 
-function getUserEntry(userId) {
+function getUserEntry(date,id) {
   return db('log_entry as l')
     .join('users as u', 'u.id', 'l.user_id')
-    .select('u.name',
-    'l.id',
-    'l.user_id',
-    'l.date',
-    'l.meal_type',
-    'l.edamam_food_id',
-    'l.measurement_uri',
-    'l.measurement_name',
-    'l.food_name',
-    'l.quantity',
-    'l.calories_kcal',
-    'l.fat_g',
-    'l.carbs_g',
-    'l.protein_g')
-    .where('l.user_id', userId);
+    .select(
+      'u.name',
+      'l.id',
+      'l.user_id',
+      'l.date',
+      'l.meal_type',
+      'l.edamam_food_id',
+      'l.measurement_uri',
+      'l.measurement_name',
+      'l.food_name',
+      'l.quantity',
+      'l.calories_kcal',
+      'l.fat_g',
+      'l.carbs_g',
+      'l.protein_g'
+    )
+    .where({"l.date": date, "l.user_id": id});
 }
 
 const addUser = (user) => {

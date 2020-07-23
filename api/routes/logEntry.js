@@ -3,11 +3,12 @@ const db = require('../controllers/log-model');
 const User = require('../controllers/user-controller');
 const validateId = require('../middleware/validateId');
 const validator = require('../middleware/validator');
+const validateDate = require('../middleware/validateDate');
 
-router.get('/:id/', validateId, (req, res) => {
-  const { id } = req.params;
+router.get('/:id/:date', validateId, validateDate, (req, res) => {
+  const {date, id} = req.params;
 
-  User.getUserEntry(id)
+  User.getUserEntry(date, id)
     .then((entry) => {
       res.status(201).json({ entry });
     })
