@@ -44,5 +44,36 @@ router.post(
   }
 );
 
+router.delete('/:id/:log_entry_id', validateId, (req, res) => {
+  const { log_entry_id } = req.params;
+  db.remove(log_entry_id)
+    .then((deleted) => {
+      if (deleted) {
+        res.json({ removed: deleted });
+      } else {
+        res.status(400).json({ message: 'Could not find entry with given id' });
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({ message: 'Failed to delete entry' });
+    });
+});
+
+router.put('/:id/:log_entry_id', validateId, (req, res) => {
+  const { log_entry_id } = req.params;
+  const { body } = req;
+
+  db.update(log_entry_id, body)
+    .then((updated) => {
+      if (updated) {
+        res.json({ updated: updated });
+      } else {
+        res.status(400).json({ message: 'Could not find entry with given id' });
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({ message: 'Failed to update entry' });
+    });
+});
 
 module.exports = router;
