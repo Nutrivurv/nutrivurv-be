@@ -4,12 +4,12 @@ const User = require('../controllers/user-controller');
 const validateId = require('../middleware/validateId');
 const validator = require('../middleware/validator');
 
-router.get('/:id/entry', validateId, (req, res) => {
+router.get('/:id/', validateId, (req, res) => {
   const { id } = req.params;
 
   User.getUserEntry(id)
-    .then((posts) => {
-      res.status(201).json({ posts });
+    .then((entry) => {
+      res.status(201).json({ entry });
     })
     .catch((err) => {
       res.status(500).json({ message: 'Failed to get entry', err });
@@ -17,7 +17,7 @@ router.get('/:id/entry', validateId, (req, res) => {
 });
 
 router.post(
-  '/:id/entry',
+  '/:id/',
   validator('user_id'),
   validator('date'),
   validator('meal_type'),
@@ -43,5 +43,6 @@ router.post(
       });
   }
 );
+
 
 module.exports = router;
