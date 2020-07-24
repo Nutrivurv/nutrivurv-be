@@ -9,11 +9,11 @@ const getUserBy = (filter) => {
   return db(table).where(filter);
 };
 
-function getById(id) {
+const getById = (id) => {
   return db('users').where({ id }).first();
-}
+};
 
-function getUserEntry(date,id) {
+const getUserEntry = (date, id) => {
   return db('log_entry as l')
     .join('users as u', 'u.id', 'l.user_id')
     .select(
@@ -32,8 +32,8 @@ function getUserEntry(date,id) {
       'l.carbs_g',
       'l.protein_g'
     )
-    .where({"l.date": date, "l.user_id": id});
-}
+    .where({ 'l.date': date, 'l.user_id': id });
+};
 
 const addUser = (user) => {
   return db(table).insert(user).returning('*');

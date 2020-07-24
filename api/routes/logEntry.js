@@ -6,7 +6,7 @@ const validator = require('../middleware/validator');
 const validateDate = require('../middleware/validateDate');
 
 router.get('/:id/:date', validateId, validateDate, (req, res) => {
-  const {date, id} = req.params;
+  const { date, id } = req.params;
 
   User.getUserEntry(date, id)
     .then((entry) => {
@@ -17,33 +17,17 @@ router.get('/:id/:date', validateId, validateDate, (req, res) => {
     });
 });
 
-router.post(
-  '/:id/',
-  validator('user_id'),
-  validator('date'),
-  validator('meal_type'),
-  validator('edamam_food_id'),
-  validator('measurement_uri'),
-  validator('measurement_name'),
-  validator('food_name'),
-  validator('quantity'),
-  validator('calories_kcal'),
-  validator('fat_g'),
-  validator('carbs_g'),
-  validator('protein_g'),
-  validateId,
-  (req, res) => {
-    const entryData = req.body;
-    db.add(entryData)
-      .then((entry) => {
-        res.status(201).json(entry);
-      })
+router.post('/:id/', validator, validateId, (req, res) => {
+  const entryData = { ...req.body, user_id: req.params.id };
+  db.add(entryData)
+    .then((entry) => {
+      res.status(201).json(entry);
+    })
 
-      .catch((err) => {
-        res.status(500).json({ message: 'Failed to create new log entry' });
-      });
-  }
-);
+    .catch((err) => {
+      res.status(500).json({ message: 'Failed to create new log entry' });
+    });
+});
 
 router.delete('/:id/:log_entry_id', validateId, (req, res) => {
   const { log_entry_id } = req.params;
