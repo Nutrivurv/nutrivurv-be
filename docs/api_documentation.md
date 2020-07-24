@@ -135,3 +135,145 @@
         "message": "Internal Server Error"
       }
       ```
+
+
+### GET all entries for a specific user and specific date
+
+/api/user/<user.id>/<entry.date>/
+
+Must be logged in
+
+Returns entry array
+
+Ex: 
+
+```json
+{
+    "entry": [
+        {
+            "name": "Test",
+            "id": 1,
+            "user_id": 1,
+            "date": "2020-07-24T05:00:00.000Z",
+            "meal_type": "breakfast",
+            "edamam_food_id": "3",
+            "measurement_uri": "measurement_uri",
+            "measurement_name": "measurement_name",
+            "food_name": "food_name",
+            "quantity": 2,
+            "calories_kcal": 2,
+            "fat_g": "0.50",
+            "carbs_g": "0.50",
+            "protein_g": "0.50"
+        },
+        {
+            "name": "Test2",
+            "id": 2,
+            "user_id": 1,
+            "date": "2020-07-24T05:00:00.000Z",
+            "meal_type": "dinner",
+            "edamam_food_id": "3",
+            "measurement_uri": "measurement_uri",
+            "measurement_name": "measurement_name",
+            "food_name": "food_name",
+            "quantity": 2,
+            "calories_kcal": 2,
+            "fat_g": "0.50",
+            "carbs_g": "0.50",
+            "protein_g": "0.50"
+        }
+    ]
+}
+```
+
+
+### POST a new log entry
+
+/api/user/<user.id>/
+
+Must be logged in
+
+Must provide: 
+
+- valid user_id
+- date
+- edamam_food_id
+- measurement_uri
+- measurement_name
+- food_name
+- quantity
+- calories_kcal
+- fat_g
+- carbs_g
+- protein_g
+- meal_type -
+    Options:
+    * breakfast
+    * lunch
+    * snack
+    * dinner 
+    * water
+
+Returns a new entry
+
+Ex: 
+
+```json
+[
+    {
+        "id": 3,
+        "user_id": 1,
+        "date": "2020-07-24T05:00:00.000Z",
+        "meal_type": "snack",
+        "edamam_food_id": "3",
+        "measurement_uri": "measurement_uri",
+        "measurement_name": "measurement_name",
+        "food_name": "food_name",
+        "quantity": 2,
+        "calories_kcal": 2,
+        "fat_g": "0.50",
+        "carbs_g": "0.50",
+        "protein_g": "0.50"
+    }     
+]
+```
+
+
+### Put (update) an entry
+
+/api/user/<user.id>/<log_entry.id>
+
+Must be logged in
+
+Required: 
+
+- valid user id
+- valid log_entry id
+
+Returns the following: 
+
+```json
+{
+    "updated": 1
+}
+```
+
+### Delete an entry
+
+/api/user/<user.id>/<log_entry.id>
+
+Must be logged in
+
+Required: 
+
+- valid user id
+- valid log_entry id
+
+Returns the following: 
+
+```json
+{
+    "removed": 1
+}
+```
+
