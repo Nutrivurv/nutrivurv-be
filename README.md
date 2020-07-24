@@ -53,7 +53,7 @@ Please read through the [Code of Conduct](./docs/code_of_conduct.md) and [Contri
 
 # GET all entries for a specific user and specific date
 
-/api/user/<user.id>/<date>/
+/api/user/<user.id>/<entry.date>/
 
 Must be logged in
 
@@ -120,7 +120,7 @@ Must provide:
 - fat_g
 - carbs_g
 - protein_g
-- meal_type
+- meal_type -
     Options:
     * breakfast
     * lunch
@@ -128,7 +128,7 @@ Must provide:
     * dinner 
     * water
 
-Returns a newly created entry 
+Returns a new entry
 
 Ex: 
 
