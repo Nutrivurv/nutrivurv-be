@@ -3,8 +3,6 @@ module.exports = (req, res, next) => {
   if (!body && body === {}) {
     res.status(400).json({ message: 'missing post data' });
     next();
-  } else if (!body.user_id) {
-    res.status(400).json({ message: 'missing required user id field' });
   } else if (!body.date) {
     res.status(400).json({ message: 'missing required date field' });
   } else if (!body.meal_type) {
