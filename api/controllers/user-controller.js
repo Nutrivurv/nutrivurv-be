@@ -9,6 +9,31 @@ const getUserBy = (filter) => {
   return db(table).where(filter);
 };
 
+const getById = (id) => {
+  return db('users').where({ id }).first();
+};
+
+const getUserLogsByDate = (user_id, date) => {
+  return db('log_entry as l')
+    .join('users as u', 'u.id', 'l.user_id')
+    .select(
+      'l.id',
+      'l.user_id',
+      'l.date',
+      'l.meal_type',
+      'l.edamam_food_id',
+      'l.measurement_uri',
+      'l.measurement_name',
+      'l.food_name',
+      'l.quantity',
+      'l.calories_kcal',
+      'l.fat_g',
+      'l.carbs_g',
+      'l.protein_g'
+    )
+    .where({ 'l.date': date, 'l.user_id': user_id });
+};
+
 const addUser = (user) => {
   return db(table).insert(user).returning('*');
 };
@@ -24,6 +49,8 @@ const deleteUser = (id) => {
 module.exports = {
   getAllUsers,
   getUserBy,
+  getUserLogsByDate,
+  getById,
   addUser,
   updateUser,
   deleteUser,

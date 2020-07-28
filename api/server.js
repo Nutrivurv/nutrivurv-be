@@ -26,6 +26,7 @@ server.use(
  ********************************************************/
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
+const logRouter = require('./routes/logEntry');
 const authenticate = require('./middleware/authenticate');
 
 server.get('/status', (req, res) => {
@@ -34,6 +35,7 @@ server.get('/status', (req, res) => {
 
 server.use('/api/auth', authRouter);
 server.use('/api/user', authenticate, userRouter);
+server.use('/api/log', authenticate, logRouter);
 
 // ROOT
 server.use('/', (req, res) => {
