@@ -1,17 +1,18 @@
 const router = require('express').Router();
 const Log = require('../controllers/log-controller');
-const User = require('../controllers/user-controller');
 const validateUserId = require('../middleware/validateUserId');
 const validateLogEntry = require('../middleware/validateLogEntry');
 const validateDate = require('../middleware/validateDate');
 const _ = require('lodash');
 
-router.get('/:user_id/:date', validateUserId, validateDate, (req, res) => {
-  const { user_id, date } = req.params;
+router.get('/date/:date', validateUserId, validateDate, (req, res) => {
+  const user_id = req.user_id;
+  const { date } = req.params;
 
-  User.getUserLogsByDate(user_id, date)
+  Log.getByDate(user_id, date)
     .then((logs) => {
-      res.status(201).json({
+      res.status(200).json({
+        message: 'Log entries retrieved successfully',
         meals: _.groupBy(logs, (log) => log.meal_type),
       });
     })
@@ -20,12 +21,33 @@ router.get('/:user_id/:date', validateUserId, validateDate, (req, res) => {
     });
 });
 
-router.post('/:user_id', validateLogEntry, validateUserId, (req, res) => {
-  const entryData = { ...req.body, user_id: req.params.user_id };
+router.get('/:log_entry_id', (req, res) => {
+  const { log_entry_id } = req.params;
+
+  Log.getById(log_entry_id)
+    .then((logEntry) => {
+      if (!logEntry)
+        res.status(404).json({ message: 'No log found by that id' });
+      else
+        res.status(200).json({
+          message: 'Log entry retrieved successfully',
+          logEntry,
+        });
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'Failed to get entry', err });
+    });
+});
+
+router.post('/', validateLogEntry, validateUserId, (req, res) => {
+  const entryData = { ...req.body, user_id: req.user_id };
 
   Log.add(entryData)
-    .then((entry) => {
-      res.status(201).json(entry);
+    .then(([logEntry]) => {
+      res.status(201).json({
+        message: 'Log entry created successfully',
+        logEntry,
+      });
     })
 
     .catch((err) => {
@@ -39,7 +61,7 @@ router.delete('/:log_entry_id', (req, res) => {
   Log.remove(log_entry_id)
     .then((deleted) => {
       if (deleted) {
-        res.json({ removed: deleted });
+        res.status(200).json({ message: 'Log entry deleted successfully' });
       } else {
         res.status(400).json({ message: 'Could not find entry with given id' });
       }
@@ -51,12 +73,15 @@ router.delete('/:log_entry_id', (req, res) => {
 
 router.put('/:log_entry_id', (req, res) => {
   const { log_entry_id } = req.params;
-  const { body } = req;
+  const updates = { ...req.body, user_id: req.user_id };
 
-  Log.update(log_entry_id, body)
-    .then((updated) => {
-      if (updated) {
-        res.json({ updated: updated });
+  Log.update(log_entry_id, updates)
+    .then(([logEntry]) => {
+      if (logEntry) {
+        res.json({
+          message: 'Log entry updated successfully',
+          logEntry,
+        });
       } else {
         res.status(400).json({ message: 'Could not find entry with given id' });
       }
