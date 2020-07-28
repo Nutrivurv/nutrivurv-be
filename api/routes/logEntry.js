@@ -1,25 +1,29 @@
 const router = require('express').Router();
-const db = require('../controllers/log-model');
+const Log = require('../controllers/log-controller');
 const User = require('../controllers/user-controller');
-const validateId = require('../middleware/validateId');
-const validator = require('../middleware/validator');
+const validateUserId = require('../middleware/validateUserId');
+const validateLogEntry = require('../middleware/validateLogEntry');
 const validateDate = require('../middleware/validateDate');
+const _ = require('lodash');
 
-router.get('/:id/:date', validateId, validateDate, (req, res) => {
-  const { date, id } = req.params;
+router.get('/:user_id/:date', validateUserId, validateDate, (req, res) => {
+  const { user_id, date } = req.params;
 
-  User.getUserEntry(date, id)
-    .then((entry) => {
-      res.status(201).json({ entry });
+  User.getUserLogsByDate(user_id, date)
+    .then((logs) => {
+      res.status(201).json({
+        meals: _.groupBy(logs, (log) => log.meal_type),
+      });
     })
     .catch((err) => {
       res.status(500).json({ message: 'Failed to get entry', err });
     });
 });
 
-router.post('/:id/', validator, validateId, (req, res) => {
-  const entryData = { ...req.body, user_id: req.params.id };
-  db.add(entryData)
+router.post('/:user_id', validateLogEntry, validateUserId, (req, res) => {
+  const entryData = { ...req.body, user_id: req.params.user_id };
+
+  Log.add(entryData)
     .then((entry) => {
       res.status(201).json(entry);
     })
@@ -29,9 +33,10 @@ router.post('/:id/', validator, validateId, (req, res) => {
     });
 });
 
-router.delete('/:id/:log_entry_id', validateId, (req, res) => {
+router.delete('/:log_entry_id', (req, res) => {
   const { log_entry_id } = req.params;
-  db.remove(log_entry_id)
+
+  Log.remove(log_entry_id)
     .then((deleted) => {
       if (deleted) {
         res.json({ removed: deleted });
@@ -44,11 +49,11 @@ router.delete('/:id/:log_entry_id', validateId, (req, res) => {
     });
 });
 
-router.put('/:id/:log_entry_id', validateId, (req, res) => {
+router.put('/:log_entry_id', (req, res) => {
   const { log_entry_id } = req.params;
   const { body } = req;
 
-  db.update(log_entry_id, body)
+  Log.update(log_entry_id, body)
     .then((updated) => {
       if (updated) {
         res.json({ updated: updated });
