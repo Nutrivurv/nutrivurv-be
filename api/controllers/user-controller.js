@@ -13,11 +13,10 @@ const getById = (id) => {
   return db('users').where({ id }).first();
 };
 
-const getUserEntry = (date, id) => {
+const getUserLogsByDate = (user_id, date) => {
   return db('log_entry as l')
     .join('users as u', 'u.id', 'l.user_id')
     .select(
-      'u.name',
       'l.id',
       'l.user_id',
       'l.date',
@@ -32,7 +31,7 @@ const getUserEntry = (date, id) => {
       'l.carbs_g',
       'l.protein_g'
     )
-    .where({ 'l.date': date, 'l.user_id': id });
+    .where({ 'l.date': date, 'l.user_id': user_id });
 };
 
 const addUser = (user) => {
@@ -50,7 +49,7 @@ const deleteUser = (id) => {
 module.exports = {
   getAllUsers,
   getUserBy,
-  getUserEntry,
+  getUserLogsByDate,
   getById,
   addUser,
   updateUser,
