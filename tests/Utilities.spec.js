@@ -1,7 +1,7 @@
 const hashPassword = require('../utils/hashPassword.js');
 const validateLogin = require('../api/middleware/validateLogin.js');
 const authorization = require('../api/middleware/authenticate.js');
-const generateToken = require('../utils/generateToken.js');
+const generateToken = require('../api/middleware/generateToken.js');
 const jwt = require('jsonwebtoken');
 
 describe('utility test cases', () => {
