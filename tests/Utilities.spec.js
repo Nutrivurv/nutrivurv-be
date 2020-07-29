@@ -1,6 +1,5 @@
 const hashPassword = require('../utils/hashPassword.js');
 const validateLogin = require('../api/middleware/validateLogin.js');
-const authorization = require('../api/middleware/authenticate.js');
 const generateToken = require('../api/middleware/generateToken.js');
 const jwt = require('jsonwebtoken');
 
@@ -57,59 +56,6 @@ describe('utility test cases', () => {
       } catch (error) {
         expect(error).toEqual(new Error('Unable to login'));
       }
-    });
-  });
-  describe('authorization()', () => {
-    test('authorization allows login route', async () => {
-      const login = {
-        request: {
-          request: {
-            headers: {
-              authorization: 'token',
-            },
-            body: {
-              query: 'login',
-            },
-          },
-        },
-      };
-
-      const loggedIn = await authorization(
-        () => {
-          return 'yay';
-        },
-        null,
-        null,
-        login
-      );
-
-      expect(loggedIn).toBe('yay');
-    });
-
-    test('authorization allows createuser route', async () => {
-      const login = {
-        request: {
-          request: {
-            headers: {
-              authorization: 'token',
-            },
-            body: {
-              query: 'createUser',
-            },
-          },
-        },
-      };
-
-      const loggedIn = await authorization(
-        () => {
-          return 'yay';
-        },
-        null,
-        null,
-        login
-      );
-
-      expect(loggedIn).toBe('yay');
     });
   });
   describe('generateToken()', () => {
