@@ -115,7 +115,7 @@ describe('utility test cases', () => {
   describe('generateToken()', () => {
     test('should create a token with the provided userId', async () => {
       const userId = 1;
-      const testSecret = 'This should be a secret';
+      const testSecret = 'jwt-secret';
       const token = await generateToken(userId);
       const decoded = jwt.verify(token, testSecret);
       expect(decoded.userId).toBe(1);
