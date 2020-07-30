@@ -55,7 +55,7 @@ describe('GET / getById', () => {
         expect(res.type).toBe('application/json');
       });
   });
-  it('should be JSON type', () => {
+  it('should be status 401', () => {
     return request(server)
       .get('/api/log/:log_entry_id')
       .then((res) => {
@@ -70,3 +70,29 @@ describe('GET / getById', () => {
       });
   });
 });
+
+describe('POST / add log entry', () => {
+    it('should be JSON type', () => {
+      return request(server)
+        .post('/api/log/')
+        .then((res) => {
+          expect(res.type).toBe('application/json');
+        });
+    });
+    it('should be status 401', () => {
+      return request(server)
+        .post('/api/log/')
+        .then((res) => {
+          expect(res.status).toBe(401);
+        });
+    });
+    it('should return no authorization header message', () => {
+      return request(server)
+        .post('/api/log/')
+        .then((res) => {
+          expect(res.body.message).toEqual('no authorization header');
+        });
+    });
+  });
+
+  
