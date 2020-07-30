@@ -1,8 +1,6 @@
 const hashPassword = require('../utils/hashPassword.js');
-const validateLogin = require('../utils/validateLogin.js');
-const authorization = require('../utils/authorization.js');
-const formatDate = require('../utils/formatDate.js');
-const generateToken = require('../utils/generateToken.js');
+const validateLogin = require('../api/middleware/validateLogin.js');
+const generateToken = require('../api/middleware/generateToken.js');
 const jwt = require('jsonwebtoken');
 
 describe('utility test cases', () => {
@@ -60,86 +58,10 @@ describe('utility test cases', () => {
       }
     });
   });
-  describe('authorization()', () => {
-    test('authorization allows login route', async () => {
-      const login = {
-        request: {
-          request: {
-            headers: {
-              authorization: 'token',
-            },
-            body: {
-              query: 'login',
-            },
-          },
-        },
-      };
-
-      const loggedIn = await authorization(
-        () => {
-          return 'yay';
-        },
-        null,
-        null,
-        login
-      );
-
-      expect(loggedIn).toBe('yay');
-    });
-
-    test('authorization allows createuser route', async () => {
-      const login = {
-        request: {
-          request: {
-            headers: {
-              authorization: 'token',
-            },
-            body: {
-              query: 'createUser',
-            },
-          },
-        },
-      };
-
-      const loggedIn = await authorization(
-        () => {
-          return 'yay';
-        },
-        null,
-        null,
-        login
-      );
-
-      expect(loggedIn).toBe('yay');
-    });
-  });
-  describe('formatDate()', () => {
-    const expected = '09-06-2020';
-    test('formats "MM/DD/YYYY" date string into "DD-MM-YYYY', () => {
-      const date = '06/09/2020';
-
-      expect(formatDate(date)).toBe(expected);
-    });
-    test('formats "MM-DD-YY" date string into "DD-MM-YYYY"', () => {
-      const date = '06/09/2020';
-
-      expect(formatDate(date)).toBe(expected);
-    });
-    test('formats "AbrMon DD, YYYY" date string into "DD-MM-YYYY"', () => {
-      const date = 'Jun 09, 2020';
-
-      expect(formatDate(date)).toBe(expected);
-    });
-    test('formats "Month DD, YYYY" date string in "DD-MM-YYYY"', () => {
-      const date = 'June 09, 2020';
-
-      expect(formatDate(date)).toBe(expected);
-    });
-  });
   describe('generateToken()', () => {
     test('should create a token with the provided userId', async () => {
       const userId = 1;
-      const testSecret = 'This should be a secret';
+      const testSecret = 'jwt-secret';
       const token = await generateToken(userId);
       const decoded = jwt.verify(token, testSecret);
       expect(decoded.userId).toBe(1);
