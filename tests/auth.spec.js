@@ -73,4 +73,15 @@ describe('POST / Login', () => {
         expect(res.status).toBe(200);
       });
   });
+  it('should return JSON type', async () => {
+    return request(server)
+      .post('/api/auth/login')
+      .send({
+        email: 'alessandra2@email.com',
+        password: 'password123',
+      })
+      .then((res) => {
+        expect(res.type).toBe('application/json');
+      });
+  });
 });
