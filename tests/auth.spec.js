@@ -39,3 +39,12 @@ describe('POST / Register', () => {
       });
   });
 });
+
+describe('POST / Login', () => {
+    it('should return message Missing credentials', () => {
+        return request(server).post('/api/auth/login')
+            .catch(res => {
+                expect(res.body).toEqual({message: 'Missing credentials'})
+            });
+    })
+})
