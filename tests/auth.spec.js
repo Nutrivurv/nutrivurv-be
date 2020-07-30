@@ -31,5 +31,11 @@ describe('POST / Register', () => {
         expect(res.body).toEqual({ message: 'problem with the db' });
       });
   });
- 
+  it('should return 500', () => {
+    return request(server)
+      .post('/api/auth/register')
+      .catch((res) => {
+        expect(res.status).toBe(500);
+      });
+  });
 });
