@@ -1,6 +1,5 @@
 const request = require('supertest');
 const server = require('../api/server.js');
-const generateToken = require('../api/middleware/generateToken');
 
 describe('POST / Register', () => {
   // Creates a new account everytime I refresh
@@ -32,7 +31,7 @@ describe('POST / Register', () => {
           expect(res.type).toBe('application/json');
         });
     });
-    it('should return 400', () => {
+    it('should return status 400', () => {
       return request(server)
         .post('/api/auth/register')
         .then((res) => {
@@ -93,6 +92,20 @@ describe('POST / Login', () => {
       })
       .then((res) => {
         expect(res.body.message).toEqual('User authenticated');
+      });
+  });
+  it('should return message Missing credentials', async () => {
+    return request(server)
+      .post('/api/auth/login')
+      .then((res) => {
+        expect(res.body.message).toEqual('Missing credentials');
+      });
+  });
+  it('should return status 400', async () => {
+    return request(server)
+      .post('/api/auth/login')
+      .then((res) => {
+        expect(res.status).toBe(400);
       });
   });
 });
