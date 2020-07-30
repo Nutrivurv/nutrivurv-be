@@ -84,4 +84,15 @@ describe('POST / Login', () => {
         expect(res.type).toBe('application/json');
       });
   });
+  it('should return message User authenticated', async () => {
+    return request(server)
+      .post('/api/auth/login')
+      .send({
+        email: 'alessandra2@email.com',
+        password: 'password123',
+      })
+      .then((res) => {
+        expect(res.body.message).toEqual('User authenticated');
+      });
+  });
 });
