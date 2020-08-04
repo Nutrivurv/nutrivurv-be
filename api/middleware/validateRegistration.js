@@ -1,43 +1,37 @@
-const { getUserBy } = require('../controllers/user-controller');
-
 const validateRegistration = async (req, res, next) => {
   let user = req.body;
 
-  console.log('user', user);
-
-  if (
-    user &&
-    user.email &&
-    user.password &&
-    user.name &&
-    user.gender &&
-    user.target_weight_lbs &&
-    user.activity_level &&
-    user.height_ft &&
-    user.height_in &&
-    user.weight_lbs &&
-    user.net_weekly_weight_change_lbs &&
-    user.date_of_birth
-  ) {
-    try {
-      [user] = await getUserBy({ email: user.email });
-      if (user) {
-        res.status(409).json({
-          message: `Account with email ${user.email} is already exists`,
-        });
-      } else {
-        next();
-      }
-    } catch (error) {
-      res.status(500).json({
-        message: 'Internal Server Error',
-        error: error.message,
-      });
-    }
+  if (!user && user === {}) {
+    res.status(400).json({ message: 'missing post data' });
+    next();
+  } else if (!user.email) {
+    res.status(400).json({ message: 'missing required email field' });
+  } else if (!user.password) {
+    res.status(400).json({ message: 'missing required password field' });
+  } else if (!user.name) {
+    res.status(400).json({ message: 'missing required name field' });
+  } else if (!user.gender) {
+    res.status(400).json({ message: 'missing required gender field' });
+  } else if (!user.target_weight_lbs) {
+    res
+      .status(400)
+      .json({ message: 'missing required target_weight_lbs field' });
+  } else if (!user.activity_level) {
+    res.status(400).json({ message: 'missing required activity_level field' });
+  } else if (!user.height_ft) {
+    res.status(400).json({ message: 'missing required height_ft field' });
+  } else if (!user.height_in) {
+    res.status(400).json({ message: 'missing required height_in field' });
+  } else if (!user.weight_lbs) {
+    res.status(400).json({ message: 'missing required weight_lbs field' });
+  } else if (!user.net_weekly_weight_change_lbs) {
+    res
+      .status(400)
+      .json({ message: 'missing required net_weekly_weight_change_lbs field' });
+  } else if (!user.date_of_birth) {
+    res.status(400).json({ message: 'missing required date_of_birth field' });
   } else {
-    res.status(400).json({
-      message: 'Missing credentials',
-    });
+    next();
   }
 };
 
