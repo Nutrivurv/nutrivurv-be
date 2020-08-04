@@ -6,45 +6,51 @@ const validateRegistration = require('../middleware/validateRegistration');
 const validateLogin = require('../middleware/validateLogin');
 const calculateBudgets = require('../helpers/calculateBudgets');
 const validateIosRegistration = require('../middleware/ios/validateIosRegistration');
+const locateAccount = require('../middleware/locateAccount');
 
 /********************************************************
  *                    REGISTER USER                     *
  ********************************************************/
-router.post('/register', validateRegistration, async (req, res) => {
-  let user = req.body;
+router.post(
+  '/register',
+  validateRegistration,
+  locateAccount,
+  async (req, res) => {
+    let user = req.body;
 
-  user.password = await bcrypt.hash(user.password, 10);
+    user.password = await bcrypt.hash(user.password, 10);
 
-  try {
-    [user] = await Users.addUser(user);
+    try {
+      [user] = await Users.addUser(user);
 
-    delete user.password;
+      delete user.password;
 
-    const {
-      fat_budget_g,
-      carb_budget_g,
-      protein_budget_g,
-      caloric_budget_kcal,
-    } = calculateBudgets(user);
-
-    res.status(201).json({
-      message: `New account created`,
-      token: generateToken(user.id),
-      user: {
-        ...user,
+      const {
         fat_budget_g,
         carb_budget_g,
         protein_budget_g,
         caloric_budget_kcal,
-      },
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: 'Internal Server Error',
-      error: error.message,
-    });
+      } = calculateBudgets(user);
+
+      res.status(201).json({
+        message: `New account created`,
+        token: generateToken(user.id),
+        user: {
+          ...user,
+          fat_budget_g,
+          carb_budget_g,
+          protein_budget_g,
+          caloric_budget_kcal,
+        },
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: 'Internal Server Error',
+        error: error.message,
+      });
+    }
   }
-});
+);
 
 /********************************************************
  *                      LOGIN USER                       *
@@ -93,26 +99,31 @@ router.post('/login', validateLogin, async (req, res) => {
 /********************************************************
  *                  REGISTER USER - IOS                 *
  ********************************************************/
-router.post('/ios/register', validateIosRegistration, async (req, res) => {
-  const newUser = req.body;
-  newUser.password = await bcrypt.hash(req.body.password, 10);
+router.post(
+  '/ios/register',
+  validateIosRegistration,
+  locateAccount,
+  async (req, res) => {
+    const newUser = req.body;
+    newUser.password = await bcrypt.hash(req.body.password, 10);
 
-  try {
-    const [user] = await Users.addUser(newUser);
+    try {
+      const [user] = await Users.addUser(newUser);
 
-    delete user.password;
+      delete user.password;
 
-    res.status(201).json({
-      message: `New account created`,
-      token: generateToken(user.id),
-      user,
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: 'Internal Server Error',
-      error: error.message,
-    });
+      res.status(201).json({
+        message: `New account created`,
+        token: generateToken(user.id),
+        user,
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: 'Internal Server Error',
+        error: error.message,
+      });
+    }
   }
-});
+);
 
 module.exports = router;
