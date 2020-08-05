@@ -39,20 +39,23 @@ router.get('/:log_entry_id', (req, res) => {
     });
 });
 
-router.post('/', validateLogEntry, validateUserId, (req, res) => {
+router.post('/', validateLogEntry, validateUserId, async (req, res) => {
   const entryData = { ...req.body, user_id: req.user_id };
 
-  Log.add(entryData)
-    .then(([logEntry]) => {
-      res.status(201).json({
-        message: 'Log entry created successfully',
-        logEntry,
-      });
-    })
+  try {
+    const logEntry = await Log.add(entryData);
 
-    .catch((err) => {
-      res.status(500).json({ message: 'Failed to create new log entry' });
+    res.status(201).json({
+      message: 'Log entry created successfully',
+      logEntry,
     });
+  } catch (error) {
+    console.log('error', error);
+    res.status(500).json({
+      message: 'Failed to create new log entry',
+      error: error.message,
+    });
+  }
 });
 
 router.delete('/:log_entry_id', (req, res) => {

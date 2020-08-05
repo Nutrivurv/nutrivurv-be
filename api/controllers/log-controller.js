@@ -1,7 +1,37 @@
 const db = require('../../db/config');
+const Measurement = require('../controllers/measurement-controller');
+const DailyTotals = require('../controllers/daily-totals-controller');
 
-const add = (entry) => {
-  return db('log_entry').returning('*').insert(entry);
+const add = async (log_data) => {
+  const { all_measurements } = log_data;
+  const trx = await db.transaction();
+
+  return addLog(log_data, trx)
+    .then(async ([log_entry]) => ({
+      ...log_entry,
+      all_measurements: await Measurement.addMany(
+        all_measurements,
+        log_entry.id,
+        trx
+      ),
+    }))
+    .then(async (log_entry) => ({
+      ...log_entry,
+      daily_totals: (await DailyTotals.update(log_entry, trx))[0],
+    }))
+    .then((log_entry) => {
+      trx.commit();
+      return log_entry;
+    })
+    .catch((error) => {
+      trx.rollback();
+      throw new Error(error);
+    });
+};
+
+const addLog = (log, trx) => {
+  delete log.all_measurements;
+  return db('log_entry').transacting(trx).returning('*').insert(log);
 };
 
 const remove = (id) => {
@@ -18,7 +48,7 @@ const getById = (id) => {
 
 const getByDate = (user_id, date) => {
   return db('log_entry as l')
-    .join('users as u', 'u.id', 'l.user_id')
+    .join('user as u', 'u.id', 'l.user_id')
     .select(
       'l.id',
       'l.user_id',
@@ -39,6 +69,7 @@ const getByDate = (user_id, date) => {
 
 module.exports = {
   add,
+  addLog,
   remove,
   update,
   getByDate,

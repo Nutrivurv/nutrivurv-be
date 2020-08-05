@@ -1,5 +1,5 @@
 const db = require('../../db/config');
-const table = 'users';
+const table = 'user';
 
 const getAllUsers = () => {
   return db(table);
@@ -10,7 +10,7 @@ const getUserBy = (filter) => {
 };
 
 const getById = (id) => {
-  return db('users').where({ id }).first();
+  return db(table).where({ id }).first();
 };
 
 const addUser = (user) => {
