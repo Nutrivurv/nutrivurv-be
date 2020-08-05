@@ -5,20 +5,22 @@ const validateLogEntry = require('../middleware/validateLogEntry');
 const validateDate = require('../middleware/validateDate');
 const _ = require('lodash');
 
-router.get('/date/:date', validateUserId, validateDate, (req, res) => {
+router.get('/date/:date', validateUserId, validateDate, async (req, res) => {
   const user_id = req.user_id;
   const { date } = req.params;
 
-  Log.getByDate(user_id, date)
-    .then((logs) => {
-      res.status(200).json({
-        message: 'Log entries retrieved successfully',
-        meals: _.groupBy(logs, (log) => log.meal_type),
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({ message: 'Failed to get entry', err });
+  console.log('here?');
+
+  try {
+    const logEntries = await Log.getByDate(user_id, date);
+
+    res.status(200).json({
+      message: 'Log entries retrieved successfully',
+      ...logEntries,
     });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to get entry', error });
+  }
 });
 
 router.get('/:log_entry_id', (req, res) => {
@@ -50,7 +52,6 @@ router.post('/', validateLogEntry, validateUserId, async (req, res) => {
       logEntry,
     });
   } catch (error) {
-    console.log('error', error);
     res.status(500).json({
       message: 'Failed to create new log entry',
       error: error.message,
@@ -58,40 +59,48 @@ router.post('/', validateLogEntry, validateUserId, async (req, res) => {
   }
 });
 
-router.delete('/:log_entry_id', (req, res) => {
+router.delete('/:log_entry_id', async (req, res) => {
   const { log_entry_id } = req.params;
 
-  Log.remove(log_entry_id)
-    .then((deleted) => {
-      if (deleted) {
-        res.status(200).json({ message: 'Log entry deleted successfully' });
-      } else {
-        res.status(400).json({ message: 'Could not find entry with given id' });
-      }
-    })
-    .catch((error) => {
-      res.status(500).json({ message: 'Failed to delete entry' });
-    });
+  try {
+    const logEntry = await Log.getById(log_entry_id);
+
+    if (logEntry) {
+      await Log.remove(log_entry_id);
+      res.status(200).json({
+        message: 'Log entry deleted successfully',
+        logEntry,
+      });
+    } else {
+      res.status(400).json({ message: 'Could not find entry with given id' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to delete entry' });
+  }
 });
 
-router.put('/:log_entry_id', (req, res) => {
+router.put('/:log_entry_id', async (req, res) => {
   const { log_entry_id } = req.params;
   const updates = { ...req.body, user_id: req.user_id };
 
-  Log.update(log_entry_id, updates)
-    .then(([logEntry]) => {
-      if (logEntry) {
-        res.json({
-          message: 'Log entry updated successfully',
-          logEntry,
-        });
-      } else {
-        res.status(400).json({ message: 'Could not find entry with given id' });
-      }
-    })
-    .catch((error) => {
-      res.status(500).json({ message: 'Failed to update entry' });
+  try {
+    const logEntry = await Log.update(log_entry_id, updates);
+
+    if (logEntry) {
+      res.status(201).json({
+        message: 'Log entry updated successfully',
+        logEntry,
+      });
+    } else {
+      res.status(400).json({ message: 'Could not find entry with given id' });
+    }
+  } catch (error) {
+    console.log('error', error);
+    res.status(500).json({
+      message: 'Failed to update log entry',
+      error: error.message,
     });
+  }
 });
 
 module.exports = router;

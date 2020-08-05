@@ -26,7 +26,7 @@ server.use(
  ********************************************************/
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/user');
-const logRouter = require('./routes/logEntry');
+const logRouter = require('./routes/log-entry');
 const authenticate = require('./middleware/authenticate');
 
 server.get('/status', (req, res) => {

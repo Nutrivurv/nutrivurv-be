@@ -1,37 +1,46 @@
 const db = require('../../db/config');
-const calcSummedTotals = require('../helpers/calcSummedTotals');
+const calcDailyTotals = require('../helpers/calcDailyTotals');
 
-const update = async (log, trx) => {
-  const dailyTotals = await getDailyTotals(log.date, log.user_id, trx);
-  const updatedTotals = calcSummedTotals(dailyTotals, log);
-
-  return db('daily_totals as dt')
+/********************************************************
+ *                  REFRESH DAILY TOTALS                 *
+ ********************************************************/
+const refresh = async (user_id, date, trx) => {
+  return db('log_entry as l')
     .transacting(trx)
-    .returning('*')
-    .update(updatedTotals)
-    .where({ 'dt.user_id': log.user_id, 'dt.date': log.date });
+    .join('user as u', 'u.id', 'l.user_id')
+    .select('l.calories_kcal', 'l.fat_g', 'l.carbs_g', 'l.protein_g')
+    .where({ 'l.date': date, 'l.user_id': user_id })
+    .then(async (logEntries) => {
+      const dailyTotals = calcDailyTotals(logEntries);
+      return await update(dailyTotals, user_id, date, trx);
+    });
 };
 
-const getDailyTotals = async (date, user_id, trx) => {
-  let dailyTotals = await db('daily_totals as dt')
+const update = (dailyTotals, user_id, date, trx) => {
+  return db('daily_totals as dt')
+    .returning('*')
+    .transacting(trx)
+    .update({
+      total_calories_kcal: dailyTotals.calories_kcal,
+      total_fat_g: dailyTotals.fat_g,
+      total_carbs_g: dailyTotals.carbs_g,
+      total_protein_g: dailyTotals.protein_g,
+    })
+    .where({ 'dt.user_id': user_id, 'dt.date': date });
+};
+
+/********************************************************
+ *                    GET DAILY TOTALS                   *
+ ********************************************************/
+const getByDate = async (user_id, date, trx) => {
+  return db('daily_totals as dt')
     .transacting(trx)
     .select('*')
-    .where({ date, user_id })
-    .first();
-
-  if (!dailyTotals) {
-    [dailyTotals] = await db('daily_totals as dt')
-      .transacting(trx)
-      .returning('*')
-      .insert({
-        date,
-        user_id,
-      });
-  }
-
-  return dailyTotals;
+    .where({ 'dt.user_id': user_id, 'dt.date': date });
 };
 
 module.exports = {
   update,
+  refresh,
+  getByDate,
 };

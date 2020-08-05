@@ -1,12 +1,15 @@
 const db = require('../../db/config');
 const Measurement = require('../controllers/measurement-controller');
 const DailyTotals = require('../controllers/daily-totals-controller');
-
-const add = async (log_data) => {
-  const { all_measurements } = log_data;
+const _ = require('lodash');
+/********************************************************
+ *                      ADD NEW LOG                      *
+ ********************************************************/
+const add = async (log_entry_data) => {
   const trx = await db.transaction();
+  const { all_measurements } = log_entry_data;
 
-  return addLog(log_data, trx)
+  return addLog(log_entry_data, trx)
     .then(async ([log_entry]) => ({
       ...log_entry,
       all_measurements: await Measurement.addMany(
@@ -15,10 +18,10 @@ const add = async (log_data) => {
         trx
       ),
     }))
-    .then(async (log_entry) => ({
-      ...log_entry,
-      daily_totals: (await DailyTotals.update(log_entry, trx))[0],
-    }))
+    .then(async (log_entry) => {
+      await DailyTotals.refresh(log_entry.user_id, log_entry.date, trx);
+      return log_entry;
+    })
     .then((log_entry) => {
       trx.commit();
       return log_entry;
@@ -29,25 +32,91 @@ const add = async (log_data) => {
     });
 };
 
-const addLog = (log, trx) => {
-  delete log.all_measurements;
-  return db('log_entry').transacting(trx).returning('*').insert(log);
+const addLog = (log_entry, trx) => {
+  delete log_entry.all_measurements;
+  return db('log_entry').transacting(trx).returning('*').insert(log_entry);
 };
 
-const remove = (id) => {
-  return db('log_entry').where({ id }).del();
+/********************************************************
+ *                       UPDATE LOG                      *
+ ********************************************************/
+const update = async (log_entry_id, log_entry_data) => {
+  const trx = await db.transaction();
+  const { all_measurements } = log_entry_data;
+
+  return updateLog(log_entry_id, log_entry_data, trx)
+    .then(async ([log_entry]) => {
+      return {
+        ...log_entry,
+        all_measurements: await Measurement.updateMany(
+          all_measurements,
+          log_entry.id,
+          trx
+        ),
+      };
+    })
+    .then(async (log_entry) => {
+      await DailyTotals.refresh(log_entry.user_id, log_entry.date, trx);
+      return log_entry;
+    })
+    .then((log_entry) => {
+      trx.commit();
+      return log_entry;
+    })
+    .catch((error) => {
+      trx.rollback();
+      throw new Error(error);
+    });
 };
 
-const update = (id, body) => {
-  return db('log_entry').returning('*').where({ id }).update(body);
+const updateLog = (log_entry_id, log_entry_data, trx) => {
+  delete log_entry_data.all_measurements;
+  return db('log_entry')
+    .transacting(trx)
+    .returning('*')
+    .update(log_entry_data)
+    .where({ id: log_entry_id });
 };
 
-const getById = (id) => {
-  return db('log_entry as l').where('l.id', id).first();
+/********************************************************
+ *                       DELETE LOG                      *
+ ********************************************************/
+const remove = async (log_entry_id) => {
+  const trx = await db.transaction();
+
+  return Measurement.removeAll(log_entry_id, trx)
+    .then(() => {
+      return removeLog(log_entry_id, trx);
+    })
+    .then(async ([removed_log]) => {
+      await DailyTotals.refresh(removed_log.user_id, removed_log.date, trx);
+      return removed_log;
+    })
+    .then((removed_log) => {
+      console.log('COMMITTING:', removed_log);
+      trx.commit();
+      return removed_log;
+    })
+    .catch((error) => {
+      console.log('ROLLING BACK:', error);
+      trx.rollback();
+      throw new Error(error);
+    });
 };
 
-const getByDate = (user_id, date) => {
+const removeLog = (id, trx) => {
+  return db('log_entry').transacting(trx).returning('*').where({ id }).del();
+};
+
+/********************************************************
+ *                        GET LOG                        *
+ ********************************************************/
+
+const getByDate = async (user_id, date) => {
+  const trx = await db.transaction();
+  console.log('getByDate');
   return db('log_entry as l')
+    .transacting(trx)
     .join('user as u', 'u.id', 'l.user_id')
     .select(
       'l.id',
@@ -64,12 +133,29 @@ const getByDate = (user_id, date) => {
       'l.carbs_g',
       'l.protein_g'
     )
-    .where({ 'l.date': date, 'l.user_id': user_id });
+    .where({ 'l.date': date, 'l.user_id': user_id })
+    .then(async (logEntries) => {
+      return {
+        meals: _.groupBy(logEntries, (entry) => entry.meal_type),
+        dailyTotals: await DailyTotals.getByDate(user_id, date, trx),
+      };
+    })
+    .then((logEntries) => {
+      trx.commit();
+      return logEntries;
+    })
+    .catch((error) => {
+      trx.rollback();
+      throw new Error(error);
+    });
+};
+
+const getById = (id) => {
+  return db('log_entry as l').where('l.id', id).first();
 };
 
 module.exports = {
   add,
-  addLog,
   remove,
   update,
   getByDate,
