@@ -114,7 +114,6 @@ const removeLog = (id, trx) => {
 
 const getByDate = async (user_id, date) => {
   const trx = await db.transaction();
-  console.log('getByDate');
   return db('log_entry as l')
     .transacting(trx)
     .join('user as u', 'u.id', 'l.user_id')
