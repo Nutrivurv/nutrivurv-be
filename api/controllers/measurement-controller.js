@@ -1,7 +1,26 @@
 const db = require('../../db/config');
 
 /********************************************************
- *                    ADD MEASUREMENTS                   *
+ *                    GET MEASUREMENTS                  *
+ ********************************************************/
+// const getAll = (log_entry_id, trx) => {
+//   return Promise.all(
+//     all_measurements.map(async (measurement) => {
+//       const [added_measurement] = await add(measurement, log_entry_id, trx);
+//       return added_measurement;
+//     })
+//   );
+// };
+
+const getAll = (log_entry_id, trx) => {
+  return db('edamam_measurements as em')
+    .transacting(trx)
+    .select('*')
+    .where({ log_entry_id });
+};
+
+/********************************************************
+ *                    ADD MEASUREMENTS                  *
  ********************************************************/
 const addMany = (all_measurements, log_entry_id, trx) => {
   return Promise.all(
@@ -20,7 +39,7 @@ const add = (measurement, log_entry_id, trx) => {
 };
 
 /********************************************************
- *                  UPDATE MEASUREMENTS                  *
+ *                  UPDATE MEASUREMENTS                 *
  ********************************************************/
 const updateMany = (all_measurements, log_entry_id, trx) => {
   return Promise.all(
@@ -39,7 +58,7 @@ const update = (measurement, log_entry_id, trx) => {
 };
 
 /********************************************************
- *                  REMOVE MEASUREMENTS                  *
+ *                  REMOVE MEASUREMENTS                 *
  ********************************************************/
 const removeAll = (log_entry_id, trx) => {
   return db('edamam_measurements as em')
@@ -54,4 +73,5 @@ module.exports = {
   update,
   updateMany,
   removeAll,
+  getAll,
 };

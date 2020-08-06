@@ -93,12 +93,10 @@ const remove = async (log_entry_id) => {
       return removed_log;
     })
     .then((removed_log) => {
-      console.log('COMMITTING:', removed_log);
       trx.commit();
       return removed_log;
     })
     .catch((error) => {
-      console.log('ROLLING BACK:', error);
       trx.rollback();
       throw new Error(error);
     });
@@ -114,25 +112,32 @@ const removeLog = (id, trx) => {
 
 const getByDate = async (user_id, date) => {
   const trx = await db.transaction();
-  return db('log_entry as l')
+  return db('log_entry as le')
     .transacting(trx)
-    .join('user as u', 'u.id', 'l.user_id')
     .select(
-      'l.id',
-      'l.user_id',
-      'l.date',
-      'l.meal_type',
-      'l.edamam_food_id',
-      'l.measurement_uri',
-      'l.measurement_name',
-      'l.food_name',
-      'l.quantity',
-      'l.calories_kcal',
-      'l.fat_g',
-      'l.carbs_g',
-      'l.protein_g'
+      'le.id',
+      'le.user_id',
+      'le.date',
+      'le.meal_type',
+      'le.edamam_food_id',
+      'le.measurement_uri',
+      'le.measurement_name',
+      'le.food_name',
+      'le.quantity',
+      'le.calories_kcal',
+      'le.fat_g',
+      'le.carbs_g',
+      'le.protein_g'
     )
-    .where({ 'l.date': date, 'l.user_id': user_id })
+    .where({ 'le.date': date, 'le.user_id': user_id })
+    .then(async (logEntries) => {
+      return await Promise.all(
+        logEntries.map(async (log_entry) => ({
+          ...log_entry,
+          measurements: await Measurement.getAll(log_entry.id, trx),
+        }))
+      );
+    })
     .then(async (logEntries) => {
       return {
         meals: _.groupBy(logEntries, (entry) => entry.meal_type),

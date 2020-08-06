@@ -9,8 +9,6 @@ router.get('/date/:date', validateUserId, validateDate, async (req, res) => {
   const user_id = req.user_id;
   const { date } = req.params;
 
-  console.log('here?');
-
   try {
     const logEntries = await Log.getByDate(user_id, date);
 
@@ -95,7 +93,6 @@ router.put('/:log_entry_id', async (req, res) => {
       res.status(400).json({ message: 'Could not find entry with given id' });
     }
   } catch (error) {
-    console.log('error', error);
     res.status(500).json({
       message: 'Failed to update log entry',
       error: error.message,
