@@ -6,17 +6,23 @@ module.exports = (req, res, next) => {
   } else if (!body.date) {
     res.status(400).json({ message: 'missing required date field' });
   } else if (!body.meal_type) {
-    res.status(400).json({ message: 'missing required meal type field' });
+    res.status(400).json({ message: 'missing required meal_type field' });
   } else if (!body.edamam_food_id) {
-    res.status(400).json({ message: 'missing required edamam food id field' });
+    res.status(400).json({ message: 'missing required edamam_food_id field' });
   } else if (!body.measurement_uri) {
-    res.status(400).json({ message: 'missing required measurement uri field' });
+    res.status(400).json({ message: 'missing required measurement_uri field' });
+  } else if (!body.all_measurements) {
+    res
+      .status(400)
+      .json({ message: 'missing required all_measurements field' });
+  } else if (!body.image_url) {
+    res.status(400).json({ message: 'missing required image_url field' });
   } else if (!body.measurement_name) {
     res
       .status(400)
       .json({ message: 'missing required measurement name field' });
   } else if (!body.food_name) {
-    res.status(400).json({ message: 'missing required food name field' });
+    res.status(400).json({ message: 'missing required food_name field' });
   } else if (!body.quantity) {
     res.status(400).json({ message: 'missing required quantity field' });
   } else if (!body.calories_kcal) {
