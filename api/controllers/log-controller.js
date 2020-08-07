@@ -134,7 +134,7 @@ const getByDate = async (user_id, date) => {
       return await Promise.all(
         logEntries.map(async (log_entry) => ({
           ...log_entry,
-          measurements: await Measurement.getAll(log_entry.id, trx),
+          all_measurements: await Measurement.getAll(log_entry.id, trx),
         }))
       );
     })
