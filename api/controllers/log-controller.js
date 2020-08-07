@@ -114,21 +114,7 @@ const getByDate = async (user_id, date) => {
   const trx = await db.transaction();
   return db('log_entry as le')
     .transacting(trx)
-    .select(
-      'le.id',
-      'le.user_id',
-      'le.date',
-      'le.meal_type',
-      'le.edamam_food_id',
-      'le.measurement_uri',
-      'le.measurement_name',
-      'le.food_name',
-      'le.quantity',
-      'le.calories_kcal',
-      'le.fat_g',
-      'le.carbs_g',
-      'le.protein_g'
-    )
+    .select('*')
     .where({ 'le.date': date, 'le.user_id': user_id })
     .then(async (logEntries) => {
       return await Promise.all(
