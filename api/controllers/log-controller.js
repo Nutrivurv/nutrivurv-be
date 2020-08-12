@@ -2,8 +2,9 @@ const db = require('../../db/config');
 const Measurement = require('../controllers/measurement-controller');
 const DailyTotals = require('../controllers/daily-totals-controller');
 const _ = require('lodash');
+
 /********************************************************
- *                      ADD NEW LOG                      *
+ *                      ADD NEW LOG                     *
  ********************************************************/
 const add = async (log_entry_data) => {
   const trx = await db.transaction();
@@ -42,17 +43,12 @@ const addLog = (log_entry, trx) => {
  ********************************************************/
 const update = async (log_entry_id, log_entry_data) => {
   const trx = await db.transaction();
-  const { all_measurements } = log_entry_data;
 
   return updateLog(log_entry_id, log_entry_data, trx)
     .then(async ([log_entry]) => {
       return {
         ...log_entry,
-        all_measurements: await Measurement.updateMany(
-          all_measurements,
-          log_entry.id,
-          trx
-        ),
+        all_measurements: await Measurement.getAll(log_entry.id, trx),
       };
     })
     .then(async (log_entry) => {

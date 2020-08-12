@@ -41,20 +41,22 @@ const add = (measurement, log_entry_id, trx) => {
 /********************************************************
  *                  UPDATE MEASUREMENTS                 *
  ********************************************************/
-const updateMany = (all_measurements, log_entry_id, trx) => {
+const updateMany = (all_measurements, trx) => {
   return Promise.all(
     all_measurements.map(async (measurement) => {
-      const [added_measurement] = await update(measurement, log_entry_id, trx);
+      const [added_measurement] = await update(measurement, trx);
       return added_measurement;
     })
   );
 };
 
-const update = (measurement, log_entry_id, trx) => {
+const update = (measurement, trx) => {
+  delete measurement.log_entry_id;
   return db('edamam_measurements as em')
     .transacting(trx)
-    .returning('*')
-    .update({ ...measurement, log_entry_id });
+    .where({ id: measurement.id })
+    .update({ ...measurement })
+    .returning('*');
 };
 
 /********************************************************
