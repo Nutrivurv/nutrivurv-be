@@ -15,8 +15,6 @@ module.exports = (req, res, next) => {
     res
       .status(400)
       .json({ message: 'missing required all_measurements field' });
-  } else if (!body.image_url) {
-    res.status(400).json({ message: 'missing required image_url field' });
   } else if (!body.measurement_name) {
     res
       .status(400)
