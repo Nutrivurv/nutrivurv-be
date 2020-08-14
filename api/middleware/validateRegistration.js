@@ -24,7 +24,7 @@ const validateRegistration = async (req, res, next) => {
     res.status(400).json({ message: 'missing required height_in field' });
   } else if (!user.weight_lbs) {
     res.status(400).json({ message: 'missing required weight_lbs field' });
-  } else if (!user.net_weekly_weight_change_lbs) {
+  } else if (isNaN(user.net_weekly_weight_change_lbs)) {
     res
       .status(400)
       .json({ message: 'missing required net_weekly_weight_change_lbs field' });

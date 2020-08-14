@@ -25,7 +25,7 @@ module.exports = (req, res, next) => {
     res.status(400).json({ message: 'missing required food_name field' });
   } else if (!body.quantity) {
     res.status(400).json({ message: 'missing required quantity field' });
-  } else if (!body.calories_kcal) {
+  } else if (isNaN(body.calories_kcal)) {
     res.status(400).json({ message: 'missing required calories_kcal field' });
   } else if (!body.fat_g) {
     res.status(400).json({ message: 'missing required fat_g field' });
