@@ -123,7 +123,7 @@ const getByDate = async (user_id, date) => {
     .then(async (logEntries) => {
       return {
         meals: _.groupBy(logEntries, (entry) => entry.meal_type),
-        dailyTotals: await DailyTotals.getByDate(user_id, date, trx),
+        dailyTotals: await DailyTotals.refresh(user_id, date, trx),
       };
     })
     .then((logEntries) => {
