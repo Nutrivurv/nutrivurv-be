@@ -16,6 +16,7 @@ server.use(
       'http://www.nutrivurv.com',
       'http://nutrivurv.com',
       'https://nutrivurv.herokuapp.com',
+      'https://festive-noyce-c518dc.netlify.app',
     ],
     credentials: true,
   })
